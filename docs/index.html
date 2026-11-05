@@ -5,44 +5,219 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Overruled</title>
 <meta name="description" content="Every expense stands trial. An adversarial renewal review inside your team chat, built on Switch.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0b1426;--panel:#14213d;--text:#fff;--muted:#b9c6df;--gold:#f5a524;--red:#ff4d4f}
+:root{--ink:#0a1222;--ink2:#111d35;--ink3:#1a2947;--line:#2c4069;--text:#eef2fa;--muted:#aebbd4;--gold:#f5a524;--red:#ff4d4f;--green:#35d07f;--paper:#f6f1e7;--paper2:#ebe3d3;--pink:#3b2c16}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:17px/1.55 -apple-system,Segoe UI,Helvetica,Arial,sans-serif}
-main{max-width:980px;margin:0 auto;padding:40px 16px 56px}
-.stamp{display:inline-block;border:6px solid var(--red);color:var(--red);font-weight:900;font-size:clamp(34px,9vw,64px);letter-spacing:3px;padding:2px 22px;border-radius:10px;transform:rotate(-3deg)}
-h1{font-size:clamp(28px,6vw,44px);line-height:1.15;margin:28px 0 10px}
-.lead{color:var(--muted);max-width:720px;margin:0 0 28px}
-video{width:100%;border-radius:12px;background:#000;display:block}
-.links{display:flex;flex-wrap:wrap;gap:12px;margin:22px 0 40px}
-.links a{background:var(--gold);color:#1a1200;font-weight:700;text-decoration:none;padding:10px 16px;border-radius:8px}
-.links a+a{background:var(--panel);color:#fff;border:1px solid #3a5a96}
-.links a:focus-visible{outline:3px solid #fff;outline-offset:2px}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:0;padding:0;list-style:none}
-.cards li{background:var(--panel);border-radius:10px;padding:16px}
-.cards b{display:block;color:var(--gold);margin-bottom:4px}
-footer{color:var(--muted);font-size:14px;margin-top:36px}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font:17px/1.6 Inter,-apple-system,Segoe UI,Helvetica,Arial,sans-serif;overflow-x:hidden}
+a{color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.08;letter-spacing:-.02em;margin:0}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+section{padding:92px 0;position:relative}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+h2{font-size:clamp(32px,5vw,52px);margin:12px 0 16px}
+.sub{color:var(--muted);max-width:640px;font-size:19px;margin:0}
+nav{position:sticky;top:0;z-index:10;background:#0a1222e6;backdrop-filter:blur(10px);border-bottom:1px solid #ffffff14}
+nav .wrap{display:flex;align-items:center;gap:26px;height:64px}
+.brand{font-weight:800;letter-spacing:.12em;color:var(--red);text-decoration:none;font-size:18px;margin-right:auto}
+nav a:not(.brand):not(.btn){color:var(--muted);text-decoration:none;font-size:15px;font-weight:500}
+nav a:not(.brand):not(.btn):hover{color:#fff}
+.btn{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#1c1200;font-weight:700;text-decoration:none;padding:13px 22px;border-radius:9px;border:1px solid transparent;transition:transform .15s,box-shadow .15s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px #f5a52450}
+.btn.ghost{background:transparent;color:#fff;border-color:var(--line)}
+.btn.ghost:hover{border-color:#fff;box-shadow:none}
+.btn.small{padding:8px 14px;font-size:14px}
+a:focus-visible,button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.hero{padding:80px 0 76px;background:radial-gradient(900px 520px at 78% 8%,#29457e66,transparent 70%),radial-gradient(700px 500px at 5% 90%,#ff4d4f1f,transparent 70%)}
+.hero .wrap{display:grid;grid-template-columns:1.02fr 1fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(46px,7.4vw,84px);margin:16px 0 20px}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{font-size:20px;color:var(--muted);margin:0 0 30px;max-width:520px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.court{background:#fff;color:#16233d;border-radius:16px;box-shadow:0 34px 90px #0009;overflow:hidden;position:relative;min-height:470px}
+.court header{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid #e7ebf2;font-weight:700;font-size:15px}
+.court header span{color:#6c7a91;font-weight:400;font-size:13px;margin-left:auto}
+#feed{padding:12px 16px 16px;display:flex;flex-direction:column;gap:12px;font-size:15px;line-height:1.42}
+.msg{display:flex;gap:10px;opacity:0;transform:translateY(12px);transition:.35s}
+.msg.on{opacity:1;transform:none}
+.msg img{width:36px;height:36px;border-radius:50%;flex:none}
+.msg b{display:block;font-size:13.5px}
+.msg del{color:#7b8799;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.msg .hl{background:#ffe8ae;padding:0 3px;border-radius:3px}
+.msg .st{display:block;color:#c62f33;font-weight:700;margin-top:3px}
+.seal{position:absolute;right:16px;bottom:16px;border:5px solid var(--red);color:var(--red);background:#fffffff2;font-weight:900;letter-spacing:2px;font-size:24px;padding:4px 14px;border-radius:8px;transform:rotate(-6deg) scale(2.4);opacity:0;transition:.22s cubic-bezier(.3,1.5,.5,1)}
+.seal.on{opacity:1;transform:rotate(-6deg) scale(1)}
+.stats{background:var(--ink2);border-top:1px solid #ffffff12;border-bottom:1px solid #ffffff12;padding:34px 0}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stat b{display:block;font-family:Fraunces,Georgia,serif;font-size:clamp(32px,4.4vw,46px);color:#fff;line-height:1.1}
+.stat span{color:var(--muted);font-size:14.5px}
+.film{background:var(--ink)}
+.frame{margin-top:34px;border-radius:16px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 80px #0008;background:#000}
+.frame video{width:100%;display:block}
+.tabs{display:flex;gap:8px;margin-top:18px;flex-wrap:wrap}
+.tabs button{font:inherit;font-weight:600;font-size:15px;color:var(--muted);background:var(--ink2);border:1px solid var(--line);padding:8px 14px;border-radius:8px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--gold);color:#1c1200;border-color:var(--gold)}
+.paper{background:var(--paper);color:#1a2235}
+.paper .eyebrow{color:#a7640a}
+.paper .sub{color:#4a5468}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:40px;counter-reset:s}
+.step{background:#fff;border:1px solid var(--paper2);border-radius:14px;padding:22px;position:relative}
+.step img{width:54px;height:54px;border-radius:50%;margin-bottom:12px}
+.step h3{font-size:22px;margin-bottom:6px}
+.step p{margin:0;color:#4a5468;font-size:16px}
+.step::after{counter-increment:s;content:counter(s);position:absolute;top:16px;right:18px;font:800 26px Fraunces,Georgia,serif;color:#d8cdb6}
+.switch{background:radial-gradient(800px 460px at 90% 0,#29457e55,transparent 70%),var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:38px}
+.card{background:var(--ink2);border:1px solid var(--ink3);border-radius:14px;padding:22px}
+.card b{display:block;color:var(--gold);font-size:17px;margin-bottom:6px}
+.card p{margin:0;color:var(--muted);font-size:15.5px}
+.proof .wrap{display:grid;grid-template-columns:1.25fr 1fr;gap:44px;align-items:center}
+.shot{border-radius:14px;overflow:hidden;box-shadow:0 22px 60px #1a223533;border:1px solid var(--paper2)}
+.bar{margin:20px 0}
+.bar div{display:flex;justify-content:space-between;font-weight:600;font-size:15.5px;gap:10px}
+.bar i{display:block;height:10px;border-radius:6px;background:var(--paper2);margin-top:7px;overflow:hidden}
+.bar i::after{content:"";display:block;height:100%;width:0;background:#1c8f55;transition:width 1.1s ease-out;border-radius:6px}
+.bar.go i::after{width:var(--w)}
+.note{font-size:14.5px;color:#4a5468}
+.real ul{list-style:none;padding:0;margin:32px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px 34px}
+.real li{padding-left:28px;position:relative;color:var(--muted)}
+.real li::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:800}
+.real li b{color:#fff}
+.final{text-align:center;padding:96px 0;background:radial-gradient(640px 340px at 50% 110%,#ff4d4f33,transparent 70%)}
+.stamp{display:inline-block;border:8px solid var(--red);color:var(--red);font:800 clamp(38px,9vw,78px) Inter,Arial,sans-serif;letter-spacing:4px;padding:4px 26px;border-radius:12px;transform:rotate(-4deg)}
+.final p{color:var(--muted);margin:24px auto 28px;max-width:560px}
+.final .cta{justify-content:center}
+footer{border-top:1px solid #ffffff14;padding:26px 0;color:var(--muted);font-size:14px}
+.reveal{opacity:0;transform:translateY(20px);transition:.6s}
+.reveal.on{opacity:1;transform:none}
+@media (max-width:900px){.hero .wrap,.proof .wrap{grid-template-columns:1fr}.steps,.grid{grid-template-columns:repeat(2,1fr)}.stats .wrap{grid-template-columns:repeat(2,1fr)}nav a.hide{display:none}section{padding:68px 0}.real ul{grid-template-columns:1fr}}
+@media (max-width:560px){.steps,.grid{grid-template-columns:1fr}.wrap{padding:0 16px}.court{min-height:500px}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.msg,.seal,.bar i::after{transition:none}.reveal{opacity:1;transform:none}}
 </style>
 </head>
 <body>
-<main>
-<div class="stamp">OVERRULED</div>
-<h1>Every expense stands trial.</h1>
-<p class="lead">Before a company pays for a renewal, bots argue both sides in the team chat, a clerk with no AI strikes what can't be proven, and a person makes the call.</p>
-<video controls preload="metadata" src="trailer.mp4" aria-label="Overruled trailer"></video>
-<div class="links">
-<a href="replay/index.html">Replay a real trial</a>
-<a href="https://github.com/Kevrc/overruled">View the code</a>
-<a href="demo-uncut.mp4">Uncut demo</a>
-<a href="trailer-es.mp4">Tráiler en español</a>
+<nav aria-label="Main"><div class="wrap">
+<a class="brand" href="#top">OVERRULED</a>
+<a class="hide" href="#film">Trailer</a>
+<a class="hide" href="#how">How it works</a>
+<a class="hide" href="#switch">Why Switch</a>
+<a class="hide" href="#proof">Proof</a>
+<a class="btn small" href="https://github.com/Kevrc/overruled">View the code</a>
+</div></nav>
+<main id="top">
+<section class="hero"><div class="wrap">
+<div>
+<div class="eyebrow">Built on Switch</div>
+<h1>Every expense stands <em>trial.</em></h1>
+<p>Bots argue both sides of a renewal in your team chat. A clerk with no AI strikes what can't be proven. A person makes the call.</p>
+<div class="cta"><a class="btn" href="#film">Watch the trailer</a><a class="btn ghost" href="replay/index.html">Replay a real trial</a></div>
 </div>
-<ul class="cards">
-<li><b>Finds it</b>Scout reads exports and contracts, then opens a trial before the notice deadline.</li>
-<li><b>Proves it</b>The clerk cites file and line, and strikes figures that aren't in evidence.</li>
-<li><b>Weighs it</b>Jurors on different models vote alone, in rooms Switch keeps sealed.</li>
-<li><b>You decide</b>Only an authorized person can rule. Nothing is paid, cancelled or sent by itself.</li>
+<div class="court" aria-label="A replay of a trial in a team chat">
+<header># courtroom <span>Pipewave CRM renewal</span></header>
+<div id="feed"></div>
+<div class="seal" id="seal">STRICKEN</div>
+</div>
+</div></section>
+
+<section class="stats" aria-label="Results"><div class="wrap">
+<div class="stat"><b data-to="17496" data-pre="$">$17,496</b><span>calculated saving in the demo trial</span></div>
+<div class="stat"><b>$0.09</b><span>estimated model cost of that trial</span></div>
+<div class="stat"><b>20 of 20</b><span>fabricated claims caught by the clerk</span></div>
+<div class="stat"><b>26 of 26</b><span>trap renewals handled in the benchmark</span></div>
+</div></section>
+
+<section class="film" id="film"><div class="wrap reveal">
+<div class="eyebrow">The trailer</div>
+<h2>One renewal. A full court. One person with the gavel.</h2>
+<div class="frame"><video id="player" controls preload="metadata" src="trailer.mp4" aria-label="Overruled video"></video></div>
+<div class="tabs" role="group" aria-label="Choose a video">
+<button data-src="trailer.mp4" aria-pressed="true">Trailer</button>
+<button data-src="trailer-es.mp4" aria-pressed="false">Español</button>
+<button data-src="demo-uncut.mp4" aria-pressed="false">Uncut demo</button>
+</div>
+</div></section>
+
+<section class="paper" id="how"><div class="wrap">
+<div class="reveal"><div class="eyebrow">How it works</div>
+<h2>A renewal review nobody can skip.</h2>
+<p class="sub">Today, the person who wants the tool is often the only one who read the contract. Overruled makes someone argue the other side.</p></div>
+<div class="steps reveal">
+<article class="step"><img src="avatars/scout.png" alt=""><h3>Scout finds it</h3><p>It reads inventory, sign-ins, bills and contracts, then opens a trial before the notice deadline passes.</p></article>
+<article class="step"><img src="avatars/clerk.png" alt=""><h3>The clerk checks it</h3><p>Code, no AI. It calculates the money, cites file and line, and strikes figures that aren't in evidence.</p></article>
+<article class="step"><img src="avatars/prosecutor.png" alt=""><h3>Both sides argue</h3><p>Real Claude Code agents fight for and against the expense. The person who asked for it can testify too.</p></article>
+<article class="step"><img src="avatars/jury-2.png" alt=""><h3>The jury votes alone</h3><p>Each juror sits in a sealed room, and one vote can run on a local model on your own machine.</p></article>
+<article class="step"><img src="avatars/gavel.png" alt=""><h3>A person rules</h3><p>Approval limits decide who can rule, and whoever asked for the expense can't approve it.</p></article>
+<article class="step"><img src="avatars/paralegal.png" alt=""><h3>The work is ready</h3><p>A draft notice and calendar reminder appear for review, and the ruling goes into a tamper-evident ledger.</p></article>
+</div>
+</div></section>
+
+<section class="switch" id="switch"><div class="wrap">
+<div class="reveal"><div class="eyebrow">Why it needs Switch</div>
+<h2>The rules live on the server, not in a prompt.</h2>
+<p class="sub">Telling an agent to wait for approval is only a sentence. Switch is what makes these limits hold.</p></div>
+<div class="grid reveal">
+<div class="card"><b>Enforced addressing</b><p>No agent can reach the gavel. When one tries, Switch refuses it in the channel.</p></div>
+<div class="card"><b>Sealed rooms</b><p>A new private room for each juror, on each trial, archived after the verdict.</p></div>
+<div class="card"><b>Exclusive seats</b><p>Prosecution and defense are roles. If the defender drops, counsel takes the seat.</p></div>
+<div class="card"><b>Managed agents</b><p>Switch runs real Claude Code sessions and shows their work in the chat.</p></div>
+<div class="card"><b>A one-file court</b><p>The court is a Switch template, saved in the workspace to start the next one.</p></div>
+<div class="card"><b>Any chat, any model</b><p>Tested in Slack and Mattermost, with Claude and a local model on the same jury.</p></div>
+</div>
+</div></section>
+
+<section class="paper proof" id="proof"><div class="wrap">
+<div class="shot reveal"><img src="slack-separation.png" alt="A verdict in Slack showing each juror's model and vote, a calculated saving of 9,900 dollars, and gavel refusing the person who asked for the expense" loading="lazy"></div>
+<div class="reveal" id="bars"><div class="eyebrow">Measured, not promised</div>
+<h2>We tried to break it.</h2>
+<div class="bar"><div><span>Fabricated claims caught</span><span>20 of 20</span></div><i style="--w:100%"></i></div>
+<div class="bar"><div><span>Benchmark traps handled</span><span>26 of 26</span></div><i style="--w:100%"></i></div>
+<div class="bar"><div><span>Contracts in new wording</span><span>7 of 8</span></div><i style="--w:87.5%"></i></div>
+<div class="bar"><div><span>Planted instructions obeyed</span><span>0 of 10</span></div><i style="--w:0%"></i></div>
+<p class="note">The first scores were 15 of 26 and 1 of 8, and those failures shaped the fixes. All data is fictional, so this isn't proof of accuracy on real contracts. <a href="https://github.com/Kevrc/overruled/blob/main/evals/RESULTS.md">Read the method</a>.</p>
+</div>
+</div></section>
+
+<section class="real"><div class="wrap reveal">
+<div class="eyebrow">Built for a real company</div>
+<h2>It prepares the decision. People make it.</h2>
+<ul>
+<li><b>Nothing happens by itself.</b> It never pays, cancels or sends.</li>
+<li><b>Deadlines count.</b> A saving can't be claimed after the notice date.</li>
+<li><b>Separation of duties.</b> Requesters can't approve their own expense.</li>
+<li><b>Tamper-evident ledger.</b> Rulings are chained with an evidence hash.</li>
+<li><b>Less data reaches the model.</b> Sign-in files stay out of the prompts.</li>
+<li><b>Start with exports.</b> A first trial needs no access to production systems.</li>
 </ul>
-<footer>Built on Switch for the Flip the Switch hackathon. All companies, contracts and figures are fictional. Savings are calculated, not guaranteed.</footer>
+</div></section>
+
+<section class="final"><div class="wrap">
+<div class="stamp">OVERRULED</div>
+<p>Your next renewal is already on the docket.</p>
+<div class="cta"><a class="btn" href="https://github.com/Kevrc/overruled">Run it yourself</a><a class="btn ghost" href="replay/index.html">Replay a real trial</a></div>
+</div></section>
 </main>
+<footer><div class="wrap">Built for the Flip the Switch hackathon. All companies, contracts and figures are fictional. Savings are calculated, not guaranteed. Not legal advice.</div></footer>
+<script>
+const M=[["scout","scout","Pipewave CRM renews soon. 21 of 50 seats are in use. <span class='hl'>Notice is due in 32 days.</span>"],
+["clerk","clerk","Renewal as written: <b style='display:inline'>$32,400</b>, from contract.md line 5."],
+["defender","defense","The tool is worth <span class='hl'>$150,000+</span> a year."],
+["clerk","clerk","<del>The tool is worth $150,000+ a year.</del><span class='st'>$150,000 is not in evidence.</span>"],
+["jury-1","jury","Three sealed votes: condition. Calculated saving: <b style='display:inline'>$17,496</b>."],
+["cfo","cfo","@gavel rule condition"]];
+const feed=document.getElementById('feed'),seal=document.getElementById('seal'),still=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const add=([a,n,t])=>{const d=document.createElement('div');d.className='msg';d.innerHTML=`<img src="avatars/${a}.png" alt=""><div><b>${n}</b>${t}</div>`;feed.append(d);requestAnimationFrame(()=>requestAnimationFrame(()=>d.classList.add('on')));};
+if(still){M.forEach(add);seal.classList.add('on')}
+else{const play=async()=>{for(;;){feed.innerHTML='';seal.classList.remove('on');for(let i=0;i<M.length;i++){add(M[i]);if(i===3){await new Promise(r=>setTimeout(r,500));seal.classList.add('on');await new Promise(r=>setTimeout(r,1500));seal.classList.remove('on')}await new Promise(r=>setTimeout(r,1500))}await new Promise(r=>setTimeout(r,3500))}};play()}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');if(e.target.id==='bars')e.target.querySelectorAll('.bar').forEach(b=>b.classList.add('go'));io.unobserve(e.target)}}),{threshold:.15});
+document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
+const c=document.querySelector('[data-to]'),to=+c.dataset.to;
+if(!still){const s=performance.now(),f=t=>{const p=Math.min(1,(t-s)/1400);c.textContent='$'+Math.round(to*(1-(1-p)**3)).toLocaleString('en-US');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
+const player=document.getElementById('player');
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));player.src=b.dataset.src;player.load()});
+</script>
 </body>
 </html>
