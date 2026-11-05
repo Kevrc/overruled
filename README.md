@@ -231,7 +231,7 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **A trial is held in memory.** If the process restarts mid-trial, open it again.
 - **Trial cost** is the API-equivalent estimate from Claude Code, and doesn't include managed agents.
 - **Managed agents have real tools.** Their instructions limit them to reading the case files, and the clerk checks what they say, but a production setup should sandbox them.
-- **Switch Console wasn't used.** Managed agents run through the headless controller, which runs the same agent host.
+- **No desktop app needed.** Managed agents run through Switch's headless controller, which runs the same agent host as Switch Console, so the court works on a server. Switch Console itself wasn't used.
 - **The local model is weaker.** It's one vote of three, and its figures still pass through the clerk.
 - **Only two model families were tested:** Claude and Qwen through Ollama.
 
