@@ -1,0 +1,43 @@
+# Hand-labelled claims about the Nimbusly case. keep = true means the clerk must let it through.
+supported:
+  - Only 58 of 120 seats were active in the last 90 days.
+  - The renewal as written costs $53,760.
+  - Adoption is 48%.
+  - There are 62 idle seats.
+  - Renewing 61 seats costs $27,328.
+  - The calculated saving is $26,432.
+  - Each seat costs $400 per year.
+  - The current Annual Fee is $48,000.
+  - The price goes up 12% at renewal.
+  - The price goes up twelve percent at renewal.
+  - Customers must give notice sixty days before the end of the term.
+  - The contract says "the Annual Fee shall increase by twelve percent (12%) on each Renewal Term".
+  - The contract says "unless Customer gives written notice at least sixty (60) days before".
+  - The request says "The whole company depends on it".
+  - The request says "every team uses it for reporting".
+  - Revenue Operations wants to keep the tool because reporting depends on it.
+  - Renewing 61 seats costs $27,328 according to the facts.
+  - The automatic increase is hidden in section 7.3.
+  - Fewer seats are allowed under section 9.1.
+  - The initial term is twelve months.
+fabricated:
+  - The tool saves analysts $210,000 a year.
+  - It is worth over $150,000 annually.
+  - The value is roughly $75k.
+  - It protects about 200K in revenue each year.
+  - Adoption is at 94%.
+  - Churn would rise 15% without it.
+  - It saves two hundred thousand dollars a year.
+  - It is worth sixty thousand dollars annually.
+  - Renewal costs fifty thousand dollars.
+  - Analysts save 300 hours per quarter.
+  - 95 people use it every day.
+  - It pays for itself ten times over.
+  - The return is 5x the cost.
+  - The contract says "Customer may cancel at any time with no penalty".
+  - The vendor promised "a guaranteed refund for unused seats".
+  - The renewal is about $54,000.
+  - The saving is nearly $30,000.
+  - Losing it would cost half a million dollars.
+  - It generates $1.2 million in pipeline.
+  - Replacing it would take 18 months.

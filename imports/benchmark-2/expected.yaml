@@ -1,0 +1,31 @@
+fernway:
+  status: due
+  uplift: 6
+  trap: '''rise'' instead of ''increase'''
+quillbox:
+  status: due
+  uplift: 7
+  trap: uplift written as +7%
+orchardly:
+  status: due
+  notice: 45
+  trap: notice without the words 'written notice'
+tallyhall:
+  status: due
+  notice: 30
+  trap: notice by email, different wording
+marrowgate:
+  status: due
+  trap: seats and price in a different order
+pinewheel:
+  status: skipped
+  why: renew
+  trap: contract does not auto-renew
+ostler:
+  status: skipped
+  why: reduce
+  trap: seats cannot be reduced
+lanternia:
+  status: skipped
+  why: price
+  trap: price change with no figure

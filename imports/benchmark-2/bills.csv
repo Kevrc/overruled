@@ -1,0 +1,9 @@
+app,vendor,seats,price_per_seat,renewal_date,contract_file,owner_team,category
+Fernway,Fernway Inc,40,300,2027-03-04,fernway.md,Operations,
+Quillbox,Quillbox Inc,30,400,2027-03-04,quillbox.md,Operations,
+Orchardly,Orchardly Inc,50,200,2027-03-04,orchardly.md,Operations,
+Tallyhall,Tallyhall Inc,25,480,2027-03-04,tallyhall.md,Operations,
+Marrowgate,Marrowgate Inc,60,100,2027-03-04,marrowgate.md,Operations,
+Pinewheel,Pinewheel Inc,45,250,2027-03-04,pinewheel.md,Operations,
+Ostler,Ostler Inc,35,300,2027-03-04,ostler.md,Operations,
+Lanternia,Lanternia Inc,55,220,2027-03-04,lanternia.md,Operations,

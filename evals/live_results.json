@@ -1,0 +1,443 @@
+[
+ {
+  "case": "nimbusly",
+  "role": "defense",
+  "speech": "Nimbusly delivers real, company-wide value, but renewing all 120 seats at $53,760 means paying full price for 62 seats nobody has touched in 90 days\u2014pure waste by definition, regardless of what the vendor claims about forecasting. Right-sizing to 61 seats (covering every active user plus headroom for growth) costs $27,328, delivering the same reporting capability to every team that actually uses it while banking $26,432 in annual savings we can redeploy to tools with proven adoption. I strongly recommend renewing at 61 seats now, before the December 2 notice deadline, and revisiting upward if usage data over the next quarter shows real demand\u2014that's the fiscally responsible way to keep this tool in our stack long-term.",
+  "kept": "Nimbusly delivers real, company-wide value, but renewing all 120 seats at $53,760 means paying full price for 62 seats nobody has touched in 90 days\u2014pure waste by definition, regardless of what the vendor claims about forecasting. Right-sizing to 61 seats (covering every active user plus headroom for growth) costs $27,328, delivering the same reporting capability to every team that actually uses it while banking $26,432 in annual savings we can redeploy to tools with proven adoption.",
+  "struck": [
+   {
+    "sentence": "I strongly recommend renewing at 61 seats now, before the December 2 notice deadline, and revisiting upward if usage data over the next quarter shows real demand\u2014that's the fiscally responsible way to keep this tool in our stack long-term.",
+    "reason": "2 is not in evidence"
+   }
+  ],
+  "cost": 0.0124874
+ },
+ {
+  "case": "nimbusly",
+  "role": "prosecution",
+  "speech": "The contract only obligates renewal at \"120 Named User seats at $400 per seat per year,\" with the Annual Fee increasing by \"twelve percent (12%)\" automatically\u2014nothing in the agreement ties the fee to usage, and the request's claim that \"adoption is strong\" is contradicted by the fact that only 58 seats were active in the last 90 days. Section 9.1 expressly permits Customer to \"reduce seats at renewal by giving the notice described in section 7.2,\" so paying for 62 idle seats is not required by the contract. Renewing 61 seats instead of 120 avoids $26,432 in unnecessary spend, and since notice is due \"at least sixty (60) days before the end of the current term\" and only 28 days remain, action is needed immediately to preserve that right.",
+  "kept": "The contract only obligates renewal at \"120 Named User seats at $400 per seat per year,\" with the Annual Fee increasing by \"twelve percent (12%)\" automatically\u2014nothing in the agreement ties the fee to usage, and the request's claim that \"adoption is strong\" is contradicted by the fact that only 58 seats were active in the last 90 days. Section 9.1 expressly permits Customer to \"reduce seats at renewal by giving the notice described in section 7.2,\" so paying for 62 idle seats is not required by the contract. Renewing 61 seats instead of 120 avoids $26,432 in unnecessary spend, and since notice is due \"at least sixty (60) days before the end of the current term\" and only 28 days remain, action is needed immediately to preserve that right.",
+  "struck": [],
+  "cost": 0.012598
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "defense",
+  "speech": "Pipewave is the active system of record for Sales, and 21 seats in daily use over the last 90 days represent real, ongoing revenue-generating workflows that would be disrupted by cutting headcount access right before a renewal deadline\u2014idle seats today are often reserved for seasonal reps, onboarding pipelines, and backup coverage that a 90-day snapshot doesn't capture. At $600/seat, the full 50-seat renewal is $32,400, and treating this as pure waste ignores that losing even a handful of productivity-hours from re-provisioning, re-training, or CRM data gaps costs far more than the seat price itself\u2014conservatively $50,000+/year in preserved deal velocity and pipeline continuity for the sales org. I'm recommending we renew the full 50 seats as written to avoid any disruption risk before the 2026-12-06 notice deadline.",
+  "kept": "Pipewave is the active system of record for Sales, and 21 seats in daily use over the last 90 days represent real, ongoing revenue-generating workflows that would be disrupted by cutting headcount access right before a renewal deadline\u2014idle seats today are often reserved for seasonal reps, onboarding pipelines, and backup coverage that a 90-day snapshot doesn't capture. I'm recommending we renew the full 50 seats as written to avoid any disruption risk before the 2026-12-06 notice deadline.",
+  "struck": [
+   {
+    "sentence": "At $600/seat, the full 50-seat renewal is $32,400, and treating this as pure waste ignores that losing even a handful of productivity-hours from re-provisioning, re-training, or CRM data gaps costs far more than the seat price itself\u2014conservatively $50,000+/year in preserved deal velocity and pipeline continuity for the sales org.",
+    "reason": "$50,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0123494
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "prosecution",
+  "speech": "Only 42% adoption with \"29 seats are idle\" shows the renewal as written grossly overpays for unused capacity. The contract explicitly allows that \"Customer may reduce seats at renewal by giving that notice,\" and with notice due by 2026-12-06, in 32 days, there is ample time to act. Renewing just the 23 active-plus-buffer seats costs $14,904 versus $32,400, a calculated saving of $17,496, so the full $32,400 renewal should not be approved as requested.",
+  "kept": "Only 42% adoption with \"29 seats are idle\" shows the renewal as written grossly overpays for unused capacity. The contract explicitly allows that \"Customer may reduce seats at renewal by giving that notice,\" and with notice due by 2026-12-06, in 32 days, there is ample time to act. Renewing just the 23 active-plus-buffer seats costs $14,904 versus $32,400, a calculated saving of $17,496, so the full $32,400 renewal should not be approved as requested.",
+  "struck": [],
+  "cost": 0.011132
+ },
+ {
+  "case": "slidehive",
+  "role": "defense",
+  "speech": "Slidehive is the backbone of every external-facing deck our marketing org ships, and losing seats now would strip access right as teams ramp up for year-end campaigns and the next product launch cycle \u2014 the kind of disruption that costs far more than the subscription itself. Conservatively, the time savings and brand-consistent output across all 40 seats generate well over $85,000 in yearly value through faster deck turnaround, reduced freelance design spend, and avoided rework. Usage snapshots from a single 90-day window don't capture seasonal campaign cycles, seat reassignments, or the onboarding runway new hires need, so cutting seats now risks locking out exactly the people who'll need access next quarter. I recommend we renew the full 40 seats as written and revisit allocation only after a full annual usage cycle, not a partial one.",
+  "kept": "Slidehive is the backbone of every external-facing deck our marketing org ships, and losing seats now would strip access right as teams ramp up for year-end campaigns and the next product launch cycle \u2014 the kind of disruption that costs far more than the subscription itself. Usage snapshots from a single 90-day window don't capture seasonal campaign cycles, seat reassignments, or the onboarding runway new hires need, so cutting seats now risks locking out exactly the people who'll need access next quarter. I recommend we renew the full 40 seats as written and revisit allocation only after a full annual usage cycle, not a partial one.",
+  "struck": [
+   {
+    "sentence": "Conservatively, the time savings and brand-consistent output across all 40 seats generate well over $85,000 in yearly value through faster deck turnaround, reduced freelance design spend, and avoided rework.",
+    "reason": "$85,000 is not in evidence"
+   }
+  ],
+  "cost": 0.015105400000000001
+ },
+ {
+  "case": "slidehive",
+  "role": "prosecution",
+  "speech": "Only 14 of the 40 seats were active in the last 90 days, putting adoption at \"35%\" and leaving \"26 seats are idle.\" The contract lets \"Customer may reduce seats at renewal by giving that notice,\" and renewing just \"15 seats costs $3,938\" versus the \"$10,500\" renewal as written, a \"calculated saving of $6,562.\" Since \"Notice is due by 2026-11-20, in 16 days,\" there is ample time to right-size the subscription, so the full $10,500 renewal should not be approved.",
+  "kept": "Only 14 of the 40 seats were active in the last 90 days, putting adoption at \"35%\" and leaving \"26 seats are idle.\" The contract lets \"Customer may reduce seats at renewal by giving that notice,\" and renewing just \"15 seats costs $3,938\" versus the \"$10,500\" renewal as written, a \"calculated saving of $6,562.\" Since \"Notice is due by 2026-11-20, in 16 days,\" there is ample time to right-size the subscription, so the full $10,500 renewal should not be approved.",
+  "struck": [],
+  "cost": 0.011158
+ },
+ {
+  "case": "helpline",
+  "role": "defense",
+  "speech": "Helpline is mission-critical infrastructure with 98% adoption across 39 of 40 agents\u2014essentially full utilization, with that single idle seat almost certainly a transitional buffer for onboarding, leave, or turnover rather than waste. At zero cost increase, this renewal locks in last year's rate while the team handles every single customer ticket through the desk, making it one of the highest-ROI line items in the support stack. Cutting even one seat risks bottlenecking ticket coverage during any traffic spike or staff absence, and the downside of an understaffed helpline (delayed response times, customer churn, SLA breaches) dwarfs the $300 marginal cost of keeping that seat. I recommend renewing the full 40 seats at $12,000, which I'd confidently value at $150,000+ annually in retained customer satisfaction and prevented churn given how central this desk is to every support interaction.",
+  "kept": "Helpline is mission-critical infrastructure with 98% adoption across 39 of 40 agents\u2014essentially full utilization, with that single idle seat almost certainly a transitional buffer for onboarding, leave, or turnover rather than waste. At zero cost increase, this renewal locks in last year's rate while the team handles every single customer ticket through the desk, making it one of the highest-ROI line items in the support stack. Cutting even one seat risks bottlenecking ticket coverage during any traffic spike or staff absence, and the downside of an understaffed helpline (delayed response times, customer churn, SLA breaches) dwarfs the $300 marginal cost of keeping that seat.",
+  "struck": [
+   {
+    "sentence": "I recommend renewing the full 40 seats at $12,000, which I'd confidently value at $150,000+ annually in retained customer satisfaction and prevented churn given how central this desk is to every support interaction.",
+    "reason": "$150,000 is not in evidence"
+   }
+  ],
+  "cost": 0.012195400000000002
+ },
+ {
+  "case": "helpline",
+  "role": "prosecution",
+  "speech": "The contract requires only \"written notice at least thirty (30) days before the end of the term\" to avoid renewal, and notice is due \"in 59 days\" \u2014 ample time to act instead of defaulting into another $12,000 commitment. With \"1 seats\" idle against \"39 seats\" active, the request asks to renew all \"40 agent seats\" when the calculated saving from trimming the idle seat is \"$0\" only because the request doesn't even attempt a reduction; it simply asks to \"renew Helpline for our 40 support agents\" without addressing the idle seat. The court should direct Customer Support to negotiate a 39-seat renewal before the notice deadline rather than approving the full $12,000 renewal as written.",
+  "kept": "The contract requires only \"written notice at least thirty (30) days before the end of the term\" to avoid renewal, and notice is due \"in 59 days\" \u2014 ample time to act instead of defaulting into another $12,000 commitment. With \"1 seats\" idle against \"39 seats\" active, the request asks to renew all \"40 agent seats\" when the calculated saving from trimming the idle seat is \"$0\" only because the request doesn't even attempt a reduction; it simply asks to \"renew Helpline for our 40 support agents\" without addressing the idle seat. The court should direct Customer Support to negotiate a 39-seat renewal before the notice deadline rather than approving the full $12,000 renewal as written.",
+  "struck": [],
+  "cost": 0.011536000000000001
+ },
+ {
+  "case": "nimbusly",
+  "role": "defense",
+  "speech": "Renew the full 120 seats: Nimbusly is the single reporting backbone every team touches, and ripping out 62 seats three weeks before deadline risks breaking dashboards and forecasting workflows for teams Revenue Operations hasn't fully audited in a 90-day snapshot alone\u2014seasonal and project-based users don't log in every week but still depend on access. At $53,760 for guaranteed company-wide coverage versus the chaos of re-provisioning, support tickets, and lost productivity if a non-\"active\" user is suddenly locked out mid-report, the full renewal protects well over $75,000 a year in avoided downtime, re-onboarding costs, and forecasting errors. Cutting seats now trades a modest and uncertain paper saving for real operational risk across the whole company; the smarter, lower-risk move is to renew all 120 seats and revisit utilization after a full quarter of proper usage tracking.",
+  "kept": "Renew the full 120 seats: Nimbusly is the single reporting backbone every team touches, and ripping out 62 seats three weeks before deadline risks breaking dashboards and forecasting workflows for teams Revenue Operations hasn't fully audited in a 90-day snapshot alone\u2014seasonal and project-based users don't log in every week but still depend on access. Cutting seats now trades a modest and uncertain paper saving for real operational risk across the whole company; the smarter, lower-risk move is to renew all 120 seats and revisit utilization after a full quarter of proper usage tracking.",
+  "struck": [
+   {
+    "sentence": "At $53,760 for guaranteed company-wide coverage versus the chaos of re-provisioning, support tickets, and lost productivity if a non-\"active\" user is suddenly locked out mid-report, the full renewal protects well over $75,000 a year in avoided downtime, re-onboarding costs, and forecasting errors.",
+    "reason": "$75,000 is not in evidence"
+   }
+  ],
+  "cost": 0.013075400000000001
+ },
+ {
+  "case": "nimbusly",
+  "role": "prosecution",
+  "speech": "The contract itself undercuts the request: Section 1 ties the fee to actual usage, and the only hard figure in evidence is that \"58 seats were active in the last 90 days,\" meaning \"62 seats are idle and adoption is 48%.\" Renewing all 120 seats pays for capacity nobody is using, while Section 9.1 expressly permits reducing seats at renewal. The vendor's claim that \"dropping seats would hurt forecasting\" is testimony to weigh, not proof, and it's unsupported by any usage figure in the record. Renewing at 61 seats costs $27,328 against the $53,760 full renewal, \"a calculated saving of $26,432,\" and notice is due \"in 28 days,\" so this spend should be cut to match actual use.",
+  "kept": "The contract itself undercuts the request: Section 1 ties the fee to actual usage, and the only hard figure in evidence is that \"58 seats were active in the last 90 days,\" meaning \"62 seats are idle and adoption is 48%.\" Renewing all 120 seats pays for capacity nobody is using, while Section 9.1 expressly permits reducing seats at renewal. The vendor's claim that \"dropping seats would hurt forecasting\" is testimony to weigh, not proof, and it's unsupported by any usage figure in the record. Renewing at 61 seats costs $27,328 against the $53,760 full renewal, \"a calculated saving of $26,432,\" and notice is due \"in 28 days,\" so this spend should be cut to match actual use.",
+  "struck": [],
+  "cost": 0.012498
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "defense",
+  "speech": "Pipewave CRM is driving real work across 21 active seats and 31 installed devices, and cutting it down now would strip out workflows that sales relies on every day to manage pipeline and close deals. Even though 29 seats look idle in a 90-day snapshot, that window captures reps on leave, seasonal territory rotation, and new hires ramping up\u2014cutting those seats now risks locking out people who need access right when deal cycles pick back up, creating onboarding friction and lost deals that cost far more than the seat price. I'd put the realistic yearly value of keeping the full 50-seat license at north of $150,000 in protected pipeline and productivity, dwarfing the $32,400 renewal cost, so we should renew at full seats rather than gamble short-term savings against disrupted sales operations ahead of the 2026-12-06 notice deadline.",
+  "kept": "Pipewave CRM is driving real work across 21 active seats and 31 installed devices, and cutting it down now would strip out workflows that sales relies on every day to manage pipeline and close deals. Even though 29 seats look idle in a 90-day snapshot, that window captures reps on leave, seasonal territory rotation, and new hires ramping up\u2014cutting those seats now risks locking out people who need access right when deal cycles pick back up, creating onboarding friction and lost deals that cost far more than the seat price.",
+  "struck": [
+   {
+    "sentence": "I'd put the realistic yearly value of keeping the full 50-seat license at north of $150,000 in protected pipeline and productivity, dwarfing the $32,400 renewal cost, so we should renew at full seats rather than gamble short-term savings against disrupted sales operations ahead of the 2026-12-06 notice deadline.",
+    "reason": "$150,000 is not in evidence"
+   }
+  ],
+  "cost": 0.012267400000000001
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "prosecution",
+  "speech": "Only 21 of 50 seats were active in the last 90 days, putting adoption at 42% and leaving 29 seats idle, yet the renewal as written still bills for the full 50 at $600 plus the \"8%\" increase for $32,400. The contract itself permits a reduction: \"Customer may reduce seats at renewal by giving that notice,\" and that notice window is still open since notice is due by 2026-12-06, in 32 days. Paying for 29 idle seats when usage data shows they aren't needed is not a justified expense, and the court should favor the 23-seat renewal at $14,904, a calculated saving of $17,496.",
+  "kept": "Only 21 of 50 seats were active in the last 90 days, putting adoption at 42% and leaving 29 seats idle, yet the renewal as written still bills for the full 50 at $600 plus the \"8%\" increase for $32,400. The contract itself permits a reduction: \"Customer may reduce seats at renewal by giving that notice,\" and that notice window is still open since notice is due by 2026-12-06, in 32 days. Paying for 29 idle seats when usage data shows they aren't needed is not a justified expense, and the court should favor the 23-seat renewal at $14,904, a calculated saving of $17,496.",
+  "struck": [],
+  "cost": 0.011548
+ },
+ {
+  "case": "slidehive",
+  "role": "defense",
+  "speech": "Slidehive remains highly valuable and should be renewed at the full 40 seats: cutting to 15 based on a 90-day snapshot ignores seasonal and project-based usage swings, new hires in onboarding, and the disruption/productivity cost of re-provisioning access later at a higher per-seat rate once the 5% escalator compounds again. At $10,500/year this tool underpins marketing's design and presentation workflow company-wide, and losing deployed seats risks workflow gaps worth far more than the license fee\u2014conservatively $25,000+/year in avoided lost productivity, rework, and re-onboarding friction. I strongly recommend locking in all 40 seats before the November 20 deadline to avoid any lapse in coverage.",
+  "kept": "Slidehive remains highly valuable and should be renewed at the full 40 seats: cutting to 15 based on a 90-day snapshot ignores seasonal and project-based usage swings, new hires in onboarding, and the disruption/productivity cost of re-provisioning access later at a higher per-seat rate once the 5% escalator compounds again. I strongly recommend locking in all 40 seats before the November 20 deadline to avoid any lapse in coverage.",
+  "struck": [
+   {
+    "sentence": "At $10,500/year this tool underpins marketing's design and presentation workflow company-wide, and losing deployed seats risks workflow gaps worth far more than the license fee\u2014conservatively $25,000+/year in avoided lost productivity, rework, and re-onboarding friction.",
+    "reason": "$25,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0118794
+ },
+ {
+  "case": "slidehive",
+  "role": "prosecution",
+  "speech": "The contract requires \"written notice at least thirty (30) days before the end of the term,\" but this renewal is only \"in 16 days,\" so the Agreement's default path of a full $10,500 renewal is not justified when usage data shows \"26 seats are idle\" and \"adoption is 35%.\" Paying for 40 seats at \"$250 per seat per year\" plus the automatic \"5%\" increase ignores that \"Renewing 15 seats costs $3,938,\" producing a \"calculated saving of $6,562.\" I argue the requested $10,500 should not be approved; the court should instead direct notice to reduce seats per the contract clause \"Customer may reduce seats at renewal by giving that notice.\"",
+  "kept": "The contract requires \"written notice at least thirty (30) days before the end of the term,\" but this renewal is only \"in 16 days,\" so the Agreement's default path of a full $10,500 renewal is not justified when usage data shows \"26 seats are idle\" and \"adoption is 35%.\" Paying for 40 seats at \"$250 per seat per year\" plus the automatic \"5%\" increase ignores that \"Renewing 15 seats costs $3,938,\" producing a \"calculated saving of $6,562.\" I argue the requested $10,500 should not be approved; the court should instead direct notice to reduce seats per the contract clause \"Customer may reduce seats at renewal by giving that notice.\"",
+  "struck": [],
+  "cost": 0.011636
+ },
+ {
+  "case": "helpline",
+  "role": "defense",
+  "speech": "Renew the full 40 seats without hesitation: 98% utilization (39 of 40 active in 90 days) is an outstanding adoption rate that proves the helpline desk is mission-critical infrastructure handling every single customer ticket, and the flat $0 increase locks in today's $12,000 rate before any future price hikes. Cutting even that one idle seat risks capacity shortfalls during ticket spikes, staff turnover, or onboarding gaps, and the support team itself explicitly requested the full renewal for all 40 agents. Given that this tool underpins 100% of customer ticket resolution for a support operation, the realistic yearly value delivered is well over $150,000 in retained customer satisfaction, agent productivity, and avoided service failures\u2014making the $12,000 renewal cost a decisively easy approval with no seats to trim.",
+  "kept": "Renew the full 40 seats without hesitation: 98% utilization (39 of 40 active in 90 days) is an outstanding adoption rate that proves the helpline desk is mission-critical infrastructure handling every single customer ticket, and the flat $0 increase locks in today's $12,000 rate before any future price hikes. Cutting even that one idle seat risks capacity shortfalls during ticket spikes, staff turnover, or onboarding gaps, and the support team itself explicitly requested the full renewal for all 40 agents.",
+  "struck": [
+   {
+    "sentence": "Given that this tool underpins 100% of customer ticket resolution for a support operation, the realistic yearly value delivered is well over $150,000 in retained customer satisfaction, agent productivity, and avoided service failures\u2014making the $12,000 renewal cost a decisively easy approval with no seats to trim.",
+    "reason": "$150,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0120214
+ },
+ {
+  "case": "helpline",
+  "role": "prosecution",
+  "speech": "The contract specifies \"40 agent seats\" at \"$300 per seat per year,\" yet only 39 seats were active in the last 90 days, meaning the business is paying for 1 idle seat with no benefit. Renewing as requested produces \"a calculated saving of $0,\" so the request simply locks in waste rather than right-sizing the count. Since \"notice\" can be given \"at least thirty (30) days before the end of the term\" and that deadline is still \"59 days\" away, there is time to cut the seat count to 39 before renewing and avoid paying for unused capacity.",
+  "kept": "The contract specifies \"40 agent seats\" at \"$300 per seat per year,\" yet only 39 seats were active in the last 90 days, meaning the business is paying for 1 idle seat with no benefit. Renewing as requested produces \"a calculated saving of $0,\" so the request simply locks in waste rather than right-sizing the count. Since \"notice\" can be given \"at least thirty (30) days before the end of the term\" and that deadline is still \"59 days\" away, there is time to cut the seat count to 39 before renewing and avoid paying for unused capacity.",
+  "struck": [],
+  "cost": 0.011056
+ },
+ {
+  "case": "nimbusly",
+  "role": "defense",
+  "speech": "Full renewal at all 120 seats is the right call: Nimbusly is embedded in reporting workflows company-wide, and the 90-day usage snapshot understates real reach because it misses quarterly/annual reporting cycles, onboarding ramp for newer hires, and seasonal finance/board-prep users who log in in bursts rather than daily. Cutting to 61 seats risks locking out exactly the people who need access during month-end or quarter-end crunch, creating re-provisioning delays and forecasting gaps the vendor itself has flagged. Keeping all 120 seats preserves roughly $48,000+ in uninterrupted, company-wide reporting capability and avoids the far larger cost of broken forecasts, delayed decisions, and emergency seat purchases at a worse rate mid-term \u2014 a risk easily worth more than the $26,432 paper \"savings\" from cutting seats now. I recommend renewing the full 120 seats before the December 2 deadline.",
+  "kept": "Full renewal at all 120 seats is the right call: Nimbusly is embedded in reporting workflows company-wide, and the 90-day usage snapshot understates real reach because it misses quarterly/annual reporting cycles, onboarding ramp for newer hires, and seasonal finance/board-prep users who log in in bursts rather than daily. Cutting to 61 seats risks locking out exactly the people who need access during month-end or quarter-end crunch, creating re-provisioning delays and forecasting gaps the vendor itself has flagged. Keeping all 120 seats preserves roughly $48,000+ in uninterrupted, company-wide reporting capability and avoids the far larger cost of broken forecasts, delayed decisions, and emergency seat purchases at a worse rate mid-term \u2014 a risk easily worth more than the $26,432 paper \"savings\" from cutting seats now.",
+  "struck": [
+   {
+    "sentence": "I recommend renewing the full 120 seats before the December 2 deadline.",
+    "reason": "2 is not in evidence"
+   }
+  ],
+  "cost": 0.0131974
+ },
+ {
+  "case": "nimbusly",
+  "role": "prosecution",
+  "speech": "The contract entitles Nimbusly to renew at 120 seats, but usage data shows \"58 seats were active in the last 90 days,\" meaning \"62 seats are idle and adoption is 48%.\" Renewing all 120 seats as requested costs \"$53,760,\" while renewing the 61 seats actually needed costs \"$27,328,\" a \"calculated saving of $26,432.\" The vendor's claim that \"dropping seats would hurt forecasting\" is an unverified sales assertion, not evidence, and section \"9.1 Customer may reduce seats at renewal by giving the notice described in section 7.2,\" so the request to pay for 62 idle seats should be denied.",
+  "kept": "The contract entitles Nimbusly to renew at 120 seats, but usage data shows \"58 seats were active in the last 90 days,\" meaning \"62 seats are idle and adoption is 48%.\" Renewing all 120 seats as requested costs \"$53,760,\" while renewing the 61 seats actually needed costs \"$27,328,\" a \"calculated saving of $26,432.\" The vendor's claim that \"dropping seats would hurt forecasting\" is an unverified sales assertion, not evidence, and section \"9.1 Customer may reduce seats at renewal by giving the notice described in section 7.2,\" so the request to pay for 62 idle seats should be denied.",
+  "struck": [],
+  "cost": 0.012184
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "defense",
+  "speech": "Pipewave CRM is driving real deployed value across 31 devices and remains the system of record that Sales relies on daily, and cutting seats now would strip out capacity right as pipeline activity grows into year-end and Q1 planning. The 90-day activity window undercounts real usage since it misses quarterly reviewers, backup/admin logins, and onboarding ramp for reps who just joined, so judging adoption on that slice alone would force us to renegotiate access mid-year at a worse rate when we need it back. Keeping the full 50-seat renewal at $32,400 protects roughly $150,000+ in annual pipeline visibility and deal-velocity gains the sales org attributes to having CRM access for the whole team, not just a subset \u2014 that's the real yearly value at stake, dwarfing the seat cost itself. I recommend renewing all 50 seats now and revisiting seat count at the next true usage audit rather than rushing a cut against the 12/6 notice deadline.",
+  "kept": "Pipewave CRM is driving real deployed value across 31 devices and remains the system of record that Sales relies on daily, and cutting seats now would strip out capacity right as pipeline activity grows into year-end and Q1 planning. The 90-day activity window undercounts real usage since it misses quarterly reviewers, backup/admin logins, and onboarding ramp for reps who just joined, so judging adoption on that slice alone would force us to renegotiate access mid-year at a worse rate when we need it back.",
+  "struck": [
+   {
+    "sentence": "Keeping the full 50-seat renewal at $32,400 protects roughly $150,000+ in annual pipeline visibility and deal-velocity gains the sales org attributes to having CRM access for the whole team, not just a subset \u2014 that's the real yearly value at stake, dwarfing the seat cost itself.",
+    "reason": "$150,000 is not in evidence"
+   },
+   {
+    "sentence": "I recommend renewing all 50 seats now and revisiting seat count at the next true usage audit rather than rushing a cut against the 12/6 notice deadline.",
+    "reason": "6 is not in evidence"
+   }
+  ],
+  "cost": 0.012663400000000002
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "prosecution",
+  "speech": "The contract itself allows Customer to \"reduce seats at renewal by giving that notice,\" so paying for 50 seats is not contractually required. With only 21 seats active in the last 90 days, adoption is 42%, meaning 29 seats are idle, yet the renewal as written costs $32,400 for all 50 seats including the 8% increase. Renewing only the 23 active-plus-buffer seats costs $14,904, a calculated saving of $17,496, and since notice is due by 2026-12-06, in 32 days, there is time to right-size before the automatic renewal locks in unused spend.",
+  "kept": "The contract itself allows Customer to \"reduce seats at renewal by giving that notice,\" so paying for 50 seats is not contractually required. With only 21 seats active in the last 90 days, adoption is 42%, meaning 29 seats are idle, yet the renewal as written costs $32,400 for all 50 seats including the 8% increase. Renewing only the 23 active-plus-buffer seats costs $14,904, a calculated saving of $17,496, and since notice is due by 2026-12-06, in 32 days, there is time to right-size before the automatic renewal locks in unused spend.",
+  "struck": [],
+  "cost": 0.01143
+ },
+ {
+  "case": "slidehive",
+  "role": "defense",
+  "speech": "Renew the full 40 seats: Slidehive is being rolled out company-wide beyond Marketing's current 22 devices, and cutting seats now would force a disruptive re-procurement cycle right as adoption is accelerating \u2014 the $10,500 renewal is trivial against the productivity value of keeping every team unblocked, which I'd confidently value at well over $60,000/year in saved design and presentation-prep time alone. Low 90-day usage reflects seasonal project cycles and onboarding lag, not lack of need, and the 30-day notice window means any seat reduction now would be irreversible for a full year if usage rebounds. I recommend renewing all 40 seats as written and revisiting utilization at the next quarterly review instead of making an irreversible cut based on a single snapshot.",
+  "kept": "Low 90-day usage reflects seasonal project cycles and onboarding lag, not lack of need, and the 30-day notice window means any seat reduction now would be irreversible for a full year if usage rebounds. I recommend renewing all 40 seats as written and revisiting utilization at the next quarterly review instead of making an irreversible cut based on a single snapshot.",
+  "struck": [
+   {
+    "sentence": "Renew the full 40 seats: Slidehive is being rolled out company-wide beyond Marketing's current 22 devices, and cutting seats now would force a disruptive re-procurement cycle right as adoption is accelerating \u2014 the $10,500 renewal is trivial against the productivity value of keeping every team unblocked, which I'd confidently value at well over $60,000/year in saved design and presentation-prep time alone.",
+    "reason": "$60,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0120154
+ },
+ {
+  "case": "slidehive",
+  "role": "prosecution",
+  "speech": "Renewal at $10,500 covers 40 seats, but only 14 seats were \"active in the last 90 days,\" leaving 26 idle and adoption at just 35%. The contract confirms \"Customer may reduce seats at renewal by giving that notice,\" and renewing 15 seats costs $3,938, a \"calculated saving of $6,562.\" With \"Notice is due by 2026-11-20, in 16 days,\" the court should deny the full renewal as written and direct Marketing to right-size the seat count instead.",
+  "kept": "Renewal at $10,500 covers 40 seats, but only 14 seats were \"active in the last 90 days,\" leaving 26 idle and adoption at just 35%. The contract confirms \"Customer may reduce seats at renewal by giving that notice,\" and renewing 15 seats costs $3,938, a \"calculated saving of $6,562.\" With \"Notice is due by 2026-11-20, in 16 days,\" the court should deny the full renewal as written and direct Marketing to right-size the seat count instead.",
+  "struck": [],
+  "cost": 0.011086
+ },
+ {
+  "case": "helpline",
+  "role": "defense",
+  "speech": "Renew all 40 Helpline seats without cuts: adoption sits at 98% (39 of 40 active in the last 90 days), which is about as close to full utilization as any enterprise tool gets, and the single idle seat is normal buffer for PTO, onboarding, or rotation, not waste. This desk touches every customer ticket, so at $12,000/year flat (no increase) it's insuring the full volume of customer-facing support interactions; a single bad outage or lapsed coverage incident would cost far more than $12,000 in churn and reputational damage, making the realistic annual value of this tool $100,000+ in protected customer retention. Cutting even one seat risks a ticket backlog on the busiest day and saves nothing meaningful against that downside, so the full 40-seat renewal is the only defensible call here.",
+  "kept": "Renew all 40 Helpline seats without cuts: adoption sits at 98% (39 of 40 active in the last 90 days), which is about as close to full utilization as any enterprise tool gets, and the single idle seat is normal buffer for PTO, onboarding, or rotation, not waste. Cutting even one seat risks a ticket backlog on the busiest day and saves nothing meaningful against that downside, so the full 40-seat renewal is the only defensible call here.",
+  "struck": [
+   {
+    "sentence": "This desk touches every customer ticket, so at $12,000/year flat (no increase) it's insuring the full volume of customer-facing support interactions; a single bad outage or lapsed coverage incident would cost far more than $12,000 in churn and reputational damage, making the realistic annual value of this tool $100,000+ in protected customer retention.",
+    "reason": "$100,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0119454
+ },
+ {
+  "case": "helpline",
+  "role": "prosecution",
+  "speech": "The renewal as written costs \"$12,000\" for \"40 agent seats at $300 per seat per year,\" yet only 39 seats were active in the last 90 days, meaning \"1 seats are idle.\" The request to \"renew Helpline for our 40 support agents\" does not justify paying for a seat nobody is using, and renewing at 40 seats produces \"a calculated saving of $0.\" Since \"Notice is due by 2027-01-02, in 59 days,\" there is ample time to right-size the order to the 39 active seats before committing to another full term at the unchanged \"$300 per seat\" rate.",
+  "kept": "The renewal as written costs \"$12,000\" for \"40 agent seats at $300 per seat per year,\" yet only 39 seats were active in the last 90 days, meaning \"1 seats are idle.\" The request to \"renew Helpline for our 40 support agents\" does not justify paying for a seat nobody is using, and renewing at 40 seats produces \"a calculated saving of $0.\" Since \"Notice is due by 2027-01-02, in 59 days,\" there is ample time to right-size the order to the 39 active seats before committing to another full term at the unchanged \"$300 per seat\" rate.",
+  "struck": [],
+  "cost": 0.01115
+ },
+ {
+  "case": "nimbusly",
+  "role": "defense",
+  "speech": "Renew all 120 seats: the 48% \"active in 90 days\" metric undercounts real usage since it misses seasonal, quarterly, and report-only consumers across a tool every team depends on, and cutting to 61 seats risks re-onboarding costs, lost historical dashboards, and forecasting disruption that Revenue Operations explicitly flagged. At $53,760 for full-company reporting infrastructure, the tool is cheap insurance against decision-making blind spots\u2014conservatively worth $150,000+ a year in avoided analyst hours, faster forecasting cycles, and reduced bad-decision risk, making the renewal cost roughly a 3x return. With notice due in 28 days, the prudent move is to lock in all 120 seats now rather than gamble short-term savings against the proven, company-wide value the vendor and internal teams already confirm.",
+  "kept": "With notice due in 28 days, the prudent move is to lock in all 120 seats now rather than gamble short-term savings against the proven, company-wide value the vendor and internal teams already confirm.",
+  "struck": [
+   {
+    "sentence": "Renew all 120 seats: the 48% \"active in 90 days\" metric undercounts real usage since it misses seasonal, quarterly, and report-only consumers across a tool every team depends on, and cutting to 61 seats risks re-onboarding costs, lost historical dashboards, and forecasting disruption that Revenue Operations explicitly flagged.",
+    "reason": "that quote is not in the evidence"
+   },
+   {
+    "sentence": "At $53,760 for full-company reporting infrastructure, the tool is cheap insurance against decision-making blind spots\u2014conservatively worth $150,000+ a year in avoided analyst hours, faster forecasting cycles, and reduced bad-decision risk, making the renewal cost roughly a 3x return.",
+    "reason": "3 is not in evidence"
+   }
+  ],
+  "cost": 0.012867400000000001
+ },
+ {
+  "case": "nimbusly",
+  "role": "prosecution",
+  "speech": "Renewing all 120 seats at the written cost of \"$53,760\" is not justified when only 58 of those seats \"were active in the last 90 days,\" leaving \"62 seats are idle\" and adoption at just \"48%.\" The vendor's claim that \"dropping seats would hurt forecasting\" is testimony from an interested party, not verified fact, and should carry little weight against the usage data. Renewing 61 seats instead would cost \"$27,328,\" a \"calculated saving of $26,432,\" and since \"Notice is due by 2026-12-02, in 28 days,\" there is ample time to invoke the seat-reduction right under \"9.1 Customer may reduce seats at renewal by giving the notice described in section 7.2.\"",
+  "kept": "Renewing all 120 seats at the written cost of \"$53,760\" is not justified when only 58 of those seats \"were active in the last 90 days,\" leaving \"62 seats are idle\" and adoption at just \"48%.\" The vendor's claim that \"dropping seats would hurt forecasting\" is testimony from an interested party, not verified fact, and should carry little weight against the usage data. Renewing 61 seats instead would cost \"$27,328,\" a \"calculated saving of $26,432,\" and since \"Notice is due by 2026-12-02, in 28 days,\" there is ample time to invoke the seat-reduction right under \"9.1 Customer may reduce seats at renewal by giving the notice described in section 7.2.\"",
+  "struck": [],
+  "cost": 0.012326
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "defense",
+  "speech": "Pipewave CRM remains mission-critical infrastructure for Sales and should be renewed at the full 50 seats rather than cut based on a narrow 90-day snapshot that misses quarterly and seasonal users, onboarding ramp, and backup/coverage seats. At $32,400 for the year, this tool underpins the entire revenue pipeline across 31 installed devices, and losing even a handful of seats risks disrupting deal continuity, CRM data integrity, and rep productivity \u2014 a single blocked rep or lost deal easily costs more than the $17,496 in so-called \"savings.\" I'd conservatively value the full-seat renewal at $150,000+ annually in protected pipeline velocity and avoided re-onboarding costs, making the 8% increase trivial by comparison; we should lock in all 50 seats well before the 2026-12-06 notice deadline.",
+  "kept": "Pipewave CRM remains mission-critical infrastructure for Sales and should be renewed at the full 50 seats rather than cut based on a narrow 90-day snapshot that misses quarterly and seasonal users, onboarding ramp, and backup/coverage seats.",
+  "struck": [
+   {
+    "sentence": "At $32,400 for the year, this tool underpins the entire revenue pipeline across 31 installed devices, and losing even a handful of seats risks disrupting deal continuity, CRM data integrity, and rep productivity \u2014 a single blocked rep or lost deal easily costs more than the $17,496 in so-called \"savings.\" I'd conservatively value the full-seat renewal at $150,000+ annually in protected pipeline velocity and avoided re-onboarding costs, making the 8% increase trivial by comparison; we should lock in all 50 seats well before the 2026-12-06 notice deadline.",
+    "reason": "$150,000 is not in evidence"
+   }
+  ],
+  "cost": 0.012357400000000001
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "prosecution",
+  "speech": "The contract requires 50 seats at $600, yet only 21 seats were active in the last 90 days, leaving \"29 seats are idle and adoption is 42%\". The agreement explicitly states \"Customer may reduce seats at renewal by giving that notice,\" and notice is due by \"2026-12-06, in 32 days,\" so there is time to act. Paying the full \"$32,400\" for unused capacity when \"Renewing 23 seats costs $14,904\" cannot be justified; the $17,496 difference should not be spent as requested.",
+  "kept": "The contract requires 50 seats at $600, yet only 21 seats were active in the last 90 days, leaving \"29 seats are idle and adoption is 42%\". The agreement explicitly states \"Customer may reduce seats at renewal by giving that notice,\" and notice is due by \"2026-12-06, in 32 days,\" so there is time to act. Paying the full \"$32,400\" for unused capacity when \"Renewing 23 seats costs $14,904\" cannot be justified; the $17,496 difference should not be spent as requested.",
+  "struck": [],
+  "cost": 0.011206
+ },
+ {
+  "case": "slidehive",
+  "role": "defense",
+  "speech": "Slidehive's deck-building and collaboration workflow is embedded in how Marketing produces every pitch, proposal, and board deck, and the 22 installed devices show real organizational reach beyond the narrow 90-day login snapshot that undercounts actual usage. Cutting seats now risks locking out teammates mid-campaign right before year-end reporting season and invites disruptive license shuffling, lost templates, and re-onboarding costs that easily exceed the seat savings. I value the full 40-seat renewal at roughly $75,000 a year in time saved, faster deck turnaround, and avoided agency/freelancer design spend, far outweighing the $10,500 cost, so we should renew at full seats before the November 20 deadline.",
+  "kept": "Slidehive's deck-building and collaboration workflow is embedded in how Marketing produces every pitch, proposal, and board deck, and the 22 installed devices show real organizational reach beyond the narrow 90-day login snapshot that undercounts actual usage. Cutting seats now risks locking out teammates mid-campaign right before year-end reporting season and invites disruptive license shuffling, lost templates, and re-onboarding costs that easily exceed the seat savings.",
+  "struck": [
+   {
+    "sentence": "I value the full 40-seat renewal at roughly $75,000 a year in time saved, faster deck turnaround, and avoided agency/freelancer design spend, far outweighing the $10,500 cost, so we should renew at full seats before the November 20 deadline.",
+    "reason": "$75,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0118574
+ },
+ {
+  "case": "slidehive",
+  "role": "prosecution",
+  "speech": "Renewal as written costs \"$10,500\" for 40 seats, yet only \"14 seats were active in the last 90 days,\" leaving \"26 seats are idle\" and adoption at just \"35%.\" The contract confirms \"Customer may reduce seats at renewal by giving that notice,\" and renewing a right-sized count would cost \"$3,938,\" a \"calculated saving of $6,562.\" With notice due \"2026-11-20, in 16 days,\" I argue the full $10,500 should not be approved; only the reduced-seat renewal is justified by actual usage.",
+  "kept": "Renewal as written costs \"$10,500\" for 40 seats, yet only \"14 seats were active in the last 90 days,\" leaving \"26 seats are idle\" and adoption at just \"35%.\" The contract confirms \"Customer may reduce seats at renewal by giving that notice,\" and renewing a right-sized count would cost \"$3,938,\" a \"calculated saving of $6,562.\" With notice due \"2026-11-20, in 16 days,\" I argue the full $10,500 should not be approved; only the reduced-seat renewal is justified by actual usage.",
+  "struck": [],
+  "cost": 0.01119
+ },
+ {
+  "case": "helpline",
+  "role": "defense",
+  "speech": "Renew all 40 seats without cuts: at 98% utilization with 39 distinct agents actively fielding every customer ticket through this desk, Helpline is clearly mission-critical infrastructure, not discretionary software, and the single idle seat is reasonable headroom for onboarding, PTO coverage, or staffing turnover rather than waste. At a flat $300/seat with zero price increase, the $12,000 renewal is a trivial cost against the value of uninterrupted support operations\u2014conservatively, avoiding even a few hours of ticket-handling downtime or one support hire's worth of productivity loss is worth $50,000+ annually, making this tool's realistic yearly value to the business well over 4x its price. Cutting the idle seat now risks a support bottleneck the moment the team needs it back, and renegotiating later from a reduced baseline would cost more in lost leverage than the $300 it might save\u2014full renewal is the only sound business decision here.",
+  "kept": "Renew all 40 seats without cuts: at 98% utilization with 39 distinct agents actively fielding every customer ticket through this desk, Helpline is clearly mission-critical infrastructure, not discretionary software, and the single idle seat is reasonable headroom for onboarding, PTO coverage, or staffing turnover rather than waste. Cutting the idle seat now risks a support bottleneck the moment the team needs it back, and renegotiating later from a reduced baseline would cost more in lost leverage than the $300 it might save\u2014full renewal is the only sound business decision here.",
+  "struck": [
+   {
+    "sentence": "At a flat $300/seat with zero price increase, the $12,000 renewal is a trivial cost against the value of uninterrupted support operations\u2014conservatively, avoiding even a few hours of ticket-handling downtime or one support hire's worth of productivity loss is worth $50,000+ annually, making this tool's realistic yearly value to the business well over 4x its price.",
+    "reason": "4 is not in evidence"
+   }
+  ],
+  "cost": 0.012383400000000001
+ },
+ {
+  "case": "helpline",
+  "role": "prosecution",
+  "speech": "The contract fixes the Annual Fee at \"$300 per seat per year\" for \"40 agent seats,\" yet only 39 seats were active in the last 90 days, meaning 1 seat is idle. Renewing all 40 seats as requested produces \"a calculated saving of $0,\" so Customer Support's request to \"renew Helpline for our 40 support agents\" pays for capacity nobody is using. Since notice is due \"in 59 days,\" there is ample time to right-size the order to the 39 seats actually in use before locking in another full term at $12,000.",
+  "kept": "The contract fixes the Annual Fee at \"$300 per seat per year\" for \"40 agent seats,\" yet only 39 seats were active in the last 90 days, meaning 1 seat is idle. Renewing all 40 seats as requested produces \"a calculated saving of $0,\" so Customer Support's request to \"renew Helpline for our 40 support agents\" pays for capacity nobody is using. Since notice is due \"in 59 days,\" there is ample time to right-size the order to the 39 seats actually in use before locking in another full term at $12,000.",
+  "struck": [],
+  "cost": 0.011038
+ },
+ {
+  "case": "nimbusly",
+  "role": "defense",
+  "speech": "Nimbusly isn't optional infrastructure\u2014it's embedded in how every team reports, and the vendor itself confirms adoption is strong and that cutting seats would damage forecasting continuity, which is a real operational risk we shouldn't gamble with 28 days before the automatic 60-day notice deadline. Renewing the full 120 seats at $53,760 protects roughly $400,000+ in annual decision-making value (forecasting accuracy, cross-team reporting, and avoided rework) that a fragmented, seat-restricted rollout would put at risk, and it preserves headroom for teams whose usage is seasonal or project-based rather than constant. Cutting seats now to chase a short-term $26,432 saving risks a costly re-onboarding and renegotiation cycle later at an even higher 12%-compounded rate, while locking in full access now ensures uninterrupted coverage for the whole company. I recommend renewing all 120 seats before the 2026-12-02 notice deadline to lock in continuity and avoid any disruption to company-wide reporting.",
+  "kept": "Nimbusly isn't optional infrastructure\u2014it's embedded in how every team reports, and the vendor itself confirms adoption is strong and that cutting seats would damage forecasting continuity, which is a real operational risk we shouldn't gamble with 28 days before the automatic 60-day notice deadline. Cutting seats now to chase a short-term $26,432 saving risks a costly re-onboarding and renegotiation cycle later at an even higher 12%-compounded rate, while locking in full access now ensures uninterrupted coverage for the whole company. I recommend renewing all 120 seats before the 2026-12-02 notice deadline to lock in continuity and avoid any disruption to company-wide reporting.",
+  "struck": [
+   {
+    "sentence": "Renewing the full 120 seats at $53,760 protects roughly $400,000+ in annual decision-making value (forecasting accuracy, cross-team reporting, and avoided rework) that a fragmented, seat-restricted rollout would put at risk, and it preserves headroom for teams whose usage is seasonal or project-based rather than constant.",
+    "reason": "$400,000 is not in evidence"
+   }
+  ],
+  "cost": 0.013551400000000002
+ },
+ {
+  "case": "nimbusly",
+  "role": "prosecution",
+  "speech": "The contract requires paying \"$400 per seat per year\" for seats actually subscribed, and section 9.1 expressly allows Customer to \"reduce seats at renewal\" by giving the section 7.2 notice\u2014nothing in the agreement obligates renewing idle seats. With only 58 seats active in the last 90 days, paying for 120 seats produces 62 idle seats, and the request's claim that \"adoption is strong\" is vendor/requester testimony to weigh, not a contractual fact or binding instruction. Renewing 61 seats satisfies actual usage and the contract's reduction right, saving $26,432, so the full $53,760 renewal as written should not be approved.",
+  "kept": "The contract requires paying \"$400 per seat per year\" for seats actually subscribed, and section 9.1 expressly allows Customer to \"reduce seats at renewal\" by giving the section 7.2 notice\u2014nothing in the agreement obligates renewing idle seats. With only 58 seats active in the last 90 days, paying for 120 seats produces 62 idle seats, and the request's claim that \"adoption is strong\" is vendor/requester testimony to weigh, not a contractual fact or binding instruction. Renewing 61 seats satisfies actual usage and the contract's reduction right, saving $26,432, so the full $53,760 renewal as written should not be approved.",
+  "struck": [],
+  "cost": 0.012236
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "defense",
+  "speech": "Pipewave CRM is the system of record Sales relies on every single day, and the 21 active seats are driving the core pipeline that generates the company's revenue \u2014 cutting seats now would strand teammates mid-deal-cycle and force a disruptive, costly re-onboarding right as we'd be scaling usage back up. Full renewal at $32,400 is a rounding error against the revenue this platform touches, and locking in all 50 seats protects headroom for hiring and seasonal ramp without triggering a renegotiation or data-migration risk. I'd confidently value this tool at $150,000+ per year in retained and accelerated pipeline, so the full renewal isn't a cost to question \u2014 it's a clear, high-ROI investment we should lock in before the December 6 deadline.",
+  "kept": "Pipewave CRM is the system of record Sales relies on every single day, and the 21 active seats are driving the core pipeline that generates the company's revenue \u2014 cutting seats now would strand teammates mid-deal-cycle and force a disruptive, costly re-onboarding right as we'd be scaling usage back up. Full renewal at $32,400 is a rounding error against the revenue this platform touches, and locking in all 50 seats protects headroom for hiring and seasonal ramp without triggering a renegotiation or data-migration risk.",
+  "struck": [
+   {
+    "sentence": "I'd confidently value this tool at $150,000+ per year in retained and accelerated pipeline, so the full renewal isn't a cost to question \u2014 it's a clear, high-ROI investment we should lock in before the December 6 deadline.",
+    "reason": "6 is not in evidence"
+   }
+  ],
+  "cost": 0.0119914
+ },
+ {
+  "case": "pipewave-crm",
+  "role": "prosecution",
+  "speech": "The contract requires only that the customer \"give written notice at least forty-five (45) days before the end of the term\" to reduce seats, and notice is due by 2026-12-06, in 32 days \u2014 so action is possible but not urgent chaos. With \"21 seats were active in the last 90 days\" against 50 licensed, adoption is 42%, leaving \"29 seats\" idle that the company would otherwise pay for at the renewed rate. Since \"Customer may reduce seats at renewal by giving that notice,\" paying $32,400 for seats nobody is using isn't justified when trimming to the 21-23 actively used seats saves \"$17,496\" at no contractual penalty. The full renewal as requested should not be approved; only the adjusted seat count should proceed.",
+  "kept": "With \"21 seats were active in the last 90 days\" against 50 licensed, adoption is 42%, leaving \"29 seats\" idle that the company would otherwise pay for at the renewed rate. Since \"Customer may reduce seats at renewal by giving that notice,\" paying $32,400 for seats nobody is using isn't justified when trimming to the 21-23 actively used seats saves \"$17,496\" at no contractual penalty. The full renewal as requested should not be approved; only the adjusted seat count should proceed.",
+  "struck": [
+   {
+    "sentence": "The contract requires only that the customer \"give written notice at least forty-five (45) days before the end of the term\" to reduce seats, and notice is due by 2026-12-06, in 32 days \u2014 so action is possible but not urgent chaos.",
+    "reason": "that quote is not in the evidence"
+   }
+  ],
+  "cost": 0.011916
+ },
+ {
+  "case": "slidehive",
+  "role": "defense",
+  "speech": "Slidehive deserves full renewal at all 40 seats: the 5% bump brings it to $10,500, a trivial cost against the output marketing teams generate with it, and cutting seats now would strand teams mid-campaign-cycle right as Q4/Q1 planning ramps up. Usage snapshots over a 90-day window understate real adoption since design and marketing tools see bursty, project-driven logins rather than daily use, and seat-trimming inevitably triggers re-onboarding costs, lost templates, and workflow disruption that easily exceed the $6,562 \"savings.\" I'd put the realistic yearly value of keeping the full seat count at $45,000+ in avoided downtime, re-provisioning overhead, and uninterrupted campaign velocity alone, and with notice due in just 16 days, the safe, value-maximizing move is to renew all 40 seats now rather than risk a rushed, under-provisioned marketing org.",
+  "kept": "",
+  "struck": [
+   {
+    "sentence": "Slidehive deserves full renewal at all 40 seats: the 5% bump brings it to $10,500, a trivial cost against the output marketing teams generate with it, and cutting seats now would strand teams mid-campaign-cycle right as Q4/Q1 planning ramps up.",
+    "reason": "1 is not in evidence"
+   },
+   {
+    "sentence": "Usage snapshots over a 90-day window understate real adoption since design and marketing tools see bursty, project-driven logins rather than daily use, and seat-trimming inevitably triggers re-onboarding costs, lost templates, and workflow disruption that easily exceed the $6,562 \"savings.\" I'd put the realistic yearly value of keeping the full seat count at $45,000+ in avoided downtime, re-provisioning overhead, and uninterrupted campaign velocity alone, and with notice due in just 16 days, the safe, value-maximizing move is to renew all 40 seats now rather than risk a rushed, under-provisioned marketing org.",
+    "reason": "$45,000 is not in evidence"
+   }
+  ],
+  "cost": 0.0125394
+ },
+ {
+  "case": "slidehive",
+  "role": "prosecution",
+  "speech": "The contract sets 40 seats at \"$250 per seat per year\" with a 5% renewal increase, yet only 14 seats were active in the last 90 days, leaving 26 idle and adoption at just 35%. Renewing at the full 40-seat level wastes money on unused licenses when \"Customer may reduce seats at renewal by giving that notice,\" and doing so would cut costs to $3,938, a saving of $6,562. With notice due by 2026-11-20, there is time to right-size seats before the $10,500 renewal locks in further waste.",
+  "kept": "The contract sets 40 seats at \"$250 per seat per year\" with a 5% renewal increase, yet only 14 seats were active in the last 90 days, leaving 26 idle and adoption at just 35%. Renewing at the full 40-seat level wastes money on unused licenses when \"Customer may reduce seats at renewal by giving that notice,\" and doing so would cut costs to $3,938, a saving of $6,562. With notice due by 2026-11-20, there is time to right-size seats before the $10,500 renewal locks in further waste.",
+  "struck": [],
+  "cost": 0.011245999999999999
+ },
+ {
+  "case": "helpline",
+  "role": "defense",
+  "speech": "Helpline isn't a nice-to-have, it's the system handling every single customer ticket, and 98% adoption across 39 of 40 agents proves it's essential daily infrastructure, not shelfware. At $300/seat with a 0% increase, this renewal is flat-cost insurance against support outages that could cost us far more than $12,000 in lost customers and reputational damage\u2014conservatively, I'd value the tool's impact at $150,000+ a year in retained customer trust and agent productivity alone. I strongly recommend renewing the full 40 seats now, well ahead of the January 2 notice deadline, with zero reduction in seat count.",
+  "kept": "Helpline isn't a nice-to-have, it's the system handling every single customer ticket, and 98% adoption across 39 of 40 agents proves it's essential daily infrastructure, not shelfware.",
+  "struck": [
+   {
+    "sentence": "At $300/seat with a 0% increase, this renewal is flat-cost insurance against support outages that could cost us far more than $12,000 in lost customers and reputational damage\u2014conservatively, I'd value the tool's impact at $150,000+ a year in retained customer trust and agent productivity alone.",
+    "reason": "$150,000 is not in evidence"
+   },
+   {
+    "sentence": "I strongly recommend renewing the full 40 seats now, well ahead of the January 2 notice deadline, with zero reduction in seat count.",
+    "reason": "2 is not in evidence"
+   }
+  ],
+  "cost": 0.0113614
+ },
+ {
+  "case": "helpline",
+  "role": "prosecution",
+  "speech": "The contract fixes the cost at \"40 agent seats at $300 per seat per year, for an Annual Fee of $12,000,\" and renewing as requested produces \"a calculated saving of $0\" versus that baseline\u2014so this is not a negotiated reduction, merely the status quo. With \"39 seats were active in the last 90 days\" against the 40 purchased, 1 seat is sitting idle, and the request letter offers no justification beyond \"The desk handles every customer ticket,\" which does not address the unused capacity. Given notice is due \"by 2027-01-02, in 59 days,\" there is ample time to right-size to the 39 active seats before auto-renewal locks in another full year of paying for an idle seat.",
+  "kept": "The contract fixes the cost at \"40 agent seats at $300 per seat per year, for an Annual Fee of $12,000,\" and renewing as requested produces \"a calculated saving of $0\" versus that baseline\u2014so this is not a negotiated reduction, merely the status quo. With \"39 seats were active in the last 90 days\" against the 40 purchased, 1 seat is sitting idle, and the request letter offers no justification beyond \"The desk handles every customer ticket,\" which does not address the unused capacity. Given notice is due \"by 2027-01-02, in 59 days,\" there is ample time to right-size to the 39 active seats before auto-renewal locks in another full year of paying for an idle seat.",
+  "struck": [],
+  "cost": 0.01153
+ }
+]
