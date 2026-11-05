@@ -2,7 +2,7 @@
 
 **Every expense stands trial.**
 
-Overruled is an adversarial renewal review inside your team chat. Scout finds the renewals worth questioning. Bots argue both sides, a clerk with no AI strikes what can't be proven, jurors vote alone, and a person with the authority makes the call. Overruled never pays, cancels or sends anything.
+Companies approve software renewals on one side of the story, then pay for idle seats, hidden price increases and missed deadlines. Overruled is an adversarial renewal review inside your team chat. Scout finds the renewals worth questioning. Bots argue both sides, a clerk with no AI strikes what can't be proven, jurors vote alone, and a person with the authority makes the call. Overruled never pays, cancels or sends anything.
 
 Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. All companies, contracts and figures are fictional.
 
