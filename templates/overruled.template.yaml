@@ -1,0 +1,65 @@
+# The court as a Switch template. scripts/install.sh provisions it and saves it to the workspace,
+# so a team can start another court from Templates. The bots must be registered first.
+version: 1
+
+params:
+  court:
+    type: string
+    description: Name of the court room
+    default: courtroom
+  group_name:
+    type: string
+    description: Name of the room group
+    default: Overruled
+  cfo:
+    type: string
+    description: Person who owns gavel and rules above the delegated limit
+    default: cfo
+  requester:
+    type: string
+    description: Person who asks for the expense in the sample cases
+    default: alex
+  manager:
+    type: string
+    description: Person with delegated approval
+    default: maya
+  policy:
+    type: string
+    description: The approval limits, as text
+    multiline: true
+    default: Set approval limits in policy.yaml.
+  bridge:
+    type: bridge
+    description: Where the court is mirrored. The server's default app is chosen.
+    default: [$first]
+
+group:
+  name: "{group_name}"
+  description: Every expense stands trial
+  color: "#ff4d4f"
+
+rooms:
+  - name: "{court}"
+    description: Every expense stands trial
+    instructions: |
+      This room is a court for company spending.
+      Anyone can open a trial by asking judge, and scout opens one when it finds a costly renewal.
+      The prosecution and the defense are seats, so another agent can take over if one goes offline.
+      The clerk strikes anything that is not in the evidence. Each juror votes alone in a private room.
+      A person rules, within the limits of the approval-policy document.
+      Overruled never pays, cancels or sends anything.
+    bridge: "{bridge}"
+    agents: [scout, judge, clerk, witness, prosecutor, defender, counsel, paralegal, gavel]
+    users: ["{cfo}", "{requester}", "{manager}"]
+    roles:
+      - name: prosecution
+        exclusive: true
+        instructions: Argue that this money should not be spent as requested, using only the evidence.
+      - name: defense
+        exclusive: true
+        instructions: Fight for the expense as its internal champion.
+    docs:
+      - name: approval-policy
+        description: Who may rule on an expense
+        instructions: Read this before asking someone to rule on an expense.
+        content: "{policy}"
