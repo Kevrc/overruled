@@ -98,13 +98,15 @@ footer{border-top:1px solid var(--paper2);padding:26px 0;color:var(--muted);font
 .flow span{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}.flow .on span{color:#c8d3e8}.flow p{margin:6px 0 0;font-weight:600}
 .who{padding-bottom:40px}
 .who+.paper{margin-top:52px}
-.calc{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
-.sheet{background:#fff;border:1px solid var(--paper2);border-radius:8px;padding:24px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.sheet label{font-size:14.5px;font-weight:600;color:var(--muted);display:flex;flex-direction:column;gap:6px;justify-content:flex-end}
-.sheet input{font:600 18px Inter,Arial,sans-serif;padding:10px 12px;border:1px solid var(--line);border-radius:6px;width:100%;color:var(--text);background:#fff}
-.sheet input:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
-.sheet output{grid-column:1/-1;background:var(--accent);color:#fff;border-radius:6px;padding:16px 18px;display:block}
-.sheet output span{font-size:14px;color:#c8d3e8;display:block}.sheet strong{font:600 38px Inter,Arial,sans-serif;letter-spacing:-.02em;color:#fff;display:block;line-height:1.15}.sheet small{color:#c8d3e8;font-size:14px}
+.usage{margin:38px 0 0}
+.usage figcaption{font-size:15px;font-weight:600;margin-bottom:10px}
+.split{display:flex;gap:2px;height:28px}
+.split i{flex:var(--w);display:block}.split .used{background:var(--accent);border-radius:4px 0 0 4px}.split .idle{background:#b4bcc6;border-radius:0 4px 4px 0}
+.split-key{display:flex;margin-top:8px;font-size:16px;color:var(--muted)}.split-key span:first-child{flex:54}.split-key span:last-child{flex:46}.split-key b{color:var(--text);font-weight:600;font-size:22px;letter-spacing:-.02em}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px}
+.facts div{border:1px solid var(--paper2);border-radius:6px;padding:18px 20px}
+.facts b{display:block;font-weight:600;font-size:28px;letter-spacing:-.02em;line-height:1.2;margin-bottom:6px}.facts span{color:var(--muted);font-size:15px;display:block;line-height:1.45}
+.usage+.facts+.note{margin:20px 0 0}
 .real table{width:100%;border-collapse:collapse;margin-top:30px;font-size:16px}
 .real th,.real td{text-align:left;padding:14px 16px;border-bottom:1px solid var(--ink3);vertical-align:top}
 .real thead th{color:var(--muted);font-size:13px;letter-spacing:.08em;text-transform:uppercase}
@@ -118,8 +120,8 @@ footer{border-top:1px solid var(--paper2);padding:26px 0;color:var(--muted);font
 .fine{color:var(--muted);font-size:14.5px;margin:22px 0 0}
 .reveal{opacity:0;transform:translateY(20px);transition:.6s}
 .reveal.on{opacity:1;transform:none}
-@media (max-width:900px){.hero .wrap,.proof .wrap,.calc,.flow{grid-template-columns:1fr}.pains,.phases{grid-template-columns:repeat(2,1fr)}.steps,.grid{grid-template-columns:repeat(2,1fr)}.stats .wrap{grid-template-columns:repeat(2,1fr)}nav a.hide{display:none}section{padding:68px 0}.real ul{grid-template-columns:1fr}}
-@media (max-width:560px){.steps,.grid,.pains,.phases,.sheet{grid-template-columns:1fr}.real tbody th{width:auto;padding-bottom:2px;display:block;border-bottom:0}.real td{display:block;padding-top:2px}.real thead{display:none}.wrap{padding:0 16px}.court{min-height:500px}}
+@media (max-width:900px){.hero .wrap,.proof .wrap,.flow{grid-template-columns:1fr}.pains,.phases,.facts{grid-template-columns:repeat(2,1fr)}.steps,.grid{grid-template-columns:repeat(2,1fr)}.stats .wrap{grid-template-columns:repeat(2,1fr)}nav a.hide{display:none}section{padding:68px 0}.real ul{grid-template-columns:1fr}}
+@media (max-width:560px){.steps,.grid,.pains,.phases,.facts{grid-template-columns:1fr}.real tbody th{width:auto;padding-bottom:2px;display:block;border-bottom:0}.real td{display:block;padding-top:2px}.real thead{display:none}.wrap{padding:0 16px}.court{min-height:500px}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal,.msg,.seal,.bar i::after{transition:none}.reveal{opacity:1;transform:none}}
 </style>
 </head>
@@ -128,7 +130,7 @@ footer{border-top:1px solid var(--paper2);padding:26px 0;color:var(--muted);font
 <a class="brand" href="#top">OVERRULED</a>
 <a class="hide" href="#problem">The problem</a>
 <a class="hide" href="#how">How it works</a>
-<a class="hide" href="#calculator">Calculator</a>
+<a class="hide" href="#data">The data</a>
 <a class="hide" href="#governance">Governance</a>
 <a class="hide" href="#switch">Why Switch</a>
 <a class="btn small" href="https://github.com/Kevrc/overruled">View the code</a>
@@ -205,17 +207,22 @@ footer{border-top:1px solid var(--paper2);padding:26px 0;color:var(--muted);font
 </div>
 </div></section>
 
-<section class="paper" id="calculator"><div class="wrap calc">
-<div class="reveal"><div class="eyebrow">Try your own numbers</div>
-<h2>What is one renewal really costing?</h2>
-<p class="sub">This uses the same formula as the clerk: active seats plus a 5% buffer, at the renewal price. It's an estimate from your inputs, not a promise.</p></div>
-<form class="sheet reveal" id="calc" aria-label="Renewal calculator">
-<label>Seats you pay for<input id="c_seats" type="number" min="1" step="1" value="50" inputmode="numeric"></label>
-<label>Seats active in 90 days<input id="c_active" type="number" min="0" step="1" value="21" inputmode="numeric"></label>
-<label>Price per seat per year ($)<input id="c_price" type="number" min="0" step="1" value="600" inputmode="numeric"></label>
-<label>Automatic increase (%)<input id="c_up" type="number" min="0" step="0.5" value="8" inputmode="decimal"></label>
-<output id="c_out" aria-live="polite"><span>Calculated saving per year</span><strong id="c_save">$17,496</strong><small id="c_detail"></small></output>
-</form>
+<section class="paper" id="data"><div class="wrap">
+<div class="reveal"><div class="eyebrow">What the data says</div>
+<h2>Almost half of the licenses companies pay for sit unused.</h2>
+<p class="sub">Zylo's 2026 SaaS Management Index draws on more than 40 million licenses and $75 billion in spend under management.</p></div>
+<figure class="usage reveal">
+<figcaption>SaaS licenses in the average organization</figcaption>
+<div class="split" role="img" aria-label="54% of licenses used, 46% unused"><i class="used" style="--w:54" title="54% of licenses used"></i><i class="idle" style="--w:46" title="46% of licenses unused"></i></div>
+<div class="split-key"><span><b>54%</b> used</span><span><b>46%</b> unused</span></div>
+</figure>
+<div class="facts reveal">
+<div><b>$19.8M</b><span>average yearly waste on unused and underused licenses</span></div>
+<div><b>79%</b><span>of IT leaders saw price increases at renewal in the past 12 months</span></div>
+<div><b>211</b><span>SaaS renewals managed each year by the average organization</span></div>
+<div><b>1 to 3 months</b><span>of notice is roughly what many auto-renewing licenses require</span></div>
+</div>
+<p class="note reveal">Sources: <a href="https://zylo.com/blog/saas-statistics">Zylo statistics from its 2026 index</a>, <a href="https://zylo.com/blog/shelfware">Zylo on shelfware</a> and <a href="https://www.theregister.com/2022/09/01/saas_price_rises/">The Register, 2022</a>. Zylo sells SaaS management, so read these as a vendor benchmark from its own dataset. Measured against recommended utilization, <a href="https://zylo.com/news/2026-saas-management-index">its release</a> puts unused licenses at 36%. These are market figures, not Overruled results.</p>
 </div></section>
 
 <section class="switch" id="switch"><div class="wrap">
@@ -291,13 +298,6 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.targ
 document.querySelectorAll('.reveal').forEach(e=>io.observe(e));
 const c=document.querySelector('[data-to]'),to=+c.dataset.to;
 if(!still){const s=performance.now(),f=t=>{const p=Math.min(1,(t-s)/1400);c.textContent='$'+Math.round(to*(1-(1-p)**3)).toLocaleString('en-US');if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)}
-const $n=i=>Math.max(0,+document.getElementById(i).value||0);
-const money=n=>'$'+Math.round(n).toLocaleString('en-US');
-const calc=()=>{const seats=Math.floor($n('c_seats')),active=Math.min(seats,Math.floor($n('c_active'))),price=$n('c_price'),up=1+$n('c_up')/100;
- const keep=Math.min(seats,Math.ceil(active*1.05)),full=Math.round(seats*price*up),cut=Math.round(keep*price*up);
- document.getElementById('c_save').textContent=money(full-cut);
- document.getElementById('c_detail').textContent=`Renewing ${seats} seats costs ${money(full)}. Renewing ${keep} costs ${money(cut)}.`};
-document.getElementById('calc').addEventListener('input',calc);document.getElementById('calc').addEventListener('submit',e=>e.preventDefault());calc();
 const player=document.getElementById('player');
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.setAttribute('aria-pressed',x===b));player.src=b.dataset.src;player.load()});
 </script>
