@@ -1,0 +1,11 @@
+name: Nimbusly Analytics renewal
+keywords: [nimbusly]
+renewal_date: "2027-01-31"
+vendor: Nimbusly Analytics
+requested_by: Revenue Operations
+seats: 120
+price_per_seat: 400
+uplift_percent: 12
+buffer_percent: 5
+uplift_quote: "the Annual Fee shall increase by twelve percent (12%) on each Renewal Term"
+notice_quote: "unless Customer gives written notice at least sixty (60) days before"

@@ -1,0 +1,11 @@
+name: Helpline support desk renewal
+keywords: [helpline]
+renewal_date: "2027-02-01"
+vendor: Helpline Software
+requested_by: Customer Support
+seats: 40
+price_per_seat: 300
+uplift_percent: 0
+buffer_percent: 5
+uplift_quote: "the Annual Fee stays the same on each Renewal Term"
+notice_quote: "unless Customer gives written notice at least thirty (30) days before"

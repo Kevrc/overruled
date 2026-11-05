@@ -1,0 +1,14 @@
+buffer_percent: 5
+keywords:
+- slidehive
+name: Slidehive renewal
+notice_days: 30
+notice_quote: This Agreement renews automatically unless Customer gives written notice
+  at least thirty (30) days before the end of the term
+price_per_seat: 250.0
+renewal_date: '2026-12-20'
+requested_by: Marketing
+seats: 40
+uplift_percent: 5.0
+uplift_quote: On each renewal the Annual Fee shall increase by five percent (5%).
+vendor: Slidehive Co

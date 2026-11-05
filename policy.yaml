@@ -1,0 +1,13 @@
+# Who may rule on an expense. A real company would copy its own delegation of authority here.
+approvals:
+  - up_to: 15000
+    approver: maya
+    title: Engineering Manager
+final_approver_title: CFO
+
+# Which model each juror uses. "ollama:<model>" runs on this machine, so that vote's prompt never leaves it.
+# If Ollama isn't running, the juror falls back to Claude and the verdict says so.
+jury:
+  jury-1: haiku
+  jury-2: ollama:qwen3:4b
+  jury-3: haiku

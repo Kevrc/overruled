@@ -1,0 +1,14 @@
+buffer_percent: 5
+keywords:
+- pipewave
+name: Pipewave CRM renewal
+notice_days: 45
+notice_quote: This Agreement renews automatically unless Customer gives written notice
+  at least forty-five (45) days before the end of the term
+price_per_seat: 600.0
+renewal_date: '2027-01-20'
+requested_by: Sales
+seats: 50
+uplift_percent: 8.0
+uplift_quote: On each renewal the Annual Fee shall increase by eight percent (8%).
+vendor: Pipewave Inc

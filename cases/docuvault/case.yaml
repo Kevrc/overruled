@@ -1,0 +1,14 @@
+buffer_percent: 5
+keywords:
+- docuvault
+name: Docuvault renewal
+notice_days: 30
+notice_quote: This Agreement renews automatically unless Customer gives written notice
+  at least thirty (30) days before the end of the term
+price_per_seat: 200.0
+renewal_date: '2027-01-10'
+requested_by: Legal
+seats: 30
+uplift_percent: 0
+uplift_quote: ''
+vendor: Docuvault Ltd

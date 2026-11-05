@@ -1,0 +1,14 @@
+buffer_percent: 5
+keywords:
+- formly
+name: Formly renewal
+notice_days: 30
+notice_quote: This Agreement renews automatically unless Customer gives written notice
+  at least thirty (30) days before the end of the term
+price_per_seat: 120.0
+renewal_date: '2026-11-20'
+requested_by: Operations
+seats: 60
+uplift_percent: 0
+uplift_quote: ''
+vendor: Formly Inc
