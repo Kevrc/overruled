@@ -6,7 +6,7 @@ Companies approve software renewals on one side of the story, then pay for idle 
 
 Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. All companies, contracts and figures are fictional.
 
-**[Project page](docs/index.html)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Trailer](docs/trailer.mp4)** · **[Replay a real trial in your browser](docs/replay/index.html)**, nothing to install.
+**[Watch the video](https://youtu.be/tFVlc39mc5g)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a real trial in your browser](docs/replay/index.html)**, nothing to install.
 
 The demo is one continuous take with Claude Code agents managed by Switch and a local juror, recorded in Mattermost. A script drives the two test accounts. The trailer is edited, with a camera moving across a capture of an earlier trial.
 
