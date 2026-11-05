@@ -227,7 +227,6 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **The sample date is fixed** at 2026-11-04 so results are reproducible.
 - **Approval limits trust chat usernames from the bridge.** Production needs them tied to the company directory.
 - **Slack was tested with one person**, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
-- **Bot pictures need a public URL in Slack**, so they only show in Mattermost for now.
 - **Vendor offers are unverified.** They come from the vendor and are labelled that way.
 - **A trial is held in memory.** If the process restarts mid-trial, open it again.
 - **Trial cost** is the API-equivalent estimate from Claude Code, and doesn't include managed agents.

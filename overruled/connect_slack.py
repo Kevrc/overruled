@@ -9,6 +9,7 @@ from dotenv import dotenv_values
 from overruled.client import API, STATE
 
 ROOT = STATE.parent
+ICONS = "https://raw.githubusercontent.com/Kevrc/overruled/main/assets/avatars"
 
 
 def ok(r: httpx.Response) -> dict:
@@ -27,6 +28,13 @@ def ask_token(what: str, prefix: str) -> str:
             print("Got it.")
             return token
         print(f"That isn't it. This token must start with {prefix}. Nothing was sent.")
+
+
+def set_icons(h: httpx.Client, data: dict) -> None:
+    """Slack shows agent pictures from public links, so these point at the published repo."""
+    for name, agent in data.items():
+        if name != "_meta":
+            ok(h.put(f"/gateway/agents/{agent['id']}/icon", json={"icon_url": f"{ICONS}/{name}.png"}))
 
 
 def main() -> None:
@@ -64,6 +72,7 @@ def finish(h: httpx.Client, bridge_id: str, me: str) -> None:
             agent["rooms"] = [court]
     data["_meta"] |= {"court_room": court, "cfo": name, "chat": "slack"}
     (STATE / "agents.json").write_text(json.dumps(data, indent=1))
+    set_icons(h, data)
     print(f"Done. Open the #overruled-court channel in Slack. You are {name}, and you own gavel.")
 
 
