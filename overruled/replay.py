@@ -9,12 +9,12 @@ from overruled.client import STATE
 
 MM = "http://localhost:8365/api/v4"
 PAGE = """<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Overruled replay</title>
-<style>:root{--bg:#0b1426;--c:#fff;--t:#16233d;--m:#6b7890}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 -apple-system,Segoe UI,Helvetica,Arial;color:var(--t)}
-header{position:sticky;top:0;z-index:2;display:flex;gap:12px;align-items:center;background:#0b1426f2;color:#fff;padding:12px 16px}header b{font-size:20px;color:#ff6b6e;letter-spacing:2px}header span{flex:1;color:#b9c6df;font-size:14px}
-button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 14px;background:#f5a524;color:#1a1200;cursor:pointer}main{max-width:860px;margin:0 auto;background:var(--c);min-height:100vh;padding:16px}
+<style>:root{--bg:#f5f6f8;--c:#fff;--t:#16233d;--m:#6b7890}*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.5 -apple-system,Segoe UI,Helvetica,Arial;color:var(--t)}
+header{position:sticky;top:0;z-index:2;display:flex;gap:12px;align-items:center;background:#17375e;color:#fff;padding:12px 16px}header b{font-size:20px;color:#fff;letter-spacing:2px}header span{flex:1;color:#c8d3e8;font-size:14px}
+button{font:inherit;font-weight:700;border:0;border-radius:8px;padding:8px 14px;background:#fff;color:#17375e;cursor:pointer}main{max-width:860px;margin:0 auto;background:var(--c);min-height:100vh;padding:16px}
 .m{display:flex;gap:12px;padding:10px 0;animation:in .3s}.m img{width:40px;height:40px;border-radius:50%}.m div{min-width:0;flex:1}.n{font-weight:700}.n small{color:var(--m);font-weight:400;margin-left:6px}
 table{border-collapse:collapse;margin:8px 0;display:block;overflow-x:auto}td,th{border:1px solid #d9dfe9;padding:5px 10px;text-align:left}code{background:#eef1f6;border-radius:4px;padding:1px 5px}blockquote{margin:6px 0;padding-left:10px;border-left:3px solid #d9dfe9}
-del{color:var(--m)}p{margin:4px 0}.hit{background:#fff4dc;border-radius:8px}@keyframes in{from{opacity:0;transform:translateY(10px)}}</style>
+del{color:var(--m)}p{margin:4px 0}.hit{background:#e6ecf5;border-radius:8px}@keyframes in{from{opacity:0;transform:translateY(10px)}}</style>
 <header><b>OVERRULED</b><span>A real trial, replayed. Fictional company data, real model output.</span><button id=b>Play</button></header><main id=f></main>
 <script>const D=__DATA__,f=document.getElementById('f'),b=document.getElementById('b');let i=0,t=null;
 function md(s){const e=x=>x.replace(/&/g,'&amp;').replace(/</g,'&lt;');const inl=x=>e(x).replace(/~~(.+?)~~/g,'<del>$1</del>').replace(/\\*\\*(.+?)\\*\\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\\*(.+?)\\*/g,'<i>$1</i>');
