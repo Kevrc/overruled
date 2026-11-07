@@ -173,7 +173,7 @@ class Court:
         csvs = [v for k, v in files.items() if k.lower().endswith(".csv")]
         texts = [(k, v) for k, v in files.items() if k.lower().endswith((".pdf", ".md", ".txt"))]
         if len(csvs) != 1 or len(texts) != 1:
-            await s.say(self.room, f"@{person} Attach one contract as .pdf, .md or .txt, plus one sign-in .csv with `user` and `last_login` columns.")
+            await s.say(self.room, f"@{person} Attach one contract as .pdf, .md or .txt, plus one sign-in .csv: an Okta Application Usage report, a Microsoft 365 Apps usage report, or a file with `user` and `last_login` columns.")
             return
         try:
             contract, signins = importer.contract_text(*texts[0]), csvs[0].decode("utf-8-sig")
@@ -183,7 +183,9 @@ class Court:
                 raise ValueError(f"a case named {slug} already exists")
             with tempfile.TemporaryDirectory() as d:
                 pathlib.Path(d, "contract.md").write_text(contract)
-                importer.build_case(bill, importer.read_signins(signins, bill["app"]), 0, pathlib.Path(d), law.CASES, live=True)
+                source, rows = importer.read_signins(signins, bill["app"])
+                signed_in_only = source.startswith("Okta")  # Okta lists only people who signed in, so the rest are idle seats, not missing data
+                importer.build_case(bill, rows, 0, pathlib.Path(d), law.CASES, live=True, signed_in_only=signed_in_only)
             (law.CASES / slug / ".intake").touch()
             f = law.compute_facts(slug)
         except (ValueError, KeyError, UnicodeDecodeError) as e:
@@ -192,6 +194,7 @@ class Court:
         case = law.load_case(slug)
         self.intakes[slug] = person
         q = lambda text: f'"{text}"' if text else "**none found, please check**"
+        note = f", which lists only people who signed in, so it must cover the last {law.ACTIVE_DAYS} days" if signed_in_only else ""
         await s.say(self.room, f"""🔎 **Scout.** Here is what I read from your files. Please check it, because a wrong clause means a wrong trial.
 
 | | |
@@ -201,6 +204,7 @@ class Court:
 | Price increase | {f['uplift_percent']:g}%, from {q(case['uplift_quote'])} |
 | Notice | {f['notice_days']} days, from {q(case['notice_quote'])} |
 | Renews | {f['renewal_date']} |
+| Sign-ins from | {source}{note} |
 
 If this is right, mention scout in a new message and add `confirm {case['keywords'][0]}`.""")
 

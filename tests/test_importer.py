@@ -150,6 +150,27 @@ def test_a_locked_or_broken_pdf_stops_the_intake():
             importer.contract_text("x.pdf", data)
 
 
+def test_okta_export_with_its_real_columns():
+    text = "Person,Login,Application username,Logins,Login Date,Login Date_ISO8601\nAna,ana@x.co,ana,3,\"Oct 1, 2026\",2026-10-01T15:04:05.000Z\n"
+    source, rows = importer.read_signins(text, "Acme")
+    assert source.startswith("Okta") and rows == [{"app": "Acme", "user": "ana@x.co", "last_login": "2026-10-01"}]
+
+
+M365 = "\ufeffReport Refresh Date,User Principal Name,Last Activation Date,Last Activity Date,Report Period\n"
+
+
+def test_microsoft_export_keeps_people_with_no_activity():
+    text = M365 + "2026-11-01,ana@x.co,2026-01-01,2026-10-20,90\n2026-11-01,leo@x.co,,,90\n"
+    source, rows = importer.read_signins(text, "Acme")
+    assert source.startswith("Microsoft") and [r["last_login"] for r in rows] == ["2026-10-20", ""]
+    assert not law.is_active("", law.TODAY) and law.is_active("2026-10-20", law.TODAY)
+
+
+def test_a_microsoft_report_shorter_than_the_active_window_stops():
+    with pytest.raises(ValueError, match="at least 90 days"):
+        importer.read_signins(M365 + "2026-11-01,ana@x.co,,2026-10-20,30\n", "Acme")
+
+
 def bill(**extra):
     return {"app": "Acme", "vendor": "Acme", "seats": "10", "price_per_seat": "100", "renewal_date": "2030-01-01", "contract_file": "c.md", "owner_team": "IT", **extra}
 
@@ -157,6 +178,13 @@ def bill(**extra):
 def live_case(tmp_path, signins, **kwargs):
     (tmp_path / "c.md").write_text("Customer must give written notice at least 30 days before renewal.")
     return importer.build_case(bill(), signins, 0, tmp_path, law.CASES, **kwargs)
+
+
+def test_okta_rows_can_be_fewer_than_half_the_seats(world, tmp_path):
+    rows = [{"app": "Acme", "user": "a", "last_login": law.TODAY.isoformat()}]
+    with pytest.raises(ValueError, match="cover only"):
+        live_case(tmp_path, rows)
+    assert law.compute_facts(live_case(tmp_path, rows, signed_in_only=True))["active_seats"] == 1
 
 
 def test_a_live_case_uses_the_real_date_and_a_sample_does_not(world, tmp_path):

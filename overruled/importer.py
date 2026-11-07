@@ -2,7 +2,7 @@
 
 Usage: python -m overruled.importer imports/sample
 
-The CSV columns are this project's own sample format, not a real NinjaOne, Okta or QuickBooks export.
+The folder import uses this project's own sample format. Chat intake also reads the real sign-in exports listed in EXPORTS.
 shortcut: reads files only, a live version would call each vendor's API with the same mapping.
 """
 import csv, datetime, io, pathlib, re, sys
@@ -23,6 +23,10 @@ MIN_SIGNIN_COVERAGE = 0.5
 RENEWAL_WINDOW_DAYS = 90
 MIN_SAVING = 1000
 MAX_PDF_PAGES = 300
+# name: (user column, date column), checked against each vendor's documentation.
+EXPORTS = {"Overruled": ("user", "last_login"),
+           "Okta Application Usage": ("Login", "Login Date_ISO8601"),
+           "Microsoft 365 Apps usage": ("User Principal Name", "Last Activity Date")}
 
 
 def read(folder: pathlib.Path, name: str) -> list[dict]:
@@ -80,7 +84,7 @@ def slugify(app: str) -> str:
 
 
 def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathlib.Path, target: pathlib.Path,
-               live: bool = False) -> str:
+               live: bool = False, signed_in_only: bool = False) -> str:
     """Writes one case folder and returns its slug. Raises ValueError rather than guess."""
     app = bill["app"].strip()
     seats, price = int(bill["seats"]), float(bill["price_per_seat"])
@@ -100,7 +104,7 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
     if active > seats:
         raise ValueError(f"{active} active users but only {seats} seats, check the export")
     # Seats missing from a partial export would read as idle and invent a saving.
-    if len(rows) < seats * MIN_SIGNIN_COVERAGE:
+    if not signed_in_only and len(rows) < seats * MIN_SIGNIN_COVERAGE:
         raise ValueError(f"sign-ins cover only {len(rows)} of {seats} seats")
 
     contract = contract_path.read_text()
@@ -187,11 +191,19 @@ def contract_text(filename: str, data: bytes) -> str:
     return re.sub(r"(?<![.:;!?\n])\n(?=\S)", " ", text)  # PDFs break lines mid-sentence, and clauses are read line by line
 
 
-def read_signins(text: str, app: str) -> list[dict]:
-    reader = csv.DictReader(io.StringIO(text))
-    if not {"user", "last_login"} <= set(reader.fieldnames or []):
-        raise ValueError("the sign-in file needs user and last_login columns")
-    return [{"app": app, "user": r["user"], "last_login": r["last_login"]} for r in reader]
+def read_signins(text: str, app: str) -> tuple[str, list[dict]]:
+    """The export's name and its rows. Dates may be blank, which means no recorded activity."""
+    reader = csv.DictReader(io.StringIO(text.lstrip("\ufeff")))
+    fields = set(reader.fieldnames or [])
+    source = next((name for name, columns in EXPORTS.items() if set(columns) <= fields), None)
+    if not source:
+        raise ValueError("the sign-in file needs user and last_login columns, or a real export: " + ", ".join(list(EXPORTS)[1:]))
+    user, date = EXPORTS[source]
+    rows = list(reader)
+    # A shorter report can't tell who was active in the whole window, so it could invent a saving.
+    if "Report Period" in fields and any(int(r["Report Period"] or 0) < law.ACTIVE_DAYS for r in rows):
+        raise ValueError(f"the report must cover at least {law.ACTIVE_DAYS} days")
+    return source, [{"app": app, "user": r[user], "last_login": r[date].strip()[:10]} for r in rows]
 
 
 def docket(result: dict, tried: set[str]) -> tuple[list[dict], list[dict]]:
