@@ -5,5 +5,6 @@ Source: https://www.toronto.ca/legdocs/mmis/2024/au/bgrd/backgroundfile-251260.p
 
 The City holds 800,000 ForgeRock Identity licences through KeyData Associates Inc.
 The 700,000 licences for December 11, 2023 to December 10, 2024 cost $648,312 in subscription and support.
+That is about $0.93 per licence for the year.
 Management advised that 15,331 licences were in use on September 25, 2024.
 The audit puts the unused cost, prorated to September 24, 2024, at $657,177.

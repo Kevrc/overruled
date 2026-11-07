@@ -56,6 +56,25 @@ Scout also skipped a renewal whose notice deadline had passed, reported that $4,
 
 The method, the bugs it exposed, and what these numbers don't prove are in [evals/RESULTS.md](evals/RESULTS.md).
 
+## A real public case
+
+In December 2024, Toronto's Auditor General reported that the city held 800,000 licences for its Public Digital Access system, and that management said 15,331 were in use. The audit put the unused cost at $657,177 up to that point.
+
+We took those published figures and put them on trial in Slack. Overruled wasn't used by the City, so this replays what a review could have raised at the audit date.
+
+| In Canadian dollars | |
+|---|---|
+| Licences held and in use | 800,000 and 15,331 |
+| Yearly cost at the audited price | $740,928 |
+| Cost with 16,098 licences, including a 5% buffer | $14,909 |
+| Calculated difference | $726,019 |
+| Jury | 3 votes for condition, 2 on Claude and 1 on a local model |
+| Invented figures struck from the defense | 2 |
+
+This isn't a saving Toronto could have claimed. The contract isn't public, the audit describes a three-year purchase, and we don't know its reduction or notice terms. These are also public access accounts, so a count of accounts in use isn't the same as 90 days of staff sign-ins. The defense made that point in the trial.
+
+The figures are in [`cases/toronto-pda`](cases/toronto-pda), taken from the [audit report](https://www.toronto.ca/legdocs/mmis/2024/au/bgrd/backgroundfile-251260.pdf). To replay it: `@judge put the Toronto renewal on trial`.
+
 ## A full company, simulated
 
 Harborline is a simulated company with a realistic mess: partial usage exports, mismatched bills, hidden increases, missed deadlines and overlapping tools. One command runs everything it has through Scout at once.
