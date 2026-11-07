@@ -149,16 +149,17 @@ Without Switch there's no sealed jury and no enforced ruling, only a long transc
 
 ### Rollout plan
 
-Only phase 1 exists today. The others are the planned path, and each vendor's API and licensing would need checking first.
+Phases 1 and 2 exist today. Phase 3 is the next step, and it needs a real company. Each vendor's API and licensing would need checking before phases 4 to 7.
 
-| Phase | Source | Purpose | Access |
+| Phase | Status | What happens | Access needed |
 |---|---|---|---|
-| 1 (built) | CSV exports and uploaded contracts | Prove value with no access granted | None |
-| 2 | Okta, Microsoft Entra or Google Workspace | Real usage per app | Read only |
-| 3 | QuickBooks, Xero or NetSuite | Bills and renewals | Read only |
-| 4 | Google Drive or SharePoint | Contracts | Read only, one folder |
-| 5 (Slack built) | Slack or Microsoft Teams | Where teams already approve | One channel |
-| 6 | NinjaOne or similar | Installed software, as a supporting signal | Read only |
+| 1. Files | Built | Upload a contract as PDF, Markdown or text, with an Okta or Microsoft 365 report | None |
+| 2. Team chat | Built for Slack and Mattermost | Run the court in one channel. Microsoft Teams isn't tested | One channel |
+| 3. Pilot | Next | Review three to five upcoming renewals with one finance owner, then compare rulings with what the team would have done | Exports only |
+| 4. Usage | Planned | Okta, Microsoft Entra or Google Workspace | Read only |
+| 5. Bills | Planned | QuickBooks, Xero or NetSuite | Read only |
+| 6. Contracts | Planned | Google Drive or SharePoint | Read only, one folder |
+| 7. Installed software | Planned | NinjaOne or similar, as a supporting signal | Read only |
 
 ## Run it
 
