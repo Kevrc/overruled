@@ -184,7 +184,7 @@ Other things to try:
 | `@judge put the Formly renewal on trial` | Refused: the notice deadline passed |
 | `@clerk offer We can give you 15% off for 2 years.` during a trial | The offer becomes evidence |
 | `@judge reopen the Pipewave renewal` | Opens a ruled case again when there's new evidence |
-| Attach a contract and a sign-in CSV, then `@scout intake app="Acme" renewal=2027-03-01` | Scout shows what it read and waits for `@scout confirm acme` |
+| Attach a contract (PDF, Markdown or text) and a sign-in CSV, then `@scout intake app="Acme" renewal=2027-03-01` | Scout shows what it read and waits for `@scout confirm acme` |
 
 To scan on a timer, start with `OVERRULED_SCAN_MINUTES=60`. Set `OVERRULED_EXPORTS` to use your own folder.
 
@@ -202,6 +202,8 @@ uv run python -m overruled.importer imports/sample
 | `contracts/` | Your contract folder | The price increase and notice clauses, kept as exact quotes |
 
 An app is skipped, with the reason, when its contract or sign-in data is missing or its numbers don't add up. Missing data is never treated as zero use. These CSV columns are this project's own sample format.
+
+For one renewal, a person can attach files in the chat instead, with no access to company systems. `@scout intake` reads contracts as PDF, Markdown or text. For sign-ins, it reads the file above, an [Okta Application Usage report](https://help.okta.com/oie/en-us/content/topics/reports/app-usage-report.htm) or a [Microsoft 365 Apps usage report](https://learn.microsoft.com/en-us/graph/api/reportroot-getm365appuserdetail?view=graph-rest-1.0) covering at least 90 days. Their columns come from the vendors' documentation, not from a real company's file.
 
 ## Tests
 
@@ -224,7 +226,9 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **PDFs aren't read yet.** Contracts must be text or Markdown.
 - **Contract reading can fail.** Clear contracts use pattern rules and unclear ones go to a model. Code checks every clause against the contract, and people must confirm what Scout read from a new one.
 - **The benchmark is fictional and was used to fix the system,** so it isn't proof of accuracy on real contracts.
-- **The sample date is fixed** at 2026-11-04 so results are reproducible.
+- **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
+- **Scanned PDFs can't be read.** They stop the intake with a reason. Page headers and footers stay in the text, so a clause split by one goes to a person.
+- **Okta exports list only people who signed in.** The report has to cover the last 90 days, and Scout asks the person to check that.
 - **Approval limits trust chat usernames from the bridge.** Production needs them tied to the company directory.
 - **Slack was tested with one person**, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
 - **Vendor offers are unverified.** They come from the vendor and are labelled that way.
