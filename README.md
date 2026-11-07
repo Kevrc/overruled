@@ -4,13 +4,13 @@
 
 Companies approve software renewals on one side of the story, then pay for idle seats, hidden price increases and missed deadlines. Overruled is an adversarial renewal review inside your team chat. Scout finds the renewals worth questioning. Bots argue both sides, a clerk with no AI strikes what can't be proven, jurors vote alone, and a person with the authority makes the call. Overruled never pays, cancels or sends anything.
 
-Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. The demo and tests run on simulated company data, and Overruled hasn't been used by a customer yet.
+Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. The demo and tests run on simulated company data, plus one case replayed from a public audit. Overruled hasn't been used by a customer yet.
 
-**[Watch the video](https://youtu.be/tFVlc39mc5g)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a real trial in your browser](docs/replay/index.html)**, nothing to install.
+**[Watch the video](https://youtu.be/tFVlc39mc5g)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a recorded trial in your browser](https://kevrc.github.io/overruled/replay/)**, nothing to install.
 
 The demo is one continuous take with Claude Code agents managed by Switch and a local juror, recorded in Mattermost. A script drives the two test accounts. The trailer is edited, with a camera moving across a capture of an earlier trial.
 
-Slack has been tested too. A person uploaded a contract and sign-ins in the channel, and a trial ran on that upload with the managed agents and the local juror. Rulings and notices in Slack were tested in an earlier run, without managed agents.
+Slack has been tested too. A person uploaded a contract and sign-ins in the channel, and a trial ran on that upload with the managed agents and the local juror. A later Slack run covered a full ruling, the seat list, notice confirmation, the finance summary, the decisions export, and PDF, Okta and Spanish contract intake, on simulated files.
 
 ![A verdict in Slack, and gavel refusing the person who asked for the expense](docs/slack-separation.png)
 
@@ -50,6 +50,8 @@ Scout also skipped a renewal whose notice deadline had passed, reported that $4,
 | Real defense speeches with an unsupported figure struck | 20 of 20 |
 | Real prosecution speeches struck | 1 of 20, a real misquote |
 
+| System test | Result |
+|---|---|
 | Simulated company: renewals with hidden traps | 26 of 26 |
 | Contracts in wording the rules hadn't seen | 7 of 8, up from 1 of 8 |
 | Planted instructions obeyed by the AI, in 10 runs | 0 |
@@ -58,14 +60,14 @@ The method, the bugs it exposed, and what these numbers don't prove are in [eval
 
 ## A real public case
 
-In December 2024, Toronto's Auditor General reported that the city held 800,000 licences for its Public Digital Access system, and that management said 15,331 were in use. The audit put the unused cost at $657,177 up to that point.
+In December 2024, Toronto's Auditor General reported that the city held 800,000 licences for its Public Digital Access system, and that management said 15,331 were in use. The audit put the unused cost at CA$657,177 up to that point.
 
 We took those published figures and put them on trial in Slack. Overruled wasn't used by the City, so this replays what a review could have raised at the audit date.
 
 | In Canadian dollars | |
 |---|---|
 | Licences held and in use | 800,000 and 15,331 |
-| Yearly cost at the audited price | $740,928 |
+| Estimated yearly cost at the audited price per licence | $740,928 |
 | Cost with 16,098 licences, including a 5% buffer | $14,909 |
 | Calculated difference | $726,019 |
 | Jury | 3 votes for condition, 2 on Claude and 1 on a local model |
@@ -94,7 +96,7 @@ Run it with `uv run python -m evals.company`. Harborline was built with planted 
 
 | Bot | Runs on | Job |
 |---|---|---|
-| `scout` | Code, no AI | Reads company exports, ranks renewals, reads contracts people bring, opens trials |
+| `scout` | Code, and Claude Haiku for unclear contracts | Reads company exports, ranks renewals, reads contracts people bring, opens trials |
 | `judge` | Code | Runs the trial, seats the jury, reveals the votes together |
 | `clerk` | Code, no AI | Calculates the money, cites sources, strikes what can't be proven |
 | `witness` | Claude Sonnet | States the evidence |
@@ -248,10 +250,10 @@ For one renewal, a person can attach files in the chat instead, with no access t
 
 ```bash
 uv run python -m evals.clerk_eval
-uv run pytest tests
+uv run pytest tests --ignore=tests/test_trial.py
 ```
 
-The trial tests need the court running offline, with a short testimony window: `OVERRULED_OFFLINE=1 OVERRULED_TESTIMONY_SECONDS=4 scripts/start.sh`.
+`tests/test_trial.py` runs a real trial through Mattermost. It needs a fresh install, before connecting Slack, and the court running offline: `OVERRULED_OFFLINE=1 OVERRULED_TESTIMONY_SECONDS=4 OVERRULED_MANAGED_SECONDS=2 scripts/start.sh`.
 
 To test the managed fallback, run `setup_managed`, start the court without its controller using `OVERRULED_OFFLINE=1 OVERRULED_TESTIMONY_SECONDS=2 OVERRULED_MANAGED_SECONDS=6 uv run python -m overruled.court`, then run `OVERRULED_SEAT_FALLBACK=1 uv run pytest tests/test_trial.py -k seat_holders`.
 
@@ -263,7 +265,7 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 
 - **It only recommends.** A calculated saving isn't guaranteed, it depends on the files and on the contract allowing fewer seats. Overruled isn't legal advice, so a person reviews every notice, and legal where it matters.
 - **It stops rather than guesses.** Scanned PDFs, other currencies and unclear clauses go to a person, with the reason.
-- **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
+- **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. The Toronto case uses its audit date, and a company's own files use the real date.
 
 **Needed before production**
 
