@@ -1,0 +1,21 @@
+# Real public contracts, labelled by hand from their text before the reader ran.
+# read: the terms the reader should return. uplift is a fixed increase, or the cap when the contract only caps it.
+# stop: a person has to read it, because the increase has no fixed figure or nothing renews automatically.
+fruita: {url: "https://www.fruita.org/DocumentCenter/View/242/Resolution-2023-25-PDF", who: "City of Fruita, CO: Springbrook", read: {notice: 60, uplift: 7}}
+klamath: {url: "https://www.klamathcounty.org/AgendaCenter/ViewFile/Item/31379?fileID=20687", who: "Klamath County, OR: Springbrook", read: {notice: 60, uplift: 1}}
+malibu: {url: "https://www.malibucity.org/AgendaCenter/ViewFile/Item/8183?fileID=89857", who: "City of Malibu, CA: Springbrook", read: {notice: 60, uplift: 5}}
+lacanada: {url: "https://lacanadaflintridge-ca.granicus.com/MetaViewer.php?view_id=4&clip_id=1640&meta_id=56220", who: "La Canada Flintridge, CA: CivicPlus", read: {notice: 60, uplift: 5}}
+englewood: {url: "https://englewoodgov.civicweb.net/document/59574/OpenGov%20Software%20Services%20Agreement%20Renewal.pdf?handle=E3286D649C4E4A41BF358EB5197C328B", who: "City of Englewood, CO: OpenGov", read: {notice: 30, uplift: 4}}
+lesueur: {url: "https://lesueurcounty.gov/DocumentCenter/View/3903/RecordEASE-Web-Online-Agreement", who: "Le Sueur County, MN: RecordEASE", stop: "the county can change pricing with no figure"}
+nicollet: {url: "https://www.nicolletcountymn.gov/DocumentCenter/View/1708/RecordEASE-Web-Subscription-Agreement", who: "Nicollet County, MN: RecordEASE", stop: "the county can change pricing with no figure"}
+linnmar: {url: "https://policy.linnmar.k12.ia.us/sites/policy.linnmar.k12.ia.us/files/exhibit_802.1_magma_math.pdf", who: "Linn-Mar schools, IA: Magma Math", stop: "renewal at then-current pricing"}
+aurora: {url: "https://cms9files.revize.com/aurora/2026-049%20Azteca%20Systems%20Trimble%20renewal%20of%20Cityworks%20asset%20management%20software.pdf?t=202603101416120&t=202603101416120", who: "City of Aurora, OH: Trimble", stop: "increase is the greater of CPI plus 2% or 8%"}
+buckeye: {url: "https://www.buckeyeschools.info/documents/Board%20Agendas/2023%20Board%20Agendas/NOVEMBER%202023/Exh-A_Buckeye-Local-School-District-01095524-oa.pdf", who: "Buckeye Local Schools, OH: SchoolMessenger", read: {notice: 30, uplift: 3}}
+coopercity: {url: "https://mccmeetingspublic.blob.core.usgovcloudapi.net/coopercity-meet-84ce1049647e4656bdc939ffb45e08ef/ITEM-Attachment-001-0d86d273c65342ddaf88e86a18139eef.pdf", who: "Cooper City, FL: Placer", stop: "renews only by mutual agreement"}
+# Blind set: labelled, then run once with no code changes in between.
+santafe: {blind: true, url: "https://www.santafecountynm.gov/documents/sunshine_contracts/2022-0072-AO_Amendment_5_Just_Appraised_Fully_Executed.pdf", who: "Santa Fe County, NM: Just Appraised", read: {notice: 60, uplift: 5}}
+carroll: {blind: true, url: "https://www.carrollcountyga.gov/AgendaCenter/ViewFile/Item/3770?fileID=9461", who: "Carroll County, GA: Nitorco", read: {notice: 90, uplift: 0}}
+walton: {blind: true, url: "https://mccmeetingspublic.blob.core.usgovcloudapi.net/waltonco-meet-91d092ee00844d4d9fe11c9f6fbafa59/ITEM-Attachment-001-fadd2f7eba474d2e95cd05d34c165d02.pdf", who: "Walton County: Nitorco", read: {notice: 90, uplift: 0}}
+brightarrow: {blind: true, url: "https://dx1slceezt1vd.cloudfront.net/attachments/69ef4157d3bb31b835bf0cba3537c1e31acbbd17/store/72e86b702a4c11b56cddcf4195162feaa7598625b2d2c45751ee9bb4acaa/Bright+Arrow+Agreement.pdf", who: "A school district: BrightArrow", stop: "the vendor can set a new price with no figure"}
+johnson: {blind: true, url: "https://johnsoncitytn.civicweb.net/document/339542/OpenGov,%20Inc._Cartegraph%20Work%20Order-Asset%20Manag.pdf?handle=2B43A950A393438A9EC3D14F115C38AD", who: "Johnson City, TN: OpenGov", stop: "the customer has to opt in to renew"}
+subject: {blind: true, url: "https://rps205.community.diligentoneplatform.com/document/6ec6e395-be4d-4daa-b2cb-eb3e8e04c15a/", who: "Rockford 205 schools, IL: Subject Technologies", stop: "renews at the school's option at the latest price list"}

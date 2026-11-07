@@ -25,6 +25,24 @@ Harborline is a fictional company, not a customer. Its 34 renewals in `imports/b
 - One first-pass failure was a mistake in the test data, not the system, and it was corrected.
 - Run them with `uv run python -m evals.benchmark`, `uv run python -m evals.benchmark benchmark-2` and `uv run python -m evals.injection_eval`. The second set and the planted instruction test use Claude.
 
+## Real public contracts
+
+These are real software contracts published by US cities, counties and school districts. The links and hand labels are in `evals/public_contracts.yaml`. A contract is scored correct when the notice period and price increase match, or when it's stopped for a person because the terms have no fixed answer.
+
+| Test | Result |
+|---|---|
+| 11 contracts, first run | 7 correct, 4 stopped for a person, 0 wrong |
+| The same 11 after fixes | 10 correct, 1 stopped for a person, 0 wrong |
+| 6 new contracts, blind | **5 correct, 1 wrong** |
+
+- The blind labels were fixed before the single run, and no code changed in between. The blind result wasn't tuned afterwards.
+- The first run exposed real problems: PDF text splits words and uses curly quotes, so exact quotes failed to match. The model also denied an auto-renewal that the contract stated, so code now checks that.
+- Three of my hand labels on the first 11 were wrong, and the reader was right: two contracts let the county change pricing, and one had a 3% increase I had missed. I corrected them after reading those clauses. The first-run score above uses the corrected labels.
+- The blind miss is Carroll County. The master agreement gives 90 days, and a county addendum requires written notice 30 days before the fiscal year ends. The label says 90, the reader said 30. Both clauses exist, so a person would have to decide, but it counts as wrong.
+- One contract was left out before the run because its terms had no clear single answer, and two others from the first search weren't used for the same reason.
+- 17 contracts is a small sample. Two share a template, and they're public-sector contracts, so they may not reflect private company terms.
+- Run it with `uv run python -m evals.public_contracts` or `--blind`. It needs Claude and internet. Results can vary between runs.
+
 ## How it was run
 
 - **Labelled claims:** `evals/claims.yaml`, 40 sentences about the Nimbusly case. Run with `uv run python -m evals.clerk_eval`.

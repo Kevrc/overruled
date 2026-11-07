@@ -81,6 +81,8 @@ Scout also skipped a renewal whose notice deadline had passed, reported that $4,
 |---|---|
 | Simulated company: renewals with hidden traps | 26 of 26 |
 | Contracts in wording the rules hadn't seen | 7 of 8, up from 1 of 8 |
+| **Real public contracts, blind test** | **5 of 6** |
+| Real public contracts used to fix the reader | 10 of 11, none wrong |
 | Planted instructions obeyed by the AI, in 10 runs | 0 |
 
 The method, the bugs it exposed, and what these numbers don't prove are in [evals/RESULTS.md](evals/RESULTS.md).
@@ -91,6 +93,7 @@ The method, the bugs it exposed, and what these numbers don't prove are in [eval
 |---|---|
 | Full trial in Slack with a managed Claude Code agent, Claude jurors and a local juror | ✅ Run live on simulated data |
 | Ruling, seat list, notice confirmation, finance summary and decisions export in Slack | ✅ Run live on simulated data |
+| 17 real public software contracts from US cities, counties and schools, read and compared with hand labels | ✅ Run with Claude, including a blind test |
 | PDF contract with an Okta-format file, and a Spanish contract read by Claude, uploaded in Slack | ✅ Run live on simulated files |
 | Full trial, approval limits and requester separation in Mattermost | ✅ Automated on every push from a clean install, with scripted speeches |
 | An agent trying to reach `gavel` | ✅ Refused by Switch in the end-to-end test |
@@ -325,7 +328,7 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 
 - **The clerk checks figures and quotes.** A false claim with neither can reach the jury, and a person still rules.
 - **Contract reading can fail.** Code checks every clause against the contract, and people confirm what Scout read. Page headers and footers stay in PDF text, so a clause split by one goes to a person.
-- **The benchmark is simulated and was used to fix the system,** so it isn't proof of accuracy on real contracts.
+- **The simulated benchmark was used to fix the system,** so it isn't proof of accuracy. The blind test on 6 real public contracts is small too: 5 were right, and one took a 30-day county clause over the 90-day renewal clause. Scout shows the quote so a person can catch that.
 - **Spanish contracts are read, but the court speaks English.** A plain `$` in a Spanish contract could mean pesos, so the person who confirms has to check it.
 - **Okta exports list only people who signed in.** The report has to cover the last 90 days, and Scout asks the person to check that.
 - **Vendor offers are unverified.** They come from the vendor and are labelled that way.
