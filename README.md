@@ -1,6 +1,6 @@
 # Overruled
 
-[![tests](https://github.com/Kevrc/overruled/actions/workflows/tests.yml/badge.svg)](https://github.com/Kevrc/overruled/actions/workflows/tests.yml)
+[![tests](https://github.com/Kevrc/overruled/actions/workflows/tests.yml/badge.svg)](https://github.com/Kevrc/overruled/actions/workflows/tests.yml) [![clean install](https://github.com/Kevrc/overruled/actions/workflows/e2e.yml/badge.svg)](https://github.com/Kevrc/overruled/actions/workflows/e2e.yml)
 
 **Every expense stands trial.**
 
@@ -23,7 +23,7 @@ The video is edited. Its first part moves a camera across a capture of an earlie
 | **Watch** | [The 1:52 video](https://youtu.be/qtupVpPbqAE), or the [uncut demo](docs/demo-uncut.mp4) |
 | **See a trial, nothing to install** | [Replay a recorded trial](https://kevrc.github.io/overruled/replay/) in your browser |
 | **Run it, no API key** | Needs Docker and uv: `git clone https://github.com/Kevrc/overruled && cd overruled && scripts/install.sh && OVERRULED_OFFLINE=1 scripts/start.sh`. Then open http://localhost:8365, use the `alex` account from `.state/access.txt`, and send `@scout scan` in `courtroom` |
-| **Check the numbers** | `uv run pytest tests --ignore=tests/test_trial.py` and `uv run python -m evals.company`. The same checks run on every push |
+| **Check the numbers** | `uv run pytest tests --ignore=tests/test_trial.py` and `uv run python -m evals.company`. Every push runs these, then installs Switch and Mattermost from scratch on a clean machine and runs full trials |
 | **See how Switch is used** | [Why this needs Switch](#why-this-needs-switch) and [What we found in Switch](#what-we-found-in-switch-031) |
 | **See what's proven** | [What has been run](#what-has-been-run) and [What it doesn't do yet](#what-it-doesnt-do-yet) |
 
@@ -92,7 +92,7 @@ The method, the bugs it exposed, and what these numbers don't prove are in [eval
 | Full trial in Slack with a managed Claude Code agent, Claude jurors and a local juror | ✅ Run live on simulated data |
 | Ruling, seat list, notice confirmation, finance summary and decisions export in Slack | ✅ Run live on simulated data |
 | PDF contract with an Okta-format file, and a Spanish contract read by Claude, uploaded in Slack | ✅ Run live on simulated files |
-| Full trial, approval limits and requester separation in Mattermost | ✅ Automated end-to-end test, with scripted speeches |
+| Full trial, approval limits and requester separation in Mattermost | ✅ Automated on every push from a clean install, with scripted speeches |
 | An agent trying to reach `gavel` | ✅ Refused by Switch in the end-to-end test |
 | Defense seat failover and managed agent fallback | ✅ Optional end-to-end tests, last run before the final features |
 
