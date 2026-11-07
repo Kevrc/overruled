@@ -4,7 +4,7 @@
 
 Companies approve software renewals on one side of the story, then pay for idle seats, hidden price increases and missed deadlines. Overruled is an adversarial renewal review inside your team chat. Scout finds the renewals worth questioning. Bots argue both sides, a clerk with no AI strikes what can't be proven, jurors vote alone, and a person with the authority makes the call. Overruled never pays, cancels or sends anything.
 
-Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. All companies, contracts and figures are fictional.
+Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. The demo and tests run on simulated company data, and Overruled hasn't been used by a customer yet.
 
 **[Watch the video](https://youtu.be/tFVlc39mc5g)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a real trial in your browser](docs/replay/index.html)**, nothing to install.
 
@@ -50,11 +50,26 @@ Scout also skipped a renewal whose notice deadline had passed, reported that $4,
 | Real defense speeches with an unsupported figure struck | 20 of 20 |
 | Real prosecution speeches struck | 1 of 20, a real misquote |
 
-| Fictional benchmark: renewals with hidden traps | 26 of 26 |
+| Simulated company: renewals with hidden traps | 26 of 26 |
 | Contracts in wording the rules hadn't seen | 7 of 8, up from 1 of 8 |
 | Planted instructions obeyed by the AI, in 10 runs | 0 |
 
 The method, the bugs it exposed, and what these numbers don't prove are in [evals/RESULTS.md](evals/RESULTS.md).
+
+## A full company, simulated
+
+Harborline is a simulated company with a realistic mess: partial usage exports, mismatched bills, hidden increases, missed deadlines and overlapping tools. One command runs everything it has through Scout at once.
+
+| | |
+|---|---|
+| Renewals reviewed | 26 |
+| Sign-in records and installed apps read | 1,411 and 780 |
+| Sent to trial | 15, worth $292,500 as written |
+| Calculated saving found | $169,132 |
+| Stopped for a person, with the reason | 9 |
+| Overlapping tools flagged | 1 pair |
+
+Run it with `uv run python -m evals.company`. Harborline was built with planted traps, so its saving isn't a forecast for a real company.
 
 ## Who does what
 
@@ -229,7 +244,7 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **The clerk checks figures and quotes.** A false claim with neither can reach the jury, and a person still rules.
 - **PDFs aren't read yet.** Contracts must be text or Markdown.
 - **Contract reading can fail.** Clear contracts use pattern rules and unclear ones go to a model. Code checks every clause against the contract, and people must confirm what Scout read from a new one.
-- **The benchmark is fictional and was used to fix the system,** so it isn't proof of accuracy on real contracts.
+- **The benchmark is simulated and was used to fix the system,** so it isn't proof of accuracy on real contracts.
 - **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
 - **The seat list is visible to everyone in the court room,** because it's posted there as a file. Production should send it to the tool owner privately. Reminders only run while the court is running.
 - **Contracts can be in Spanish, but the court speaks English.** Spanish contracts go to the model, and code checks each quote word for word. Trials and notices stay in English.
