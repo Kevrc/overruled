@@ -52,7 +52,7 @@ class Trial:
 
 
 def money(n: float) -> str:
-    return f"${n:,.0f}"
+    return f"${n:,.2f}" if 0 < n < 10 else f"${n:,.0f}"  # some licences cost under a dollar
 
 
 def facts_text(f: dict) -> str:
@@ -167,6 +167,7 @@ class Court:
 
     async def report(self) -> None:
         slugs = [path.name for path in law.CASES.iterdir() if (path / "case.yaml").exists()]
+        slugs = [slug for slug in slugs if not law.load_case(slug).get("as_of")]  # a replayed case isn't a renewal coming up
         text = notice.report({slug: law.compute_facts(slug) for slug in slugs}, audit.read(), self.followups())
         await self.bot("scout").say(self.room, text)
 

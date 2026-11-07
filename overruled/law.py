@@ -47,6 +47,8 @@ def csv_safe(value) -> str:
 
 
 def case_today(case: dict) -> datetime.date:
+    if case.get("as_of"):  # a past case, replayed at the date of its evidence
+        return datetime.date.fromisoformat(str(case["as_of"]))
     return datetime.date.today() if case.get("live") else TODAY
 
 

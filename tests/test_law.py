@@ -160,3 +160,13 @@ def test_simulated_company_totals_match_the_readme():
     r = company.run()
     assert (r["renewals"], r["trials"], r["held"]) == (26, 15, 9)
     assert r["saving"] > 0 and r["saving"] <= r["spend"]
+
+
+def test_the_public_audit_case_uses_the_audited_figures_at_the_audit_date():
+    f = law.compute_facts("toronto-pda")
+    assert (f["seats"], f["active_seats"], f["recommended_seats"]) == (800000, 15331, 16098)
+    assert f["renewal_as_written"] == 740928 and f["calculated_saving"] == 726019 and f["notice_open"]
+    assert f["days_to_notice"] == 76
+    docs = law.evidence("toronto-pda")["contract.md"]
+    for figure in ("800,000", "15,331", "$648,312", "$657,177"):
+        assert figure in docs

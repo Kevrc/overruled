@@ -1,0 +1,15 @@
+as_of: '2024-09-25'
+buffer_percent: 5
+keywords:
+- toronto
+live: false
+name: Toronto Public Digital Access renewal
+notice_days: 0
+notice_quote: ''
+price_per_seat: 0.92616
+renewal_date: '2024-12-10'
+requested_by: the Public Digital Access project
+seats: 800000
+uplift_percent: 0
+uplift_quote: ''
+vendor: KeyData Associates Inc.
