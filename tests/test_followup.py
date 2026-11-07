@@ -82,7 +82,7 @@ def test_reminders_stop_once_a_person_confirms_and_the_ledger_records_it(setup):
     rule(c, "condition")
     keyword = law.load_case("pipewave-crm")["keywords"][0]
     followups = c.followups()
-    followups["pipewave-crm"]["reminded"] = []
+    followups["pipewave-crm"] |= {"reminded": [], "deadline": "2026-11-10"}  # six days away, so one reminder is due
     c.save_followups(followups)
     before = len(chat.said)
     asyncio.run(c.check_followups())
