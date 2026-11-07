@@ -4,7 +4,7 @@ Most software renewals get approved after one person reads the contract, and tha
 
 I built **Overruled** for the Flip the Switch hackathon to fix that. It's a court for company spending that runs in a team chat. This post covers what it does, how I set it up on Switch and what I learned. If you've never used Switch, you can follow along.
 
-- Video: https://youtu.be/i37fq9vWgxA
+- Video: https://youtu.be/qtupVpPbqAE
 - Code: https://github.com/Kevrc/overruled
 - Replay a recorded trial, nothing to install: https://kevrc.github.io/overruled/replay/
 
