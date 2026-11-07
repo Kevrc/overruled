@@ -6,7 +6,7 @@ The CSV columns are this project's own sample format, not a real NinjaOne, Okta 
 shortcut: reads files only, a live version would call each vendor's API with the same mapping.
 """
 import csv, datetime, io, pathlib, re, sys
-import yaml
+import pypdf, pypdf.errors, yaml
 
 from overruled import law, reader
 
@@ -22,6 +22,7 @@ SEATS = re.compile(r"(\d[\d,]*)\s+(?:[\w-]+\s+){0,3}seats?\s+at\s+\$(\d[\d,]*(?:
 MIN_SIGNIN_COVERAGE = 0.5
 RENEWAL_WINDOW_DAYS = 90
 MIN_SAVING = 1000
+MAX_PDF_PAGES = 300
 
 
 def read(folder: pathlib.Path, name: str) -> list[dict]:
@@ -166,6 +167,24 @@ def parse_intake(message: str, contract: str) -> dict:
         raise ValueError(f"I still need {', '.join(missing)}")
     return {"app": args["app"], "vendor": args.get("vendor", args["app"]), "seats": seats, "price_per_seat": price,
             "renewal_date": args["renewal"], "contract_file": "contract.md", "owner_team": args.get("team", "the requester")}
+
+
+def contract_text(filename: str, data: bytes) -> str:
+    """The text of an uploaded contract. Raises rather than pass on a contract nobody can check."""
+    if not filename.lower().endswith(".pdf"):
+        return data.decode("utf-8-sig")
+    try:
+        pages = pypdf.PdfReader(io.BytesIO(data)).pages
+        if len(pages) > MAX_PDF_PAGES:
+            raise ValueError(f"the PDF has over {MAX_PDF_PAGES} pages")
+        text = "\n".join(page.extract_text() or "" for page in pages)
+    except pypdf.errors.PyPdfError as e:
+        raise ValueError("the PDF can't be opened, it may be damaged or locked") from e
+    text = "\n".join(line.rstrip() for line in text.splitlines())
+    if not text.strip():
+        raise ValueError("the PDF has no readable text, it may be a scan, so a person must read it")
+    # shortcut: page headers and footers stay in the text, clauses split by one won't be found and go to a person.
+    return re.sub(r"(?<![.:;!?\n])\n(?=\S)", " ", text)  # PDFs break lines mid-sentence, and clauses are read line by line
 
 
 def read_signins(text: str, app: str) -> list[dict]:

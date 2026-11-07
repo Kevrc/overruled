@@ -171,12 +171,12 @@ class Court:
             r.raise_for_status()
             files[a["filename"]] = r.content
         csvs = [v for k, v in files.items() if k.lower().endswith(".csv")]
-        texts = [v for k, v in files.items() if k.lower().endswith((".md", ".txt"))]
+        texts = [(k, v) for k, v in files.items() if k.lower().endswith((".pdf", ".md", ".txt"))]
         if len(csvs) != 1 or len(texts) != 1:
-            await s.say(self.room, f"@{person} Attach one contract as .md or .txt, plus one sign-in .csv with `user` and `last_login` columns. PDFs aren't read yet.")
+            await s.say(self.room, f"@{person} Attach one contract as .pdf, .md or .txt, plus one sign-in .csv with `user` and `last_login` columns.")
             return
         try:
-            contract, signins = texts[0].decode(), csvs[0].decode()
+            contract, signins = importer.contract_text(*texts[0]), csvs[0].decode("utf-8-sig")
             bill = importer.parse_intake(p["body"], contract)
             slug = importer.slugify(bill["app"])
             if (law.CASES / slug).exists() and not (law.CASES / slug / ".intake").exists():

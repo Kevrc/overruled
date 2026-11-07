@@ -1,9 +1,10 @@
-import datetime, pathlib, shutil
-import pytest
+import datetime, io, pathlib, shutil
+import pypdf, pytest
 
 from overruled import importer, law
 
 SAMPLE = pathlib.Path(__file__).parent.parent / "imports" / "sample"
+FIXTURES = pathlib.Path(__file__).parent / "fixtures"
 
 
 @pytest.fixture
@@ -120,6 +121,33 @@ def test_intake_reads_seats_and_price_from_the_contract():
 def test_intake_asks_for_what_is_missing():
     with pytest.raises(ValueError, match="renewal, seats, price"):
         importer.parse_intake("@scout intake app=Acme", "No terms here.")
+
+
+def test_a_wrapped_pdf_reads_like_the_text_contract():
+    text = importer.contract_text("contract.PDF", (FIXTURES / "contract.pdf").read_bytes())
+    assert importer.read_uplift(text)[0] == 8
+    assert importer.read_notice(text)[0] == 45
+    assert importer.contract_terms(text) == (50, 600)
+
+
+def test_a_pdf_without_text_stops_the_intake():
+    w = pypdf.PdfWriter()
+    w.add_blank_page(200, 200)
+    out = io.BytesIO()
+    w.write(out)
+    with pytest.raises(ValueError, match="scan"):
+        importer.contract_text("scan.pdf", out.getvalue())
+
+
+def test_a_locked_or_broken_pdf_stops_the_intake():
+    w = pypdf.PdfWriter()
+    w.add_blank_page(200, 200)
+    w.encrypt("secret")
+    out = io.BytesIO()
+    w.write(out)
+    for data in (out.getvalue(), b"not a pdf"):
+        with pytest.raises(ValueError, match="can't be opened"):
+            importer.contract_text("x.pdf", data)
 
 
 def bill(**extra):
