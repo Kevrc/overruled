@@ -1,7 +1,7 @@
 import datetime, io, pathlib, shutil
 import pypdf, pytest
 
-from overruled import importer, law
+from overruled import importer, law, reader
 
 SAMPLE = pathlib.Path(__file__).parent.parent / "imports" / "sample"
 FIXTURES = pathlib.Path(__file__).parent / "fixtures"
@@ -209,3 +209,28 @@ def test_harborline_benchmark():
     from evals.benchmark import score
     bad = [r for r in score() if r["problems"]]
     assert not bad, bad
+
+
+def test_spanish_contract_terms():
+    assert importer.contract_terms("El Cliente adquiere 50 licencias a $600 por licencia por año.") == (50, 600)
+    assert importer.contract_terms("Incluye 1.200 usuarios nombrados a USD $12,50 por usuario al mes.") == (1200, 150)
+    assert importer.contract_terms("El servicio incluye 25 usuarios a $1.200 anuales.") == (25, 1200)
+
+
+def test_a_spanish_clause_is_checked_like_any_other():
+    contract = "Se renueva salvo aviso con treinta días de anticipación. El precio sube 8 por ciento al renovar."
+    data = {"auto_renews": True, "can_reduce_seats": True, "uplift_percent": 8, "uplift_stated": True, "uplift_quote": "sube 8 por ciento al renovar",
+            "notice_days": 30, "notice_quote": "aviso con treinta días de anticipación"}
+    assert reader.verify(contract, data)[0::2] == (8, 30)
+    with pytest.raises(ValueError):
+        reader.verify(contract, {**data, "notice_days": 60})
+    with pytest.raises(ValueError):
+        reader.verify(contract, {**data, "notice_quote": "aviso con sesenta días"})
+
+
+@pytest.mark.parametrize("text", ["Customer pays €500 per seat.", "Precio: 900 MXN anuales.", "El precio es de 500 euros.", "2,000 pesos por licencia"])
+def test_other_currencies_stop_the_import(tmp_path, world, text):
+    (tmp_path / "c.md").write_text(text)
+    rows = [{"app": "Acme", "user": str(i), "last_login": law.TODAY.isoformat()} for i in range(6)]
+    with pytest.raises(ValueError, match="US dollars"):
+        importer.build_case(bill(), rows, 0, tmp_path, law.CASES)

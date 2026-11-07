@@ -19,6 +19,9 @@ INDEXED = re.compile(r"\b(cpi|index|inflation)\b", re.I)
 SYSTEM_PUBLISHERS = {"microsoft", "apple"}
 BUFFER_PERCENT = 5
 SEATS = re.compile(r"(\d[\d,]*)\s+(?:[\w-]+\s+){0,3}seats?\s+at\s+\$(\d[\d,]*(?:\.\d+)?)(\s+per\s+seat\s+per\s+month)?", re.I)
+SEATS_ES = re.compile(r"(\d[\d.,]*)\s+(?:[\w-]+\s+){0,3}(?:licencias?|usuarios?|puestos?)(?:\s+[\w-]+){0,2}\s+a\s+(?:USD\s?|US)?\$\s?(\d[\d.,]*)((?:\s+\w+){1,4}\s+(?:al|por)\s+mes|\s+mensual\w*)?", re.I)
+# shortcut: only US dollars, because every total and notice is in dollars. A plain $ can still mean pesos, so a person confirms the price.
+FOREIGN = re.compile(r"[€£]\s?\d|\d\s?(?:[€£]|(?:EUR|GBP|MXN|COP|PEN|CLP|ARS|BRL)\b)|\b(?:euros?|pesos|soles|reales)\b", re.I)
 MIN_SIGNIN_COVERAGE = 0.5
 RENEWAL_WINDOW_DAYS = 90
 MIN_SAVING = 1000
@@ -38,8 +41,20 @@ def read(folder: pathlib.Path, name: str) -> list[dict]:
         return list(reader)
 
 
+def spanish_number(text: str) -> float:
+    """1.200,50 in Spanish is 1200.5, while the English pattern would read 1.2."""
+    text = text.rstrip(".,")
+    if re.fullmatch(r"\d{1,3}(\.\d{3})+(,\d+)?|\d+,\d{1,2}", text):
+        return float(text.replace(".", "").replace(",", "."))
+    return float(text.replace(",", ""))
+
+
 def contract_terms(contract: str) -> tuple[int, float] | None:
     """Seats and yearly price per seat, when the contract states them."""
+    es = SEATS_ES.search(contract)
+    if es:
+        price = spanish_number(es.group(2))
+        return int(spanish_number(es.group(1))), price * 12 if es.group(3) else price
     m = SEATS.search(contract)
     if not m:
         return None
@@ -108,6 +123,8 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
         raise ValueError(f"sign-ins cover only {len(rows)} of {seats} seats")
 
     contract = contract_path.read_text()
+    if FOREIGN.search(contract):
+        raise ValueError("the contract isn't priced in US dollars, and Overruled only calculates in dollars, so a person must read it")
     terms = contract_terms(contract)
     if terms and terms != (seats, price):
         raise ValueError(f"the contract says {terms[0]} seats at ${terms[1]:g} a year, but the bill says {seats} at ${price:g}")
