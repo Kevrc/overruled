@@ -43,6 +43,37 @@ def release_list(slug: str, facts: dict, today: datetime.date) -> tuple[bytes, i
     return out.getvalue().encode(), len(names), release - len(names)
 
 
+def report(cases: dict[str, dict], ledger: list[dict], followups: dict) -> str:
+    """A summary for finance. `cases` maps each slug to its facts. Code only: every figure comes from the files and the ledger."""
+    money = lambda n: f"${n:,.0f}"
+    ruled, sent = {}, set()
+    for e in ledger:  # in order, so a later ruling replaces an earlier one and needs its own notice
+        if e.get("event") == "notice_sent":
+            sent.add(e["case"])
+        elif "ruling" in e:
+            ruled[e["case"]] = e
+            sent.discard(e["case"])
+    waiting = {s: f for s, f in cases.items() if s not in ruled}
+    upcoming = [f for f in waiting.values() if f["notice_open"] and f["days_to_notice"] <= 90]
+    missed = [f for f in waiting.values() if not f["notice_open"]]
+    saved = sum(e["saved"] for e in ruled.values())
+    confirmed = sum(e["saved"] for s, e in ruled.items() if s in sent)
+    return f"""📊 **Scout.** Renewal summary.
+
+| | |
+|---|---|
+| Renewals with notice due in 90 days | {len(upcoming)} |
+| Their cost as written | {money(sum(f['renewal_as_written'] for f in upcoming))} |
+| Calculated saving still available | {money(sum(f['calculated_saving'] for f in upcoming))} |
+| Notice dates missed with no ruling | {len(missed)}, {money(sum(f['missed_saving'] for f in missed))} lost this term |
+| Decisions made | {len(ruled)} |
+| Saving decided | {money(saved)} |
+| Saving with the notice confirmed | {money(confirmed)} |
+| Notices waiting for confirmation | {len(followups)} |
+
+Savings are calculated, not guaranteed. A saving is only real once the vendor accepts the notice."""
+
+
 def passed_reminders(deadline: str, today: datetime.date) -> list[int]:
     days = (datetime.date.fromisoformat(deadline) - today).days
     return [m for m in REMINDERS if days <= m]

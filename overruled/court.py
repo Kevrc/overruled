@@ -160,8 +160,15 @@ class Court:
             await self.guarded(self.intake(p))
         elif "confirm" in body:
             await self.guarded(self.confirm(p))
+        elif "report" in body:
+            await self.guarded(self.report())
         elif "scan" in body:
             await self.guarded(self.scan())
+
+    async def report(self) -> None:
+        slugs = [path.name for path in law.CASES.iterdir() if (path / "case.yaml").exists()]
+        text = notice.report({slug: law.compute_facts(slug) for slug in slugs}, audit.read(), self.followups())
+        await self.bot("scout").say(self.room, text)
 
     async def intake(self, p: dict) -> None:
         """A person brings their own contract and sign-ins. Nothing goes to trial until a person checks what was read."""

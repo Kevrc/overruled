@@ -120,3 +120,28 @@ def test_a_new_ruling_replaces_the_follow_up(setup, tmp_path):
     t = types.SimpleNamespace(slug="pipewave-crm", name="x", facts=f, requester="alex", verdict="approve", votes=[], models=[], docs={}, record=[], strikes=0, cost=0, transcript=[])
     asyncio.run(c.rule(t, "approve", "cfo"))
     assert not c.followups()
+
+
+def facts(**extra):
+    return {"notice_open": True, "days_to_notice": 30, "renewal_as_written": 1000, "calculated_saving": 400, "missed_saving": 0, **extra}
+
+
+def test_report_counts_only_what_is_still_open_and_real():
+    cases = {"a": facts(), "b": facts(days_to_notice=200), "c": facts(notice_open=False, missed_saving=300), "d": facts(), "e": facts()}
+    ledger = [{"case": "d", "ruling": "condition", "saved": 500}, {"case": "d", "event": "notice_sent"}, {"case": "e", "ruling": "reject", "saved": 700}]
+    text = notice.report(cases, ledger, {"e": {}})
+    assert "90 days | 1 |" in text and "as written | $1,000 |" in text and "available | $400 |" in text
+    assert "1, $300 lost" in text and "decided | $1,200 |" in text and "confirmed | $500 |" in text and "confirmation | 1 |" in text
+
+
+def test_a_new_ruling_needs_its_own_confirmed_notice():
+    ledger = [{"case": "d", "ruling": "condition", "saved": 500}, {"case": "d", "event": "notice_sent"}, {"case": "d", "ruling": "reject", "saved": 900}]
+    text = notice.report({"d": facts()}, ledger, {})
+    assert "decided | $900 |" in text and "confirmed | $0 |" in text and "Decisions made | 1 |" in text
+
+
+def test_scout_answers_report(setup, tmp_path, monkeypatch):
+    c, chat = setup
+    c.agents = {"gavel": chat}
+    asyncio.run(c.scout("room", {"sender_name": "cfo", "body": "@scout report"}))
+    assert "Renewal summary" in chat.said[-1]
