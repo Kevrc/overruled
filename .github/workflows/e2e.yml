@@ -33,6 +33,7 @@ jobs:
           OVERRULED_DOWN=defender OVERRULED_OFFLINE=1 OVERRULED_TESTIMONY_SECONDS=4 nohup scripts/start.sh > court.log 2>&1 &
           for i in $(seq 1 60); do grep -q 'jury-3 connected' court.log && break; sleep 2; done
           grep -q 'jury-3 connected' court.log
+          sleep 15  # counsel checks the free seat a few seconds after starting
       - run: uv run pytest tests/test_trial.py -q -k counsel
         env:
           OVERRULED_FAILOVER: "1"
