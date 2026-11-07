@@ -1,5 +1,5 @@
 """The courtroom. Each bot is its own Switch agent, and every hand-off travels through the room."""
-import asyncio, dataclasses, json, logging, os, pathlib, re, tempfile, time
+import asyncio, dataclasses, datetime, json, logging, os, pathlib, re, tempfile, time
 import httpx, yaml
 
 from overruled import audit, importer, law, notice
@@ -88,6 +88,7 @@ class Court:
         self.closed: dict | None = None
         self.saved_file = STATE / "saved.txt"
         self.tried_file = STATE / "tried.txt"
+        self.followups_file = STATE / "followups.json"
         self.queue: list[dict] = []
         self.managed = json.loads(MANAGED_FILE.read_text()) if MANAGED_FILE.exists() else {}
         self.intakes: dict[str, str] = {}
@@ -474,7 +475,10 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
         await self.log_ruling(line, total)
         with self.tried_file.open("a") as tried:
             tried.write(t.slug + "\n")
-        self.closed = {"trial": t, "ruling": ruling}
+        self.closed = {"trial": t, "ruling": ruling, "person": person}
+        followups = self.followups()
+        if followups.pop(t.slug, None):  # a reopened case replaces its earlier ruling
+            self.save_followups(followups)
         self.trial = None
         await self.bot("gavel").say(self.room, f"🔨 **{RULINGS[ruling]}.** {money(saved)} saved. This court has saved {money(total)} so far. Recorded in `rulings`.")
         if ruling == "approve":
@@ -483,9 +487,12 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
             await self.bot("gavel").say(self.room, f"@paralegal prepare the notice for {t.slug}.")
 
     async def paralegal(self, room: str, p: dict) -> None:
-        if room != self.room or p["sender_name"] != "gavel" or not self.closed:
+        if room != self.room:
             return
-        await self.guarded(self.prepare_notice())
+        if p["sender_name"] == "gavel" and self.closed:
+            await self.guarded(self.prepare_notice())
+        elif p["sender_name"] not in self.agents and re.search(r"\bsent\b", p["body"], re.I):
+            await self.confirm_sent(p)
 
     async def prepare_notice(self) -> None:
         c, self.closed = self.closed, None
@@ -506,6 +513,12 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
             # shortcut: the file is visible to everyone in the court room, send it to the tool owner privately in production
             await self.attach(f"seats-to-release-{t.slug}.csv", data, "text/csv",
                               f"🧾 {named} idle seats to release before the renewal.{rest} Nothing was removed, so a person must check this list first.")
+        days = (datetime.date.fromisoformat(t.facts["notice_deadline"]) - law.case_today(case)).days
+        await b.say(self.room, f"📌 **Paralegal.** I'll follow this up until someone confirms it. Once it's sent, mention paralegal and add `sent {case['keywords'][0]}`. Days left: {days}.")
+        followups = self.followups()
+        followups[t.slug] = {"name": t.name, "keyword": case["keywords"][0], "deadline": t.facts["notice_deadline"], "owner": c["person"],
+                             "reminded": notice.passed_reminders(t.facts["notice_deadline"], law.case_today(case))}
+        self.save_followups(followups)
         await self.next_case()
 
     async def attach(self, name: str, data: bytes, kind: str, caption: str) -> None:
@@ -513,6 +526,53 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
         r = await b.http.post(f"/agents/{b.id}/rooms/{self.room}/media", files={"file": (name, data, kind)}, data={"caption": caption})
         if r.status_code >= 400:
             logging.warning("%s upload refused: %s", name, r.text[:200])
+
+    def followups(self) -> dict:
+        return json.loads(self.followups_file.read_text()) if self.followups_file.exists() else {}
+
+    def save_followups(self, followups: dict) -> None:
+        self.followups_file.write_text(json.dumps(followups))
+
+    async def confirm_sent(self, p: dict) -> None:
+        b, person, followups = self.bot("paralegal"), p["sender_name"], self.followups()
+        slug = next((s for s, f in followups.items() if f["keyword"] in p["body"].lower()), None)
+        if not slug:
+            await b.say(self.room, f"@{person} No notice is waiting for confirmation under that name.")
+            return
+        f = followups.pop(slug)
+        self.save_followups(followups)
+        date = law.case_today(law.load_case(slug)).isoformat()
+        entry = audit.append({"case": slug, "name": f["name"], "date": date, "event": "notice_sent", "by": person, "notice_deadline": f["deadline"]})
+        on_time = "on time" if date <= f["deadline"] else "**after the deadline**, so check with the vendor whether it counts"
+        await b.say(self.room, f"✅ **Paralegal.** {person} confirmed the notice for *{f['name']}* was sent {on_time}. Ledger `{entry['hash'][:12]}`.")
+
+    async def check_followups(self) -> None:
+        for slug in list(self.followups()):
+            followups = self.followups()  # a person can confirm while a reminder is being posted
+            if slug not in followups:
+                continue
+            f = followups[slug]
+            today = law.case_today(law.load_case(slug))
+            stage = notice.next_reminder(f["deadline"], f["reminded"], today)
+            if stage is None:
+                continue
+            f["reminded"] = notice.passed_reminders(f["deadline"], today)
+            self.save_followups(followups)
+            if stage < 0:
+                text = f"⚠️ **Paralegal.** @{f['owner']} the deadline for *{f['name']}* was {f['deadline']} and nobody confirmed the notice. If it wasn't sent, the contract renews as written."
+            else:
+                days = (datetime.date.fromisoformat(f["deadline"]) - today).days
+                text = f"⏰ **Paralegal.** @{f['owner']} the notice for *{f['name']}* is due in {days} days and isn't confirmed. Once it's sent, mention paralegal and add `sent {f['keyword']}`."
+            await self.bot("paralegal").say(self.room, text)
+
+    async def follow_forever(self) -> None:
+        while True:
+            await asyncio.sleep(60)  # the bots need to be connected first
+            try:
+                await self.check_followups()
+            except Exception:  # one bad case must not stop the court
+                logging.exception("could not post the reminders")
+            await asyncio.sleep(3600)
 
     async def log_ruling(self, line: str, total: int) -> None:
         g, log_file, doc = self.bot("gavel"), STATE / "rulings.md", STATE / "rulings.id"
@@ -560,6 +620,7 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
             tasks.append(asyncio.create_task(self.agents[name].run(handle, (lambda n=name, s=seat: self.take_seat(n, s)) if seat else None)))
             await asyncio.sleep(0.5)  # Switch dropped sockets when all the bots attached at once
         tasks.append(asyncio.create_task(self.bench()))
+        tasks.append(asyncio.create_task(self.follow_forever()))
         every = float(os.environ.get("OVERRULED_SCAN_MINUTES", 0))
         if every:
             tasks.append(asyncio.create_task(self.scan_forever(every)))

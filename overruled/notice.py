@@ -3,6 +3,7 @@ import csv, datetime, io
 
 from overruled import law
 
+REMINDERS = (14, 7, 1, -1)  # days before the deadline, and -1 for the day after it passes
 
 
 def draft(case: dict, facts: dict, ruling: str, slug: str) -> str:
@@ -40,6 +41,17 @@ def release_list(slug: str, facts: dict, today: datetime.date) -> tuple[bytes, i
     # A leading = or + would run as a formula when the export is opened in a spreadsheet.
     w.writerows([("'" + r["user"]) if r["user"].startswith(("=", "+", "-", "@")) else r["user"], r["last_active"] or "never"] for r in names)
     return out.getvalue().encode(), len(names), release - len(names)
+
+
+def passed_reminders(deadline: str, today: datetime.date) -> list[int]:
+    days = (datetime.date.fromisoformat(deadline) - today).days
+    return [m for m in REMINDERS if days <= m]
+
+
+def next_reminder(deadline: str, reminded: list[int], today: datetime.date) -> int | None:
+    """The most urgent reminder due now and not sent yet."""
+    due = [m for m in passed_reminders(deadline, today) if m not in reminded]
+    return min(due) if due else None
 
 
 def law_slug(case: dict) -> str:

@@ -30,7 +30,7 @@ def setup(tmp_path, monkeypatch):
     monkeypatch.setattr(audit, "LEDGER", tmp_path / "ledger.jsonl")
     c, chat = object.__new__(court.Court), Chat()
     c.room, c.queue, c.trial, c.agents = "room", [], None, {"gavel": chat}
-    c.bot = lambda name: chat
+    c.followups_file, c.bot = tmp_path / "followups.json", lambda name: chat
     return c, chat
 
 
@@ -65,3 +65,58 @@ def test_a_rejected_renewal_has_no_seat_list(setup):
     c, chat = setup
     rule(c, "reject")
     assert not any(name.startswith("seats-to-release") for name in chat.files)
+
+
+def test_each_reminder_comes_once_and_late_cases_skip_to_the_urgent_one():
+    deadline = "2026-12-01"
+    assert notice.next_reminder(deadline, [], datetime.date(2026, 11, 1)) is None
+    assert notice.next_reminder(deadline, [], datetime.date(2026, 11, 17)) == 14
+    assert notice.next_reminder(deadline, [14], datetime.date(2026, 11, 17)) is None
+    assert notice.next_reminder(deadline, [14], datetime.date(2026, 11, 30)) == 1
+    assert notice.next_reminder(deadline, [14, 7, 1], datetime.date(2026, 12, 2)) == -1
+    assert notice.next_reminder(deadline, [14, 7, 1, -1], datetime.date(2026, 12, 9)) is None
+
+
+def test_reminders_stop_once_a_person_confirms_and_the_ledger_records_it(setup):
+    c, chat = setup
+    rule(c, "condition")
+    keyword = law.load_case("pipewave-crm")["keywords"][0]
+    followups = c.followups()
+    followups["pipewave-crm"]["reminded"] = []
+    c.save_followups(followups)
+    before = len(chat.said)
+    asyncio.run(c.check_followups())
+    asyncio.run(c.check_followups())
+    assert len(chat.said) == before + 1 and "@cfo" in chat.said[-1]
+    asyncio.run(c.paralegal("room", {"sender_name": "maya", "body": f"@paralegal sent {keyword}"}))
+    entry = audit.read()[-1]
+    assert (entry["event"], entry["by"], entry["case"]) == ("notice_sent", "maya", "pipewave-crm") and audit.verify()[0]
+    assert "on time" in chat.said[-1] and not c.followups()
+
+
+def test_a_bot_cannot_confirm_a_notice(setup):
+    c, chat = setup
+    rule(c, "condition")
+    asyncio.run(c.paralegal("room", {"sender_name": "gavel", "body": "@paralegal sent pipewave"}))
+    assert c.followups() and not audit.read()
+
+
+def test_an_unknown_name_confirms_nothing(setup):
+    c, chat = setup
+    rule(c, "condition")
+    asyncio.run(c.paralegal("room", {"sender_name": "cfo", "body": "@paralegal sent nothing-here"}))
+    assert c.followups() and "No notice is waiting" in chat.said[-1]
+
+
+def test_a_new_ruling_replaces_the_follow_up(setup, tmp_path):
+    c, chat = setup
+    rule(c, "condition")
+    assert c.followups()["pipewave-crm"]["owner"] == "cfo"
+    c.saved_file, c.tried_file = tmp_path / "saved", tmp_path / "tried"
+    async def log_ruling(line, total): pass
+    async def next_case(): pass
+    c.log_ruling, c.next_case = log_ruling, next_case
+    f = law.compute_facts("pipewave-crm")
+    t = types.SimpleNamespace(slug="pipewave-crm", name="x", facts=f, requester="alex", verdict="approve", votes=[], models=[], docs={}, record=[], strikes=0, cost=0, transcript=[])
+    asyncio.run(c.rule(t, "approve", "cfo"))
+    assert not c.followups()
