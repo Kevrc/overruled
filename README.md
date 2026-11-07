@@ -1,5 +1,7 @@
 # Overruled
 
+[![tests](https://github.com/Kevrc/overruled/actions/workflows/tests.yml/badge.svg)](https://github.com/Kevrc/overruled/actions/workflows/tests.yml)
+
 **Every expense stands trial.**
 
 Companies approve software renewals on one side of the story, then pay for idle seats, hidden price increases and missed deadlines. Overruled is an adversarial renewal review inside your team chat. Scout finds the renewals worth questioning. Bots argue both sides, a clerk with no AI strikes what can't be proven, jurors vote alone, and a person with the authority makes the call. Overruled never pays, cancels or sends anything.
@@ -10,17 +12,42 @@ Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. The d
 
 The video is edited. Its first part moves a camera across a capture of an earlier Mattermost trial. Its second part animates real screens from a Slack run and the public audit case, with added captions. The uncut demo is one continuous take with Claude Code agents managed by Switch and a local juror, recorded in Mattermost, where a script drives the two test accounts.
 
-Slack has been tested too. A person uploaded a contract and sign-ins in the channel, and a trial ran on that upload with the managed agents and the local juror. A later Slack run covered a full ruling, the seat list, notice confirmation, the finance summary, the decisions export, and PDF, Okta and Spanish contract intake, on simulated files.
-
 ![A verdict in Slack, and gavel refusing the person who asked for the expense](docs/slack-separation.png)
 
 ![The courtroom in Mattermost](docs/canal.png)
+
+## For judges
+
+| | |
+|---|---|
+| **Watch** | [The 1:52 video](https://youtu.be/qtupVpPbqAE), or the [uncut demo](docs/demo-uncut.mp4) |
+| **See a trial, nothing to install** | [Replay a recorded trial](https://kevrc.github.io/overruled/replay/) in your browser |
+| **Run it, no API key** | Needs Docker and uv: `git clone https://github.com/Kevrc/overruled && cd overruled && scripts/install.sh && OVERRULED_OFFLINE=1 scripts/start.sh`. Then open http://localhost:8365, use the `alex` account from `.state/access.txt`, and send `@scout scan` in `courtroom` |
+| **Check the numbers** | `uv run pytest tests --ignore=tests/test_trial.py` and `uv run python -m evals.company`. The same checks run on every push |
+| **See how Switch is used** | [Why this needs Switch](#why-this-needs-switch) and [What we found in Switch](#what-we-found-in-switch-031) |
+| **See what's proven** | [What has been run](#what-has-been-run) and [What it doesn't do yet](#what-it-doesnt-do-yet) |
 
 ## The problem
 
 Renewals get approved because the person who wants the tool is the only one who read the contract. Nobody argues the other side, a price increase sits in section 7.3, idle seats renew for another year, and the notice deadline passes unnoticed.
 
 One AI opinion doesn't fix that. It's one confident voice, and it may invent the numbers.
+
+## How it works
+
+```mermaid
+flowchart TD
+    F[Contracts, bills and sign-in exports] --> S[scout finds the renewal]
+    S --> C[clerk: code checks every figure]
+    C --> A[Prosecution and defense seats argue in the room]
+    A --> C
+    C --> J[Jurors vote alone in sealed rooms]
+    J --> P{A person rules}
+    B[Any agent] -. refused by Switch .-x G
+    P --> G[gavel records the ruling]
+    G --> N[paralegal: draft notice, seats to release, reminders]
+    N --> L[(Tamper-evident ledger)]
+```
 
 ## A real run
 
@@ -57,6 +84,17 @@ Scout also skipped a renewal whose notice deadline had passed, reported that $4,
 | Planted instructions obeyed by the AI, in 10 runs | 0 |
 
 The method, the bugs it exposed, and what these numbers don't prove are in [evals/RESULTS.md](evals/RESULTS.md).
+
+## What has been run
+
+| Area | Status |
+|---|---|
+| Full trial in Slack with a managed Claude Code agent, Claude jurors and a local juror | ✅ Run live on simulated data |
+| Ruling, seat list, notice confirmation, finance summary and decisions export in Slack | ✅ Run live on simulated data |
+| PDF contract with an Okta-format file, and a Spanish contract read by Claude, uploaded in Slack | ✅ Run live on simulated files |
+| Full trial, approval limits and requester separation in Mattermost | ✅ Automated end-to-end test, with scripted speeches |
+| An agent trying to reach `gavel` | ✅ Refused by Switch in the end-to-end test |
+| Defense seat failover and managed agent fallback | ✅ Optional end-to-end tests, last run before the final features |
 
 ## A real public case
 
@@ -135,7 +173,16 @@ People stay in the loop three ways:
 
 Without Switch there's no sealed jury and no enforced ruling, only a long transcript.
 
-**A design detail worth copying:** two agents with the same owner can change each other's addressing policy. We confirmed that on a live server, which is why `gavel` has its own owner.
+### What we found in Switch 0.31
+
+- **Same owner means same control.** Two agents with the same owner can change each other's addressing policy. That's how `require_same_owner` is meant to work in `agent_core.py`, not a bug, and we confirmed it on a live server. But a policy protects an agent only from other owners, so `gavel` has its own owner, and `setup_managed` stops if the managed agents would share it.
+- **Attach agents gradually.** Connections dropped when all the bots attached at once. A 0.5-second gap fixed it.
+- **Agents answering agents can loop.** A refusal that mentioned an agent triggered that agent. Scout and gavel now take work only from people, or from the step that calls them.
+- **A managed agent has to be in the room.** If it isn't, Switch warns in the channel and the message doesn't reach it. Overruled's clerk then hands the turn to the seat holder.
+- **Slack needs its own formatting.** Markdown tables arrive as raw pipes and straight quotes become curly ones, so Overruled converts both. File captions post from the bridge as Agent Switch.
+- **There are no scheduled messages yet.** Reminders and timed scans use a timer in this process, so they stop if it stops.
+
+What we'd want next: a way to lock a policy so that only a person or a different owner can change it, and a warning when protected agents share an owner.
 
 ## Built for a real company
 
@@ -285,9 +332,6 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **The local model is weaker.** It's one vote of three, and its figures still pass through the clerk.
 - **Trial cost** is the API-equivalent estimate from Claude Code, and doesn't include managed agents.
 
-**Tested so far**
-
-- Claude and Qwen through Ollama are the only model families tested.
-- Slack was tested with one person, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
+Claude and Qwen through Ollama are the only model families tested. Slack was tested with one person, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
 
 Switch is pinned to 0.31.0. Its license is Apache 2.0 with a Commons Clause; this repo only downloads it. Overruled is under the [MIT license](LICENSE).
