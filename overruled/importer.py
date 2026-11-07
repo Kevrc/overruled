@@ -78,7 +78,8 @@ def slugify(app: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", app.lower()).strip("-")
 
 
-def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathlib.Path, target: pathlib.Path) -> str:
+def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathlib.Path, target: pathlib.Path,
+               live: bool = False) -> str:
     """Writes one case folder and returns its slug. Raises ValueError rather than guess."""
     app = bill["app"].strip()
     seats, price = int(bill["seats"]), float(bill["price_per_seat"])
@@ -93,9 +94,8 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
     if not rows:
         raise ValueError("no sign-in data")
     datetime.date.fromisoformat(bill["renewal_date"])
-    for r in rows:
-        datetime.date.fromisoformat(r["last_login"])
-    active = sum(datetime.date.fromisoformat(r["last_login"]) >= law.TODAY - datetime.timedelta(days=law.ACTIVE_DAYS) for r in rows)
+    today = datetime.date.today() if live else law.TODAY
+    active = sum(law.is_active(r["last_login"], today) for r in rows)
     if active > seats:
         raise ValueError(f"{active} active users but only {seats} seats, check the export")
     # Seats missing from a partial export would read as idle and invent a saving.
@@ -125,11 +125,11 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
     (folder / "case.yaml").write_text(yaml.safe_dump({
         "name": f"{app} renewal", "vendor": bill["vendor"], "renewal_date": bill["renewal_date"], "keywords": [slug.split("-")[0]], "requested_by": bill["owner_team"], "seats": seats,
         "price_per_seat": price, "uplift_percent": uplift, "buffer_percent": BUFFER_PERCENT,
-        "uplift_quote": uplift_quote, "notice_quote": notice_quote, "notice_days": notice_days}))
+        "uplift_quote": uplift_quote, "notice_quote": notice_quote, "notice_days": notice_days, "live": live}))
     return slug
 
 
-def run(folder: pathlib.Path, target: pathlib.Path | None = None) -> dict:
+def run(folder: pathlib.Path, target: pathlib.Path | None = None, live: bool = False) -> dict:
     target = target or law.CASES
     bills, signins = read(folder, "bills.csv"), read(folder, "signins.csv")
     inventory = read(folder, "software_inventory.csv")
@@ -138,7 +138,7 @@ def run(folder: pathlib.Path, target: pathlib.Path | None = None) -> dict:
         app = bill["app"].strip()
         installs = len({i["device"] for i in inventory if i["name"].strip() == app})
         try:
-            slug = build_case(bill, signins, installs, folder / "contracts", target)
+            slug = build_case(bill, signins, installs, folder / "contracts", target, live)
             law.compute_facts(slug) if target == law.CASES else None
             result["imported"].append(slug)
         except (ValueError, KeyError) as e:

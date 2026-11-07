@@ -183,7 +183,7 @@ class Court:
                 raise ValueError(f"a case named {slug} already exists")
             with tempfile.TemporaryDirectory() as d:
                 pathlib.Path(d, "contract.md").write_text(contract)
-                importer.build_case(bill, importer.read_signins(signins, bill["app"]), 0, pathlib.Path(d), law.CASES)
+                importer.build_case(bill, importer.read_signins(signins, bill["app"]), 0, pathlib.Path(d), law.CASES, live=True)
             (law.CASES / slug / ".intake").touch()
             f = law.compute_facts(slug)
         except (ValueError, KeyError, UnicodeDecodeError) as e:
@@ -215,7 +215,7 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
         await self.bot("scout").say(self.room, f"@{p['sender_name']} Nothing is waiting for confirmation under that name.")
 
     async def scan(self, quiet: bool = False) -> None:
-        result = await asyncio.to_thread(importer.run, EXPORTS)  # a thread, because unclear contracts go to the model
+        result = await asyncio.to_thread(importer.run, EXPORTS, None, "OVERRULED_EXPORTS" in os.environ)  # a thread, because unclear contracts go to the model
         due, passed = importer.docket(result, self.tried())
         known = {r["slug"] for r in self.queue} | ({self.trial.slug} if self.trial else set())
         fresh = [r for r in due if r["slug"] not in known]
@@ -463,10 +463,10 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
         saved = {"approve": 0, "condition": f["calculated_saving"], "reject": f["renewal_as_written"]}[ruling]
         total = saved + (int(self.saved_file.read_text()) if self.saved_file.exists() else 0)
         self.saved_file.write_text(str(total))
-        entry = audit.append({"case": t.slug, "name": t.name, "date": law.TODAY.isoformat(), "requester": t.requester, "ruled_by": person, "ruling": ruling,
+        entry = audit.append({"case": t.slug, "name": t.name, "date": law.case_today(law.load_case(t.slug)).isoformat(), "requester": t.requester, "ruled_by": person, "ruling": ruling,
                               "jury": t.verdict, "votes": t.votes, "models": t.models, "asked": f["renewal_as_written"], "saved": saved, "notice_deadline": f["notice_deadline"],
                               "evidence_sha256": law.fingerprint(t.docs), "record": t.record, "strikes": t.strikes, "cost_usd": round(t.cost, 4), "transcript": t.transcript})
-        line = f"- {law.TODAY} **{t.name}**: {RULINGS[ruling]} by {person}. Jury: {t.verdict}. Saved {money(saved)}. Trial cost ${t.cost:.2f}. Ledger `{entry['hash'][:12]}`."
+        line = f"- {law.case_today(law.load_case(t.slug))} **{t.name}**: {RULINGS[ruling]} by {person}. Jury: {t.verdict}. Saved {money(saved)}. Trial cost ${t.cost:.2f}. Ledger `{entry['hash'][:12]}`."
         await self.log_ruling(line, total)
         with self.tried_file.open("a") as tried:
             tried.write(t.slug + "\n")

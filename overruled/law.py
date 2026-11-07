@@ -6,7 +6,7 @@ ROOT = pathlib.Path(__file__).parent.parent
 CASES = ROOT / "cases"
 EVIDENCE_FILES = ("contract.md", "request.md", "usage.csv")
 ACTIVE_DAYS = 90
-TODAY = datetime.date(2026, 11, 4)  # shortcut: fixed so the sample data stays reproducible, use date.today() with live data
+TODAY = datetime.date(2026, 11, 4)  # the sample cases stay reproducible; a company's own cases are marked live and use the real date
 NUMBER = re.compile(r"\$?\d[\d,]*(?:\.\d+)?\s?(?:%|k\b|K\b|percent\b|million\b)?")
 QUOTE = re.compile(r"[\"“]([^\"”]+)[\"”]")
 ISO_DATE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
@@ -40,9 +40,19 @@ def squeeze(text: str) -> str:
     return " ".join(text.lower().split())
 
 
-def compute_facts(slug: str, today: datetime.date = TODAY) -> dict:
+def case_today(case: dict) -> datetime.date:
+    return datetime.date.today() if case.get("live") else TODAY
+
+
+def is_active(last_active: str, today: datetime.date) -> bool:
+    # Blank means no recorded activity: Microsoft 365 reports leave it empty for those users.
+    return bool(last_active) and datetime.date.fromisoformat(last_active) >= today - datetime.timedelta(days=ACTIVE_DAYS)
+
+
+def compute_facts(slug: str, today: datetime.date | None = None) -> dict:
     """The money figures of a case, calculated from its files."""
     case, docs = load_case(slug), evidence(slug)
+    today = today or case_today(case)
     for key in ("uplift_quote", "notice_quote"):
         if case[key] and squeeze(case[key]) not in squeeze(docs["contract.md"]):
             raise ValueError(f"{key} is not in the contract")
@@ -51,8 +61,7 @@ def compute_facts(slug: str, today: datetime.date = TODAY) -> dict:
     notice_days = case.get("notice_days", int(notice.group(1) or notice.group(2)) if notice else 0)
     deadline = renewal - datetime.timedelta(days=notice_days)
     rows = list(csv.DictReader((CASES / slug / "usage.csv").open()))
-    cutoff = today - datetime.timedelta(days=ACTIVE_DAYS)
-    active = sum(datetime.date.fromisoformat(r["last_active"]) >= cutoff for r in rows)
+    active = sum(is_active(r["last_active"], today) for r in rows)
     seats, price = case["seats"], case["price_per_seat"]
     uplift = 1 + case["uplift_percent"] / 100
     recommended = min(seats, math.ceil(active * (1 + case["buffer_percent"] / 100)))

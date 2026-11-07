@@ -21,7 +21,7 @@ def draft(case: dict, facts: dict, ruling: str, slug: str) -> str:
 def calendar(case: dict, facts: dict) -> bytes:
     day = facts["notice_deadline"].replace("-", "")
     end = (datetime.date.fromisoformat(facts["notice_deadline"]) + datetime.timedelta(days=1)).strftime("%Y%m%d")
-    stamp = law.TODAY.strftime("%Y%m%dT000000Z")
+    stamp = law.case_today(case).strftime("%Y%m%dT000000Z")
     return "\r\n".join(["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Overruled//Court//EN", "BEGIN:VEVENT",
                         f"UID:{day}-{law_slug(case)}@overruled.local", f"DTSTAMP:{stamp}", f"DTSTART;VALUE=DATE:{day}", f"DTEND;VALUE=DATE:{end}",
                         f"SUMMARY:Last day to send notice: {case['name']}", "END:VEVENT", "END:VCALENDAR", ""]).encode()

@@ -1,4 +1,4 @@
-import pathlib, shutil
+import datetime, pathlib, shutil
 import pytest
 
 from overruled import importer, law
@@ -120,6 +120,23 @@ def test_intake_reads_seats_and_price_from_the_contract():
 def test_intake_asks_for_what_is_missing():
     with pytest.raises(ValueError, match="renewal, seats, price"):
         importer.parse_intake("@scout intake app=Acme", "No terms here.")
+
+
+def bill(**extra):
+    return {"app": "Acme", "vendor": "Acme", "seats": "10", "price_per_seat": "100", "renewal_date": "2030-01-01", "contract_file": "c.md", "owner_team": "IT", **extra}
+
+
+def live_case(tmp_path, signins, **kwargs):
+    (tmp_path / "c.md").write_text("Customer must give written notice at least 30 days before renewal.")
+    return importer.build_case(bill(), signins, 0, tmp_path, law.CASES, **kwargs)
+
+
+def test_a_live_case_uses_the_real_date_and_a_sample_does_not(world, tmp_path):
+    fresh = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
+    rows = [{"app": "Acme", "user": str(i), "last_login": fresh} for i in range(6)]
+    case = law.load_case(live_case(tmp_path, rows, live=True))
+    assert law.case_today(case) == datetime.date.today() and law.case_today({}) == law.TODAY
+    assert law.compute_facts("acme")["active_seats"] == 6
 
 
 def test_intake_rejects_a_signin_file_without_the_columns():
