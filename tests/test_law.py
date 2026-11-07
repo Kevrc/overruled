@@ -153,3 +153,10 @@ def test_contract_reader_only_trusts_what_is_in_the_contract():
                    {"auto_renews": False}, {"can_reduce_seats": False}, {"uplift_percent": None}):
         with pytest.raises(ValueError):
             reader.verify(contract, good | change)
+
+
+def test_simulated_company_totals_match_the_readme():
+    from evals import company
+    r = company.run()
+    assert (r["renewals"], r["trials"], r["held"]) == (26, 15, 9)
+    assert r["saving"] > 0 and r["saving"] <= r["spend"]
