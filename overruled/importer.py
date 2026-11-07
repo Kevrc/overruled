@@ -94,6 +94,15 @@ def read_notice(contract: str) -> tuple[int, str]:
     return days, clause
 
 
+def read_terms(contract: str) -> tuple[float, str, int, str]:
+    """Uses the rules on clear contracts, and the model on the rest. Raises rather than guess."""
+    if not NOTICE.search(contract) or reader.UNCLEAR.search(contract):
+        return reader.read(contract)
+    uplift, uplift_quote = read_uplift(contract)
+    notice_days, notice_quote = read_notice(contract)
+    return uplift, uplift_quote, notice_days, notice_quote
+
+
 def slugify(app: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", app.lower()).strip("-")
 
@@ -128,11 +137,7 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
     terms = contract_terms(contract)
     if terms and terms != (seats, price):
         raise ValueError(f"the contract says {terms[0]} seats at ${terms[1]:g} a year, but the bill says {seats} at ${price:g}")
-    if not NOTICE.search(contract) or reader.UNCLEAR.search(contract):
-        uplift, uplift_quote, notice_days, notice_quote = reader.read(contract)
-    else:
-        uplift, uplift_quote = read_uplift(contract)
-        notice_days, notice_quote = read_notice(contract)
+    uplift, uplift_quote, notice_days, notice_quote = read_terms(contract)
     slug = slugify(app)
     folder = target / slug
     folder.mkdir(parents=True, exist_ok=True)

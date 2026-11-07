@@ -234,3 +234,21 @@ def test_other_currencies_stop_the_import(tmp_path, world, text):
     rows = [{"app": "Acme", "user": str(i), "last_login": law.TODAY.isoformat()} for i in range(6)]
     with pytest.raises(ValueError, match="US dollars"):
         importer.build_case(bill(), rows, 0, tmp_path, law.CASES)
+
+
+def test_a_quote_survives_pdf_spacing_and_curly_quotes():
+    contract = "shall renew for another perio d of the same “Term”, and Customer’s fee rises 4% at renewal. Notice is due 30 days before."
+    data = {"auto_renews": True, "can_reduce_seats": True, "uplift_percent": 4, "uplift_stated": True, "uplift_quote": "Customer's fee rises 4% at renewal",
+            "notice_days": 30, "notice_quote": 'renew for another period of the same "Term", and'}
+    with pytest.raises(ValueError):
+        reader.verify(contract, data)
+    assert reader.verify(contract, {**data, "notice_quote": "Notice is due 30 days before"})[2] == 30
+
+
+def test_the_model_cannot_deny_a_stated_auto_renewal():
+    contract = "Orders auto-renew unless notice is given 60 days before the end. Fees rise 2% at renewal."
+    data = {"auto_renews": False, "can_reduce_seats": True, "uplift_percent": 2, "uplift_stated": True, "uplift_quote": "Fees rise 2% at renewal", "notice_days": 60,
+            "notice_quote": "notice is given 60 days before the end"}
+    assert reader.verify(contract, data)[2] == 60
+    with pytest.raises(ValueError, match="does not renew"):
+        reader.verify("Fees rise 2% at renewal, and notice is given 60 days before the end.", data)

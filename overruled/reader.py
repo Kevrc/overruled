@@ -3,6 +3,7 @@ import asyncio, json, re
 
 from overruled import law, llm
 
+AUTO_RENEWS = re.compile(r"auto-renew|automatically renew|renew\w* automatically", re.I)
 UNCLEAR = re.compile(r"\b(rises?|raises?|adjust\w*|price change|pricing|not renew|may not reduce|cannot reduce|notify)\b|\+\d", re.I)
 SPANISH = {"cero": 0, "uno": 1, "dos": 2, "tres": 3, "cuatro": 4, "cinco": 5, "seis": 6, "siete": 7, "ocho": 8, "nueve": 9, "diez": 10, "doce": 12, "quince": 15,
            "veinte": 20, "treinta": 30, "cuarenta y cinco": 45, "sesenta": 60, "noventa": 90, "ciento veinte": 120, "ciento ochenta": 180}
@@ -24,14 +25,14 @@ def has_number(quote: str, value: float) -> bool:
 
 def verify(contract: str, data: dict) -> tuple[float, str, int, str]:
     """Raises ValueError unless every clause is really in the contract, with the number it claims."""
-    if data.get("auto_renews") is False:
+    if data.get("auto_renews") is False and not AUTO_RENEWS.search(contract):
         raise ValueError("the contract does not renew automatically, so there is nothing to stop")
     if data.get("can_reduce_seats") is False:
         raise ValueError("the contract does not let the customer reduce seats")
-    text = law.squeeze(contract)
+    text = law.same_letters(contract)
     def clause(key_value: str, key_quote: str, label: str):
         value, quote = data.get(key_value), str(data.get(key_quote) or "").strip()
-        if value is None or law.squeeze(quote).rstrip(".,;:") not in text or not has_number(quote, value):
+        if value is None or law.same_letters(quote).rstrip(".,;:") not in text or not has_number(quote, value):
             raise ValueError(f"the {label} could not be confirmed in the contract, so a person must read it")
         return value, quote
     if data.get("uplift_stated") and data.get("uplift_percent") is None:
@@ -44,9 +45,11 @@ def verify(contract: str, data: dict) -> tuple[float, str, int, str]:
 def read(contract: str) -> tuple[float, str, int, str]:
     if llm.OFFLINE:
         raise ValueError("this contract needs a closer read, so a person must check it")
-    reply, _ = asyncio.run(llm.ask(SYSTEM, contract, "haiku", ""))
-    try:
-        data = json.loads(re.search(r"\{.*\}", reply, re.S).group())
-    except (AttributeError, ValueError):
-        raise ValueError("the contract could not be read, so a person must check it") from None
-    return verify(contract, data)
+    for attempt in range(2):  # a reply that isn't JSON is usually fine on a second try
+        reply, _ = asyncio.run(llm.ask(SYSTEM, contract, "haiku", ""))
+        try:
+            data = json.loads(re.search(r"\{.*\}", reply, re.S).group())
+            return verify(contract, data)
+        except (AttributeError, json.JSONDecodeError):
+            continue
+    raise ValueError("the contract could not be read, so a person must check it")

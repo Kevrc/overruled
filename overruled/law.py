@@ -40,6 +40,11 @@ def squeeze(text: str) -> str:
     return " ".join(text.lower().split())
 
 
+def same_letters(text: str) -> str:
+    """For comparing quotes with PDF text, which splits words and uses curly quotes."""
+    return "".join(text.lower().translate(str.maketrans("“”‘’", "\"\"''")).split())
+
+
 def csv_safe(value) -> str:
     """A leading = or + would run as a formula when the file is opened in a spreadsheet."""
     text = str(value)
@@ -62,7 +67,7 @@ def compute_facts(slug: str, today: datetime.date | None = None) -> dict:
     case, docs = load_case(slug), evidence(slug)
     today = today or case_today(case)
     for key in ("uplift_quote", "notice_quote"):
-        if case[key] and squeeze(case[key]) not in squeeze(docs["contract.md"]):
+        if case[key] and same_letters(case[key]) not in same_letters(docs["contract.md"]):
             raise ValueError(f"{key} is not in the contract")
     renewal = datetime.date.fromisoformat(str(case["renewal_date"]))
     notice = re.search(r"\((\d+)\)|(\d+) days", case["notice_quote"] or "")
