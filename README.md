@@ -117,7 +117,7 @@ People stay in the loop three ways:
 | Switch feature | What it does here |
 |---|---|
 | Templates | [The court is a Switch template](templates/overruled.template.yaml): install provisions it and saves it to the workspace, so a team can start another court from Templates |
-| Managed agents | With `setup_managed`, Switch's headless agent controller runs real Claude Code sessions, starts them when called, and shows their tool work in the chat |
+| Managed agents | With `setup_managed`, Switch's headless agent controller runs real Claude Code sessions, starts them when called, and shows their tool work in the chat. It runs the same agent host as Switch Console, so the court needs no desktop app. Switch Console itself wasn't used |
 | Exclusive roles | `prosecution` and `defense` are seats, not bots. The clerk calls `@defense`, and Switch delivers it to whoever holds the seat |
 | Seat failover | If the defender goes offline, Switch frees the seat and `counsel` takes it. Nobody reassigns anything, and a test proves it |
 | Agents in a shared room | Every hand-off between bots travels through the channel, so people watch the whole trial |
@@ -256,28 +256,35 @@ To test the managed fallback, run `setup_managed`, start the court without its c
 
 To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for counsel to take the seat, and run `OVERRULED_FAILOVER=1 uv run pytest tests/test_trial.py -k counsel`.
 
-## Limits
+## What it doesn't do yet
 
-- **A calculated saving isn't guaranteed.** It depends on the input files and on the contract allowing fewer seats.
-- **Not legal advice.** A draft notice needs review by a person, and by legal where it matters.
-- **The clerk checks figures and quotes.** A false claim with neither can reach the jury, and a person still rules.
-- **PDFs aren't read yet.** Contracts must be text or Markdown.
-- **Contract reading can fail.** Clear contracts use pattern rules and unclear ones go to a model. Code checks every clause against the contract, and people must confirm what Scout read from a new one.
-- **The benchmark is simulated and was used to fix the system,** so it isn't proof of accuracy on real contracts.
+**On purpose**
+
+- **It only recommends.** A calculated saving isn't guaranteed, it depends on the files and on the contract allowing fewer seats. Overruled isn't legal advice, so a person reviews every notice, and legal where it matters.
+- **It stops rather than guesses.** Scanned PDFs, other currencies and unclear clauses go to a person, with the reason.
 - **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
-- **The seat list is visible to everyone in the court room,** because it's posted there as a file. Production should send it to the tool owner privately. Reminders only run while the court is running.
-- **Contracts can be in Spanish, but the court speaks English.** Spanish contracts go to the model, and code checks each quote word for word. Trials and notices stay in English.
-- **Only US dollars.** A contract priced in another currency stops with a reason. A plain `$` in a Spanish contract could mean pesos, so the person who confirms has to check it.
-- **Scanned PDFs can't be read.** They stop the intake with a reason. Page headers and footers stay in the text, so a clause split by one goes to a person.
+
+**Needed before production**
+
+- **Identity:** approval limits trust chat usernames from the bridge, so they should be tied to the company directory.
+- **Sandboxing:** managed agents have real tools. Their instructions limit them to the case files and the clerk checks what they say, but production should sandbox them.
+- **Privacy:** the seat list is posted as a file in the court room. It should go to the tool owner privately.
+- **Uptime:** a trial is held in memory, so a restart means opening it again. Reminders only run while the court is running.
+
+**Known limits**
+
+- **The clerk checks figures and quotes.** A false claim with neither can reach the jury, and a person still rules.
+- **Contract reading can fail.** Code checks every clause against the contract, and people confirm what Scout read. Page headers and footers stay in PDF text, so a clause split by one goes to a person.
+- **The benchmark is simulated and was used to fix the system,** so it isn't proof of accuracy on real contracts.
+- **Spanish contracts are read, but the court speaks English.** A plain `$` in a Spanish contract could mean pesos, so the person who confirms has to check it.
 - **Okta exports list only people who signed in.** The report has to cover the last 90 days, and Scout asks the person to check that.
-- **Approval limits trust chat usernames from the bridge.** Production needs them tied to the company directory.
-- **Slack was tested with one person**, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
 - **Vendor offers are unverified.** They come from the vendor and are labelled that way.
-- **A trial is held in memory.** If the process restarts mid-trial, open it again.
-- **Trial cost** is the API-equivalent estimate from Claude Code, and doesn't include managed agents.
-- **Managed agents have real tools.** Their instructions limit them to reading the case files, and the clerk checks what they say, but a production setup should sandbox them.
-- **No desktop app needed.** Managed agents run through Switch's headless controller, which runs the same agent host as Switch Console, so the court works on a server. Switch Console itself wasn't used.
 - **The local model is weaker.** It's one vote of three, and its figures still pass through the clerk.
-- **Only two model families were tested:** Claude and Qwen through Ollama.
+- **Trial cost** is the API-equivalent estimate from Claude Code, and doesn't include managed agents.
+
+**Tested so far**
+
+- Claude and Qwen through Ollama are the only model families tested.
+- Slack was tested with one person, who owned `gavel`. Delegated approvals and requester separation were tested in Mattermost.
 
 Switch is pinned to 0.31.0. Its license is Apache 2.0 with a Commons Clause; this repo only downloads it. Overruled is under the [MIT license](LICENSE).
