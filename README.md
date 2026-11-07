@@ -98,7 +98,8 @@ The method, the bugs it exposed, and what these numbers don't prove are in [eval
 | PDF contract with an Okta-format file, and a Spanish contract read by Claude, uploaded in Slack | ✅ Run live on simulated files |
 | Full trial, approval limits and requester separation in Mattermost | ✅ Automated on every push from a clean install, with scripted speeches |
 | An agent trying to reach `gavel` | ✅ Refused by Switch in the end-to-end test |
-| Defense seat failover and managed agent fallback | ✅ Optional end-to-end tests, last run before the final features |
+| Defense seat failover: with the defender offline, `counsel` takes the seat | ✅ Automated on every push from a clean install |
+| Managed agent fallback | ✅ Optional end-to-end test, last run before the final features |
 
 ## A real public case
 
@@ -163,7 +164,7 @@ People stay in the loop three ways:
 | Templates | [The court is a Switch template](templates/overruled.template.yaml): install provisions it and saves it to the workspace, so a team can start another court from Templates |
 | Managed agents | With `setup_managed`, Switch's headless agent controller runs real Claude Code sessions, starts them when called, and shows their tool work in the chat. It runs the same agent host as Switch Console, so the court needs no desktop app. Switch Console itself wasn't used |
 | Exclusive roles | `prosecution` and `defense` are seats, not bots. The clerk calls `@defense`, and Switch delivers it to whoever holds the seat |
-| Seat failover | If the defender goes offline, Switch frees the seat and `counsel` takes it. Nobody reassigns anything, and a test proves it |
+| Seat failover | If the defender goes offline, Switch frees the seat and `counsel` takes it. Nobody reassigns anything, and a test on a clean install proves it on every push |
 | Agents in a shared room | Every hand-off between bots travels through the channel, so people watch the whole trial |
 | Room groups and links | The court lives in an `Overruled` group. Each trial adds a nested jury group, with private rooms linked back to the court and archived after the verdict |
 | Any model behind any agent | Each juror's model is set in [policy.yaml](policy.yaml). By default one vote runs on a local Ollama model, and the verdict names the model behind each vote |
