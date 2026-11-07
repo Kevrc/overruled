@@ -39,7 +39,7 @@ These are real software contracts published by US cities, counties and school di
 - The first run exposed real problems: PDF text splits words and uses curly quotes, so exact quotes failed to match. The model also denied an auto-renewal that the contract stated, so code now checks that.
 - Three of my hand labels on the first 11 were wrong, and the reader was right: two contracts let the county change pricing, and one had a 3% increase I had missed. I corrected them after reading those clauses. The first-run score above uses the corrected labels.
 - The blind miss is Carroll County. The master agreement gives 90 days, and a county addendum requires written notice 30 days before the fiscal year ends. The label says 90, the reader said 30. Both clauses exist, so a person would have to decide, but it counts as wrong.
-- One contract was left out before the run because its terms had no clear single answer, and two others from the first search weren't used for the same reason.
+- Four more contracts were left out before running them, because their terms had no clear single answer or several contracts were mixed in one packet. Four others couldn't be downloaded as PDFs.
 - 17 contracts is a small sample. Two share a template, and they're public-sector contracts, so they may not reflect private company terms.
 - Run it with `uv run python -m evals.public_contracts` or `--blind`. It needs Claude and internet. Results can vary between runs.
 
