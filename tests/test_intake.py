@@ -2,7 +2,7 @@
 import asyncio, datetime, pathlib
 import pytest
 
-from overruled import court, law
+from overruled import court, law, reader
 
 CONTRACT = pathlib.Path(__file__).parent / "fixtures" / "contract.pdf"
 
@@ -57,3 +57,15 @@ def test_a_scan_is_refused_and_opens_nothing(renewal):
     chat = Chat({"scan.pdf": b"not a pdf", "s.csv": b"user,last_login\n"})
     c = intake(chat, renewal)
     assert "can't take this file" in chat.said[0] and not c.intakes and not (law.CASES / "zephyrdesk").exists()
+
+
+def test_a_contract_that_needs_the_model_works_from_the_chat(renewal, monkeypatch):
+    # The reader starts its own event loop, so it can't run on the chat's.
+    def read(contract):
+        asyncio.run(asyncio.sleep(0))
+        return 8.0, "sube 8% al renovar", 30, "aviso con 30 días"
+    monkeypatch.setattr(reader, "read", read)
+    day = (datetime.date.today() - datetime.timedelta(days=3)).isoformat()
+    contract = "Son 10 licencias a $100 por licencia por año. Hay aviso con 30 días. El precio sube 8% al renovar."
+    chat = Chat({"c.txt": contract.encode(), "s.csv": ("user,last_login\n" + "".join(f"u{i},{day}\n" for i in range(6))).encode()})
+    assert "zephyrdesk" in intake(chat, renewal).intakes

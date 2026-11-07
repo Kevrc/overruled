@@ -193,7 +193,8 @@ class Court:
                 pathlib.Path(d, "contract.md").write_text(contract)
                 source, rows = importer.read_signins(signins, bill["app"])
                 signed_in_only = source.startswith("Okta")  # Okta lists only people who signed in, so the rest are idle seats, not missing data
-                importer.build_case(bill, rows, 0, pathlib.Path(d), law.CASES, live=True, signed_in_only=signed_in_only)
+                # a thread, because unclear contracts go to the model
+                await asyncio.to_thread(importer.build_case, bill, rows, 0, pathlib.Path(d), law.CASES, live=True, signed_in_only=signed_in_only)
             (law.CASES / slug / ".intake").touch()
             f = law.compute_facts(slug)
         except (ValueError, KeyError, UnicodeDecodeError) as e:
