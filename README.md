@@ -6,9 +6,9 @@ Companies approve software renewals on one side of the story, then pay for idle 
 
 Built for the Flip the Switch hackathon, Track 01: Best Business Workflow. The demo and tests run on simulated company data, plus one case replayed from a public audit. Overruled hasn't been used by a customer yet.
 
-**[Watch the video](https://youtu.be/tFVlc39mc5g)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a recorded trial in your browser](https://kevrc.github.io/overruled/replay/)**, nothing to install.
+**[Watch the Slack demo](https://youtu.be/i37fq9vWgxA)** · **[Trailer](docs/trailer.mp4)** · **[Project page](https://kevrc.github.io/overruled/)** · **[Uncut real-time demo](docs/demo-uncut.mp4)** · **[Build story](BLOG.md)** · **[Replay a recorded trial in your browser](https://kevrc.github.io/overruled/replay/)**, nothing to install.
 
-The demo is one continuous take with Claude Code agents managed by Switch and a local juror, recorded in Mattermost. A script drives the two test accounts. The trailer is edited, with a camera moving across a capture of an earlier trial.
+The Slack demo uses real screens from one trial and the public audit case, condensed with narration. The uncut demo is one continuous take with Claude Code agents managed by Switch and a local juror, recorded in Mattermost, where a script drives the two test accounts. The trailer is edited, with a camera moving across a capture of an earlier trial.
 
 Slack has been tested too. A person uploaded a contract and sign-ins in the channel, and a trial ran on that upload with the managed agents and the local juror. A later Slack run covered a full ruling, the seat list, notice confirmation, the finance summary, the decisions export, and PDF, Okta and Spanish contract intake, on simulated files.
 
