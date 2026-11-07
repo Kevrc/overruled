@@ -147,7 +147,7 @@ def build_case(bill: dict, signins: list[dict], installs: int, contracts: pathli
     (folder / "case.yaml").write_text(yaml.safe_dump({
         "name": f"{app} renewal", "vendor": bill["vendor"], "renewal_date": bill["renewal_date"], "keywords": [slug.split("-")[0]], "requested_by": bill["owner_team"], "seats": seats,
         "price_per_seat": price, "uplift_percent": uplift, "buffer_percent": BUFFER_PERCENT,
-        "uplift_quote": uplift_quote, "notice_quote": notice_quote, "notice_days": notice_days, "live": live}))
+        "uplift_quote": uplift_quote, "notice_quote": notice_quote, "notice_days": notice_days, **({"live": True} if live else {})}))
     return slug
 
 
