@@ -497,12 +497,22 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
                    instructions="A draft for a person to review and send. It has not been sent.", content=text)
         quoted = "\n".join(f"> {line}" if line else ">" for line in text.splitlines())
         await b.say(self.room, f"📝 **Paralegal.** Draft ready, **not sent**. A person has to review and send it.\n\n{quoted}")
-        name = f"notice-deadline-{t.slug}.ics"
-        r = await b.http.post(f"/agents/{b.id}/rooms/{self.room}/media", files={"file": (name, notice.calendar(case, t.facts), "text/calendar")},
-                              data={"caption": f"📅 Reminder for {t.facts['notice_deadline']}, the last day to send it."})
-        if r.status_code >= 400:
-            logging.warning("calendar upload refused: %s", r.text[:200])
+        await self.attach(f"notice-deadline-{t.slug}.ics", notice.calendar(case, t.facts), "text/calendar",
+                          f"📅 Reminder for {t.facts['notice_deadline']}, the last day to send it.")
+        if ruling == "condition":
+            today = law.case_today(case)
+            data, named, unnamed = notice.release_list(t.slug, t.facts, today)
+            rest = f" The export doesn't name the other {unnamed}: find them in the tool's admin page." if unnamed else ""
+            # shortcut: the file is visible to everyone in the court room, send it to the tool owner privately in production
+            await self.attach(f"seats-to-release-{t.slug}.csv", data, "text/csv",
+                              f"🧾 {named} idle seats to release before the renewal.{rest} Nothing was removed, so a person must check this list first.")
         await self.next_case()
+
+    async def attach(self, name: str, data: bytes, kind: str, caption: str) -> None:
+        b = self.bot("paralegal")
+        r = await b.http.post(f"/agents/{b.id}/rooms/{self.room}/media", files={"file": (name, data, kind)}, data={"caption": caption})
+        if r.status_code >= 400:
+            logging.warning("%s upload refused: %s", name, r.text[:200])
 
     async def log_ruling(self, line: str, total: int) -> None:
         g, log_file, doc = self.bot("gavel"), STATE / "rulings.md", STATE / "rulings.id"
