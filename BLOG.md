@@ -6,9 +6,9 @@ I built **Overruled** for the Flip the Switch hackathon to fix that. It's a cour
 
 - Video: https://youtu.be/tFVlc39mc5g
 - Code: https://github.com/Kevrc/overruled
-- Replay a real trial, nothing to install: https://kevrc.github.io/overruled/replay/
+- Replay a recorded trial, nothing to install: https://kevrc.github.io/overruled/replay/
 
-All the companies and figures below are fictional. Nobody has used Overruled on real contracts yet.
+The demo below uses simulated company data. Nobody has used Overruled on a real company's own contracts yet, but I did replay one public audit, which I cover near the end.
 
 ## What it does
 
@@ -112,6 +112,14 @@ Switch shows their tool work in the chat. I didn't use Switch Console for this. 
 **Keep the math out of the model.** The clerk uses no AI, so I could measure it directly: it caught 20 of 20 hand-labelled fabricated claims and kept 20 of 20 supported ones. On fictional renewals with hidden traps, it went from 15 of 26 to 26 of 26. Contracts in unfamiliar wording scored 1 of 8 at first, which proved that pattern rules alone don't generalize. Unclear contracts now go to a model, and code rejects any clause that isn't in the contract word for word. That reached 7 of 8.
 
 Those benchmarks were also used to fix the system, so they aren't blind tests. Real contracts will find new failures.
+
+## A real public case
+
+Simulated data only proves so much, so I looked for real numbers. In December 2024, Toronto's Auditor General reported that the city held 800,000 licences for its Public Digital Access system, and that management said 15,331 were in use.
+
+I put those published figures on trial in Slack. Overruled calculated a difference of CA$726,019 a year, and all three jurors voted to condition the renewal. The clerk struck two figures from the defense that weren't in evidence.
+
+This isn't a saving Toronto could have claimed. The City didn't use Overruled, the contract isn't public, and the audit describes a three-year purchase. The defense also made a fair point: these are public access accounts, so a count of accounts in use isn't the same as staff sign-ins. Still, it showed me the court holds up on real numbers. You can replay it with `@judge put the Toronto renewal on trial`.
 
 ## What isn't finished
 
