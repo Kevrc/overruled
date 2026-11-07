@@ -70,7 +70,7 @@ The method, the bugs it exposed, and what these numbers don't prove are in [eval
 | `prosecution-agent`, `defense-agent` | Claude Code, managed by Switch | Optional real agents that read the case files and argue. If one stays silent, the seat holder steps in |
 | `jury-1` to `jury-3` | Claude Haiku and a local model | Vote alone as finance, team lead and risk |
 | `gavel` | Code | Takes the ruling and enforces approval limits |
-| `paralegal` | Code | Drafts the vendor notice and a calendar reminder |
+| `paralegal` | Code | Drafts the vendor notice and a calendar reminder, lists the seats to release, and follows up until a person confirms the notice went out |
 
 People stay in the loop three ways:
 
@@ -107,6 +107,7 @@ Without Switch there's no sealed jury and no enforced ruling, only a long transc
 - **Every figure has a source.** The clerk cites the file and line, and only figures from the evidence reach the jury.
 - **Deadlines count.** A saving can't be claimed once the notice date has passed.
 - **Separation of duties.** Requesters can't approve their own expense.
+- **Follow-through.** A conditional ruling lists the idle seats to release, longest idle first. If nobody confirms the notice, `paralegal` reminds the person who ruled 14, 7 and 1 days before the deadline, and once after it passes. Overruled removes nothing and sends nothing: people do that and confirm it, and the confirmation goes into the ledger.
 - **Tamper-evident ledger.** Each ruling records the evidence hash, record, strikes, votes and approver, chained to the one before. Check it with `uv run python -m overruled.audit`.
 - **Less data reaches the model.** Sign-in files stay out of the prompts, so employee names and emails aren't sent. Contracts and requests are sent to the model, so check that against your own policy.
 - **A vote can stay on your machine.** A juror on Ollama doesn't send its prompt to any cloud provider.
@@ -174,7 +175,8 @@ It reads the two tokens from your clipboard and sends them only to your local Sw
 1. As `alex`: `@scout scan`
 2. When the clerk asks, reply `@clerk testify It brings in $500,000 a year.`, or `@clerk proceed`
 3. As `cfo`: `@gavel rule condition`
-4. Read the draft notice. The next trial opens by itself
+4. Read the draft notice and the list of seats to release. The next trial opens by itself
+5. Once the notice is sent, tell the court: `@paralegal sent pipewave`
 
 Other things to try:
 
@@ -227,6 +229,7 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **Contract reading can fail.** Clear contracts use pattern rules and unclear ones go to a model. Code checks every clause against the contract, and people must confirm what Scout read from a new one.
 - **The benchmark is fictional and was used to fix the system,** so it isn't proof of accuracy on real contracts.
 - **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
+- **The seat list is visible to everyone in the court room,** because it's posted there as a file. Production should send it to the tool owner privately. Reminders only run while the court is running.
 - **Scanned PDFs can't be read.** They stop the intake with a reason. Page headers and footers stay in the text, so a clause split by one goes to a person.
 - **Okta exports list only people who signed in.** The report has to cover the last 90 days, and Scout asks the person to check that.
 - **Approval limits trust chat usernames from the bridge.** Production needs them tied to the company directory.
