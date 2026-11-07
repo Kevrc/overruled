@@ -69,7 +69,7 @@ We took those published figures and put them on trial in Slack. Overruled wasn't
 | Cost with 16,098 licences, including a 5% buffer | $14,909 |
 | Calculated difference | $726,019 |
 | Jury | 3 votes for condition, 2 on Claude and 1 on a local model |
-| Invented figures struck from the defense | 2 |
+| Unsupported figures struck from the defense | 2 |
 
 This isn't a saving Toronto could have claimed. The contract isn't public, the audit describes a three-year purchase, and we don't know its reduction or notice terms. These are also public access accounts, so a count of accounts in use isn't the same as 90 days of staff sign-ins. The defense made that point in the trial.
 
