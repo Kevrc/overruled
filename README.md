@@ -24,6 +24,7 @@ The video is edited. Its first part moves a camera across a capture of an earlie
 | **See a trial, nothing to install** | [Replay a recorded trial](https://kevrc.github.io/overruled/replay/) in your browser |
 | **Run it, no API key** | Needs Docker and uv: `git clone https://github.com/Kevrc/overruled && cd overruled && scripts/install.sh && OVERRULED_OFFLINE=1 scripts/start.sh`. Then open http://localhost:8365, use the `alex` account from `.state/access.txt`, and send `@scout scan` in `courtroom` |
 | **Check the numbers** | `uv run pytest tests --ignore=tests/test_trial.py` and `uv run python -m evals.company`. Every push runs these, then installs Switch and Mattermost from scratch on a clean machine and runs full trials |
+| **See it on real data** | [A public city audit](#a-real-public-case), and 17 real public contracts with a [blind test](evals/RESULTS.md#real-public-contracts): 5 of 6 |
 | **See how Switch is used** | [Why this needs Switch](#why-this-needs-switch) and [What we found in Switch](#what-we-found-in-switch-031) |
 | **See what's proven** | [What has been run](#what-has-been-run) and [What it doesn't do yet](#what-it-doesnt-do-yet) |
 
