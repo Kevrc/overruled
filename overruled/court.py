@@ -500,6 +500,8 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
             await self.guarded(self.prepare_notice())
         elif p["sender_name"] not in self.agents and re.search(r"\bsent\b", p["body"], re.I):
             await self.confirm_sent(p)
+        elif p["sender_name"] not in self.agents and re.search(r"\bexport\b", p["body"], re.I):
+            await self.attach("decisions.csv", audit.decisions_csv(audit.read()), "text/csv", f"🗄️ {audit.verify()[1]}")
 
     async def prepare_notice(self) -> None:
         c, self.closed = self.closed, None

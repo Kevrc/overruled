@@ -145,3 +145,19 @@ def test_scout_answers_report(setup, tmp_path, monkeypatch):
     c.agents = {"gavel": chat}
     asyncio.run(c.scout("room", {"sender_name": "cfo", "body": "@scout report"}))
     assert "Renewal summary" in chat.said[-1]
+
+
+def test_export_has_one_line_per_ruling_with_its_confirmation():
+    ledger = [{"case": "a", "date": "2026-11-01", "ruling": "condition", "ruled_by": "=cfo", "saved": 5, "transcript": ["x"]},
+              {"case": "a", "date": "2026-11-02", "event": "notice_sent", "by": "maya"}, {"case": "a", "date": "2026-11-03", "ruling": "reject", "saved": 9}]
+    rows = list(csv.DictReader(io.StringIO(audit.decisions_csv(ledger).decode())))
+    assert [r["ruling"] for r in rows] == ["condition", "reject"] and rows[0]["ruled_by"] == "'=cfo"
+    assert rows[0]["notice_confirmed_by"] == "maya" and not rows[1]["notice_confirmed_by"] and "transcript" not in rows[0]
+
+
+def test_a_person_can_ask_for_the_export(setup):
+    c, chat = setup
+    audit.append({"case": "a", "date": "2026-11-01", "ruling": "reject", "saved": 9})
+    asyncio.run(c.paralegal("room", {"sender_name": "cfo", "body": "@paralegal export"}))
+    data, caption = chat.files["decisions.csv"]
+    assert b"reject" in data and "1 rulings verified" in caption

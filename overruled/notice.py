@@ -38,8 +38,7 @@ def release_list(slug: str, facts: dict, today: datetime.date) -> tuple[bytes, i
     out = io.StringIO()
     w = csv.writer(out)
     w.writerow(["user", "last_active"])
-    # A leading = or + would run as a formula when the export is opened in a spreadsheet.
-    w.writerows([("'" + r["user"]) if r["user"].startswith(("=", "+", "-", "@")) else r["user"], r["last_active"] or "never"] for r in names)
+    w.writerows([law.csv_safe(r["user"]), r["last_active"] or "never"] for r in names)
     return out.getvalue().encode(), len(names), release - len(names)
 
 

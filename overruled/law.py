@@ -40,6 +40,12 @@ def squeeze(text: str) -> str:
     return " ".join(text.lower().split())
 
 
+def csv_safe(value) -> str:
+    """A leading = or + would run as a formula when the file is opened in a spreadsheet."""
+    text = str(value)
+    return "'" + text if text.startswith(("=", "+", "-", "@")) else text
+
+
 def case_today(case: dict) -> datetime.date:
     return datetime.date.today() if case.get("live") else TODAY
 
