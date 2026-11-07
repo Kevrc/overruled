@@ -160,4 +160,12 @@ def test_a_person_can_ask_for_the_export(setup):
     audit.append({"case": "a", "date": "2026-11-01", "ruling": "reject", "saved": 9})
     asyncio.run(c.paralegal("room", {"sender_name": "cfo", "body": "@paralegal export"}))
     data, caption = chat.files["decisions.csv"]
-    assert b"reject" in data and "1 rulings verified" in caption
+    assert b"reject" in data and "1 ledger entries verified" in caption
+
+
+def test_no_seat_list_when_there_is_nothing_to_release(setup, monkeypatch):
+    c, chat = setup
+    real = law.compute_facts
+    monkeypatch.setattr(law, "compute_facts", lambda slug: {**real(slug), "recommended_seats": real(slug)["seats"]})
+    rule(c, "condition")
+    assert not any(name.startswith("seats-to-release") for name in chat.files)

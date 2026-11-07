@@ -33,7 +33,7 @@ def verify(rows: list[dict] | None = None) -> tuple[bool, str]:
         if entry["prev"] != prev or entry["hash"] != entry_hash(entry):
             return False, f"Entry {n} ({entry.get('case')}) does not match its hash."
         prev = entry["hash"]
-    return True, f"{len(rows)} rulings verified."
+    return True, f"{len(rows)} ledger entries verified."
 
 
 def decisions_csv(rows: list[dict]) -> bytes:

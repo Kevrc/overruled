@@ -516,7 +516,7 @@ If this is right, mention scout in a new message and add `confirm {case['keyword
         await b.say(self.room, f"📝 **Paralegal.** Draft ready, **not sent**. A person has to review and send it.\n\n{quoted}")
         await self.attach(f"notice-deadline-{t.slug}.ics", notice.calendar(case, t.facts), "text/calendar",
                           f"📅 Reminder for {t.facts['notice_deadline']}, the last day to send it.")
-        if ruling == "condition":
+        if ruling == "condition" and t.facts["seats"] > t.facts["recommended_seats"]:
             today = law.case_today(case)
             data, named, unnamed = notice.release_list(t.slug, t.facts, today)
             rest = f" The export doesn't name the other {unnamed}: find them in the tool's admin page." if unnamed else ""
