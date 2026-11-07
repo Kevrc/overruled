@@ -185,6 +185,8 @@ Other things to try:
 | `@judge put the Helpline renewal on trial` | A healthy tool: as `maya`, rule on it within her limit |
 | `@judge put the Formly renewal on trial` | Refused: the notice deadline passed |
 | `@clerk offer We can give you 15% off for 2 years.` during a trial | The offer becomes evidence |
+| `@scout report` | A summary for finance: renewals coming up, saving available, notices missed, and saving decided against saving with a confirmed notice |
+| `@paralegal export` | `decisions.csv`, one line per ruling with who confirmed the notice |
 | `@judge reopen the Pipewave renewal` | Opens a ruled case again when there's new evidence |
 | Attach a contract (PDF, Markdown or text) and a sign-in CSV, then `@scout intake app="Acme" renewal=2027-03-01` | Scout shows what it read and waits for `@scout confirm acme` |
 
@@ -230,6 +232,8 @@ To test seat failover, start with `OVERRULED_DOWN=defender` as well, wait for co
 - **The benchmark is fictional and was used to fix the system,** so it isn't proof of accuracy on real contracts.
 - **The sample cases use a fixed date,** 2026-11-04, so results are reproducible. A company's own files use the real date.
 - **The seat list is visible to everyone in the court room,** because it's posted there as a file. Production should send it to the tool owner privately. Reminders only run while the court is running.
+- **Contracts can be in Spanish, but the court speaks English.** Spanish contracts go to the model, and code checks each quote word for word. Trials and notices stay in English.
+- **Only US dollars.** A contract priced in another currency stops with a reason. A plain `$` in a Spanish contract could mean pesos, so the person who confirms has to check it.
 - **Scanned PDFs can't be read.** They stop the intake with a reason. Page headers and footers stay in the text, so a clause split by one goes to a person.
 - **Okta exports list only people who signed in.** The report has to cover the last 90 days, and Scout asks the person to check that.
 - **Approval limits trust chat usernames from the bridge.** Production needs them tied to the company directory.
